@@ -8,10 +8,23 @@ const CV: React.FC = () => {
     <div className="space-y-10">
       <header className="border-b border-slate-200 pb-6 flex justify-between items-center">
         <h2 className="text-3xl font-bold text-slate-900">Curriculum Vitae</h2>
-        <button className="flex items-center gap-2 px-4 py-2 bg-slate-900 text-white rounded-lg text-sm font-medium hover:bg-slate-800 transition-colors shadow-lg shadow-slate-200/50">
+        {/* <button className="flex items-center gap-2 px-4 py-2 bg-slate-900 text-white rounded-lg text-sm font-medium hover:bg-slate-800 transition-colors shadow-lg shadow-slate-200/50">
           <Download className="w-4 h-4" />
           Download PDF
-        </button>
+        </button> */}
+        {/* 
+            TODO: Replace the href below with the path to your actual PDF file.
+            Example: href="/Yunqiang_Pei_CV.pdf"
+        */}
+        <a 
+          href="pdfs/cv.pdf" 
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 px-4 py-2 bg-slate-900 text-white rounded-lg text-sm font-medium hover:bg-slate-800 transition-colors shadow-lg shadow-slate-200/50"
+        >
+          <Download className="w-4 h-4" />
+          Download PDF
+        </a>
       </header>
 
       {/* Education */}

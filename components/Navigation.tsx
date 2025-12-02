@@ -36,7 +36,11 @@ const Navigation: React.FC<NavigationProps> = ({
           <div className="w-full h-full rounded-full bg-slate-200 overflow-hidden border-4 border-white shadow-lg relative z-10">
             {/* Profile Placeholder / Initials */}
             <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-slate-100 to-slate-300 text-slate-400">
-                <span className="text-4xl font-light">YP</span>
+                <img
+                  src="imgs/profilephoto.jpg"
+                  alt="Profile Photo"
+                  className="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover border-2 border-white shadow-md"
+                />
             </div>
           </div>
           
