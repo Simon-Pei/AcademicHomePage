@@ -10,6 +10,8 @@ export default defineConfig(({ mode }) => {
         host: '0.0.0.0',
       },
       plugins: [react()],
+      // 👇 添加这一行，将 'AcademicHomePage' 换成你仓库的名字
+      base: '/AcademicHomePage/',
       define: {
         'process.env.API_KEY': JSON.stringify(env.GEMINI_API_KEY),
         'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY)
