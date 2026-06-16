@@ -66,7 +66,7 @@ const App: React.FC = () => {
           
           {/* Content Wrapper */}
           <div 
-            className="relative z-10 px-4 sm:px-8 lg:px-12 py-12 lg:py-16 max-w-5xl mx-auto"
+            className="relative z-10 px-4 sm:px-8 lg:px-12 py-12 lg:py-16 max-w-6xl mx-auto"
           >
             {/* Header/Breadcrumb */}
             <div className="mb-8 hidden lg:block border-b border-slate-200 pb-2">

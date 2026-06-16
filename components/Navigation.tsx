@@ -1,6 +1,6 @@
 import React from 'react';
 import { Section } from '../types';
-import { User, BookOpen, FileText, Globe, Menu, X, Mail, MapPin, Github, Linkedin, GraduationCap, ScanEye, Glasses, Cpu } from 'lucide-react';
+import { User, BookOpen, FileText, Globe, Menu, X, Mail, MapPin, Github, Linkedin, GraduationCap, ScanEye, Glasses, Cpu, BadgeCheck } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface NavigationProps {
@@ -30,16 +30,16 @@ const Navigation: React.FC<NavigationProps> = ({
 
   const sidebarContent = (
     <div className="flex flex-col h-full bg-white border-r border-slate-200 shadow-[4px_0_24px_rgba(0,0,0,0.02)] relative z-20">
-      <div className="p-8 flex-shrink-0">
+      <div className="p-5 sm:p-7 flex-shrink-0">
         {/* Profile Image with AR Effect */}
-        <div className="relative group mx-auto w-32 h-32 sm:w-40 sm:h-40 mb-6">
+        <div className="relative group mx-auto w-32 h-32 sm:w-44 sm:h-44 mb-4 sm:mb-5">
           <div className="w-full h-full rounded-full bg-slate-200 overflow-hidden border-4 border-white shadow-lg relative z-10">
             {/* Profile Placeholder / Initials */}
             <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-slate-100 to-slate-300 text-slate-400">
                 <img
-                  src="imgs/profilephoto.jpg"
+                  src="imgs/profilephoto260616.avif"
                   alt="Profile Photo"
-                  className="w-24 h-24 sm:w-32 sm:h-32 rounded-full object-cover border-2 border-white shadow-md"
+                  className="w-full h-full rounded-full object-cover object-center scale-[1.18]"
                 />
             </div>
           </div>
@@ -53,13 +53,21 @@ const Navigation: React.FC<NavigationProps> = ({
           </div>
         </div>
 
-        <h1 className="text-2xl font-bold text-slate-900 text-center mb-1">Yunqiang Pei</h1>
-        <p className="text-xs text-blue-600 font-bold text-center mb-4 tracking-wide uppercase">Ph.D. Candidate • AR & AI</p>
+        <h1 className="text-xl sm:text-2xl font-bold text-slate-900 text-center mb-1">Yunqiang Pei</h1>
+        <p className="text-xs text-blue-600 font-bold text-center mb-2 sm:mb-3 tracking-wide uppercase">Defense Passed • AR & AI</p>
+        <div className="mx-auto mb-4 sm:mb-5 flex w-fit items-center gap-1.5 rounded-md border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-[11px] font-semibold text-emerald-700">
+          <BadgeCheck className="w-3.5 h-3.5" />
+          Ph.D. defense completed
+        </div>
         
-        <div className="space-y-3 text-sm text-slate-600 mb-8 px-2">
+        <div className="space-y-2 sm:space-y-3 text-xs sm:text-sm text-slate-600 mb-4 sm:mb-7 px-2">
           <div className="flex items-start gap-3">
             <GraduationCap className="w-4 h-4 mt-1 text-slate-400 shrink-0" />
-            <span className="leading-snug">UESTC (Ph.D.) & KAIST (Visiting)</span>
+            <span className="leading-snug">UESTC Ph.D. Candidate (Defense Passed)</span>
+          </div>
+          <div className="flex items-start gap-3">
+            <BadgeCheck className="w-4 h-4 mt-0.5 text-slate-400 shrink-0" />
+            <span className="leading-snug">Defense: May 28, 2026</span>
           </div>
           <div className="flex items-center gap-3">
             <MapPin className="w-4 h-4 text-slate-400 shrink-0" />
@@ -80,7 +88,7 @@ const Navigation: React.FC<NavigationProps> = ({
       </div>
 
       {/* Nav Links */}
-      <nav className="flex-1 overflow-y-auto px-6 space-y-1">
+      <nav className="flex-1 overflow-y-auto px-5 sm:px-6 space-y-1">
         {navItems.map((item) => (
           <button
             key={item.id}
@@ -89,7 +97,7 @@ const Navigation: React.FC<NavigationProps> = ({
               setIsMobileMenuOpen(false);
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
-            className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 group relative ${
+            className={`w-full flex items-center gap-3 px-4 py-2.5 sm:py-3 rounded-lg text-sm font-medium transition-all duration-200 group relative ${
               activeSection === item.id 
                 ? 'bg-blue-50 text-blue-700 font-semibold shadow-sm ring-1 ring-blue-100' 
                 : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
@@ -105,7 +113,7 @@ const Navigation: React.FC<NavigationProps> = ({
       </nav>
 
       {/* AR Toggle Footer */}
-      <div className="p-6 mt-auto border-t border-slate-100">
+      <div className="p-4 sm:p-6 mt-auto border-t border-slate-100">
         <div className="flex items-center justify-between p-3 bg-slate-50 rounded-lg border border-slate-200 transition-all hover:border-blue-300 hover:shadow-sm">
           <div className="flex items-center gap-2">
             <ScanEye className={`w-4 h-4 ${arFocusMode ? 'text-blue-600' : 'text-slate-400'}`} />
@@ -156,15 +164,15 @@ const Navigation: React.FC<NavigationProps> = ({
             animate={{ x: 0 }}
             exit={{ x: '-100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed inset-0 z-40 lg:hidden"
+            className="fixed inset-x-0 top-16 bottom-0 z-40 lg:hidden"
           >
-            <div className="absolute inset-0 w-80 h-full">
-              {sidebarContent}
-            </div>
             <div 
-              className="absolute inset-0 bg-black/20 backdrop-blur-sm -z-10" 
+              className="absolute inset-0 bg-black/20 backdrop-blur-sm" 
               onClick={() => setIsMobileMenuOpen(false)}
             />
+            <div className="absolute inset-y-0 left-0 w-80 h-full">
+              {sidebarContent}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
