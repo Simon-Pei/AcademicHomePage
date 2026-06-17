@@ -1,7 +1,7 @@
 import React from 'react';
-import { EDUCATION, EXPERIENCE } from '../../constants';
+import { EDUCATION, EXPERIENCE, VOLUNTEERING } from '../../constants';
 import { motion } from 'framer-motion';
-import { Briefcase, Award, Cpu, Download } from 'lucide-react';
+import { Award, Code, Cpu, Download, Globe2, Languages, MapPin } from 'lucide-react';
 
 const CV: React.FC = () => {
   return (
@@ -105,6 +105,96 @@ const CV: React.FC = () => {
                 )}
               </div>
             ))}
+          </div>
+        </div>
+      </motion.section>
+
+      {/* Academic service */}
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 }}
+      >
+        <h3 className="text-lg font-bold text-slate-900 mb-6 uppercase tracking-wider text-sm border-l-4 border-blue-500 pl-3">Academic Service</h3>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {VOLUNTEERING.map((vol) => (
+            <div key={`${vol.event}-${vol.date}`} className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm hover:border-blue-300 transition-colors">
+              <div className="flex items-start justify-between gap-3 mb-3">
+                <h4 className="font-bold text-slate-900 leading-snug">{vol.event}</h4>
+                <span className="shrink-0 text-xs font-mono text-slate-400 bg-slate-100 px-2 py-0.5 rounded">{vol.date}</span>
+              </div>
+              <p className="text-blue-600 text-sm font-medium mb-2">{vol.role}</p>
+              <p className="text-slate-500 text-sm flex items-center gap-1.5">
+                <MapPin className="w-3.5 h-3.5 text-slate-400" />
+                {vol.location}
+              </p>
+            </div>
+          ))}
+        </div>
+      </motion.section>
+
+      {/* Languages and training */}
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+      >
+        <h3 className="text-lg font-bold text-slate-900 mb-6 uppercase tracking-wider text-sm border-l-4 border-blue-500 pl-3">Languages & Training</h3>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:border-blue-300 transition-colors">
+            <h4 className="font-bold text-slate-800 mb-5 flex items-center gap-2 text-lg">
+              <Languages className="text-blue-500 w-5 h-5" /> Languages
+            </h4>
+            <div className="space-y-4">
+              {[
+                { name: 'Chinese', level: 'Native / Proficient', color: 'green', width: 'w-full' },
+                { name: 'English', level: 'Advanced', color: 'blue', width: 'w-[85%]' },
+                { name: 'Korean', level: 'Intermediate', color: 'amber', width: 'w-[40%]' }
+              ].map((language) => (
+                <div key={language.name}>
+                  <div className="flex items-center justify-between gap-3 mb-2">
+                    <span className="text-slate-700 font-medium">{language.name}</span>
+                    <span className={`text-xs px-2 py-1 rounded-full ${
+                      language.color === 'green'
+                        ? 'bg-green-100 text-green-700'
+                        : language.color === 'blue'
+                          ? 'bg-blue-100 text-blue-700'
+                          : 'bg-amber-100 text-amber-700'
+                    }`}>
+                      {language.level}
+                    </span>
+                  </div>
+                  <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                    <div className={`h-full ${language.width} ${
+                      language.color === 'green'
+                        ? 'bg-green-500'
+                        : language.color === 'blue'
+                          ? 'bg-blue-500'
+                          : 'bg-amber-500'
+                    }`}></div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="bg-slate-900 text-white p-6 rounded-xl shadow-lg relative overflow-hidden">
+            <div className="absolute top-0 right-0 p-4 opacity-10">
+              <Code className="w-24 h-24" />
+            </div>
+            <h4 className="font-bold mb-5 flex items-center gap-2 text-lg relative z-10">
+              <Globe2 className="text-blue-300 w-5 h-5" /> Additional Training
+            </h4>
+            <div className="space-y-2 relative z-10">
+              <p className="text-sm font-semibold text-blue-300">Machine Learning Winter Programme</p>
+              <p className="text-lg font-bold">Girton College, Cambridge</p>
+              <p className="text-xs text-slate-400">Jan 2023 - Feb 2023</p>
+              <p className="text-sm text-slate-300 mt-3 leading-relaxed">
+                Completed the programme with the assessed module in Machine Learning.
+              </p>
+            </div>
           </div>
         </div>
       </motion.section>

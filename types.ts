@@ -2,7 +2,6 @@ export enum Section {
   ABOUT = 'about',
   PUBLICATIONS = 'publications',
   CV = 'cv',
-  SERVICE = 'service',
 }
 
 export interface Publication {
@@ -15,6 +14,7 @@ export interface Publication {
   type: 'conference' | 'journal' | 'poster';
   doi?: string;
   pdf?: string;
+  image?: string;
   tags?: string[];
   highlight?: boolean;
 }

@@ -5,7 +5,6 @@ import ARHUD from './components/ARHUD';
 import About from './components/sections/About';
 import Publications from './components/sections/Publications';
 import CV from './components/sections/CV';
-import Service from './components/sections/Service';
 import { Section } from './types';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -34,8 +33,6 @@ const App: React.FC = () => {
         return <Publications />;
       case Section.CV:
         return <CV />;
-      case Section.SERVICE:
-        return <Service />;
       default:
         return <About />;
     }
