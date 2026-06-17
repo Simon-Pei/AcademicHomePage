@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { PUBLICATIONS } from '../../constants';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Award, FileText, Download } from 'lucide-react';
+import { Award, FileText } from 'lucide-react';
 
 const Publications: React.FC = () => {
   const [filter, setFilter] = useState<'all' | 'conference' | 'journal' | 'highlight'>('all');
@@ -19,6 +19,7 @@ const Publications: React.FC = () => {
     conference: PUBLICATIONS.filter(p => p.type === 'conference').length,
     journal: PUBLICATIONS.filter(p => p.type === 'journal').length
   };
+  const awardTags = new Set(['Best Paper Nomination', 'Best Paper Honorable Mention']);
 
   return (
     <div className="space-y-8">
@@ -34,7 +35,7 @@ const Publications: React.FC = () => {
         <div className="flex flex-wrap gap-2">
           {[
             { id: 'all', label: 'All', count: counts.all },
-            { id: 'highlight', label: 'Selected', icon: Award, count: counts.highlight },
+            { id: 'highlight', label: 'Selected', count: counts.highlight },
             { id: 'conference', label: 'Conference', count: counts.conference },
             { id: 'journal', label: 'Journal', count: counts.journal }
           ].map((f) => (
@@ -47,7 +48,6 @@ const Publications: React.FC = () => {
                   : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400 hover:bg-slate-50'
               }`}
             >
-              {f.icon && <f.icon className="w-3 h-3" />}
               {f.label} <span className="opacity-60 ml-0.5">({f.count})</span>
             </button>
           ))}
@@ -95,14 +95,18 @@ const Publications: React.FC = () => {
                     
                     <div className="mt-4 flex flex-wrap items-center gap-3">
                        <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded text-xs font-semibold ${pub.highlight ? 'bg-blue-100 text-blue-800' : 'bg-slate-100 text-slate-700'}`}>
-                         <Award className="w-3 h-3" /> {pub.venue}
+                         {pub.venue}
                        </span>
                        <span className="text-xs text-slate-400 font-mono">[{pub.year}]</span>
-                       {pub.tags?.map((tag, i) => (
-                         <span key={i} className="text-xs text-slate-500 border border-slate-200 px-2 py-0.5 rounded-full">
+                       {pub.tags?.map((tag, i) => {
+                         const isAward = awardTags.has(tag);
+                         return (
+                         <span key={i} className={`inline-flex items-center gap-1.5 text-xs border px-2 py-0.5 rounded-full ${isAward ? 'border-blue-200 bg-blue-50 text-blue-700 font-medium' : 'text-slate-500 border-slate-200'}`}>
+                            {isAward && <Award className="w-3 h-3" />}
                             {tag}
                          </span>
-                       ))}
+                         );
+                       })}
                     </div>
                   </div>
                   

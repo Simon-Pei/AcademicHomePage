@@ -1,15 +1,14 @@
 import { Publication, EducationItem, ExperienceItem, NewsItem } from './types';
 
 export const RESEARCH_INTERESTS = [
-  "Augmented Reality (AR) × AI",
-  "Proactive AR Agents",
-  "Large Language Models (LLMs)",
-  "Human-Agent Alignment",
-  "Physiological Computing"
+  "AR × AI",
+  "Proactive AR Assistant"
 ];
 
 export const NEWS: NewsItem[] = [
-  { date: "2026.05", title: "Ph.D. Defense Completed", description: "Successfully completed the Ph.D. defense on May 28, 2026, passing with all-excellent evaluations.", highlight: true },
+  { date: "2026.05", title: "Ph.D. Defense Completed", description: "Completed the Ph.D. defense on May 28, 2026.", highlight: true },
+  { date: "2025.11", title: "Featured by UESTC", description: "Featured in UESTC's 'Takes Me to See the World' series on exploring future human-AI symbiosis at the intersection of AR and AI.", highlight: true },
+  { date: "2025", title: "Academic Rising Star Honor", description: "Received the Academic Rising Star Honor of UESTC." },
   { date: "2025.10", title: "Volunteer @ ISMAR 2025", description: "Will serve as a Student Volunteer at ISMAR 2025 in Daejeon, South Korea." },
   { date: "2025.07", title: "Paper Accepted to MM 2025", description: "Paper on 'Improving Interaction Comfort in AR-HRI' accepted as an Oral Paper at ACM Multimedia 2025.", highlight: true },
   { date: "2025.07", title: "Paper Accepted to UIST 2025", description: "Paper 'AttentionAR' accepted to ACM UIST 2025.", highlight: true },
@@ -23,12 +22,12 @@ export const EDUCATION: EducationItem[] = [
   {
     id: 'phd-uestc',
     institution: 'University of Electronic Science and Technology of China (UESTC)',
-    degree: 'Ph.D. Candidate in Electronic Information (Defense Passed)',
+    degree: 'Ph.D. Candidate in Electronic Information',
     period: '09/2022 - 05/2026',
     location: 'China',
     details: [
       'School of Computer Science and Engineering',
-      'Successfully completed Ph.D. defense on May 28, 2026 with all-excellent evaluations',
+      'Completed Ph.D. defense on May 28, 2026',
       'Awarded the Academic Rising Star Honor of UESTC',
       'GPA: 3.84 / 4.0'
     ]
@@ -110,7 +109,7 @@ export const PUBLICATIONS: Publication[] = [
     year: 2024,
     type: 'conference',
     awards: 'Best Paper Nomination',
-    tags: ["Best Paper Nom.", "HRI", "Ergonomics"],
+    tags: ["Best Paper Nomination", "HRI", "Ergonomics"],
     highlight: true,
     pdf: 'https://scholar.google.com/scholar?q=Improving%20Interaction%20Comfort%20in%20Authoring%20Tasks%20in%20AR-HRI%20through%20Dynamic%20Dual-Layer%20Interaction%20Adjustment'
   },

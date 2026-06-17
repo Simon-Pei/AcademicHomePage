@@ -1,6 +1,6 @@
 import React from 'react';
 import { Section } from '../types';
-import { User, BookOpen, FileText, Globe, Menu, X, Mail, MapPin, Github, Linkedin, GraduationCap, ScanEye, Glasses, Cpu, BadgeCheck } from 'lucide-react';
+import { User, BookOpen, FileText, Globe, Menu, X, Mail, MapPin, Github, Linkedin, GraduationCap, ScanEye, Glasses, Cpu } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface NavigationProps {
@@ -54,28 +54,19 @@ const Navigation: React.FC<NavigationProps> = ({
         </div>
 
         <h1 className="text-xl sm:text-2xl font-bold text-slate-900 text-center mb-1">Yunqiang Pei</h1>
-        <p className="text-xs text-blue-600 font-bold text-center mb-2 sm:mb-3 tracking-wide uppercase">Defense Passed • AR & AI</p>
-        <div className="mx-auto mb-4 sm:mb-5 flex w-fit items-center gap-1.5 rounded-md border border-emerald-200 bg-emerald-50 px-2.5 py-1 text-[11px] font-semibold text-emerald-700">
-          <BadgeCheck className="w-3.5 h-3.5" />
-          Ph.D. defense completed
-        </div>
         
         <div className="space-y-2 sm:space-y-3 text-xs sm:text-sm text-slate-600 mb-4 sm:mb-7 px-2">
           <div className="flex items-start gap-3">
             <GraduationCap className="w-4 h-4 mt-1 text-slate-400 shrink-0" />
-            <span className="leading-snug">UESTC Ph.D. Candidate (Defense Passed)</span>
-          </div>
-          <div className="flex items-start gap-3">
-            <BadgeCheck className="w-4 h-4 mt-0.5 text-slate-400 shrink-0" />
-            <span className="leading-snug">Defense: May 28, 2026</span>
+            <span className="leading-snug">UESTC Ph.D. Candidate</span>
           </div>
           <div className="flex items-center gap-3">
             <MapPin className="w-4 h-4 text-slate-400 shrink-0" />
-            <span>Chengdu / Daejeon</span>
+            <span>Chengdu</span>
           </div>
-          <div className="flex items-center gap-3 group cursor-pointer hover:text-blue-600 transition-colors">
-            <Mail className="w-4 h-4 text-slate-400 group-hover:text-blue-500 shrink-0" />
-            <a href="mailto:yqsimonpei3940@hotmail.com" className="truncate">yqsimonpei3940@...</a>
+          <div className="flex items-center gap-3">
+            <Mail className="w-4 h-4 text-slate-400 shrink-0" />
+            <span className="truncate">yqsimonpei3940 [at] hotmail.com</span>
           </div>
         </div>
 

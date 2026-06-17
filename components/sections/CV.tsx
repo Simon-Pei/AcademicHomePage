@@ -17,7 +17,7 @@ const CV: React.FC = () => {
             Example: href="/Yunqiang_Pei_CV.pdf"
         */}
         <a 
-          href="pdfs/cv.pdf" 
+          href="pdfs/cv20260617.pdf" 
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-2 px-4 py-2 bg-slate-900 text-white rounded-lg text-sm font-medium hover:bg-slate-800 transition-colors shadow-lg shadow-slate-200/50"
