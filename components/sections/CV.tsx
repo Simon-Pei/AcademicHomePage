@@ -54,7 +54,7 @@ const CV: React.FC = () => {
         </div>
       </motion.section>
 
-      {/* Experience & Awards Grid */}
+      {/* Professional experience and awards */}
       <motion.section
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -93,14 +93,16 @@ const CV: React.FC = () => {
 
           <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm hover:border-blue-300 transition-colors">
             <h4 className="font-bold text-slate-800 mb-4 flex items-center gap-2 text-lg">
-              <Cpu className="text-blue-500 w-5 h-5" /> Industry Experience
+              <Cpu className="text-blue-500 w-5 h-5" /> Professional Experience
             </h4>
             {EXPERIENCE.map((exp) => (
-              <div key={exp.id}>
+              <div key={exp.id} className="mb-5 last:mb-0">
                 <div className="font-semibold text-slate-900">{exp.role}</div>
                 <div className="text-slate-600">{exp.company}</div>
                 <div className="text-xs text-slate-400 mt-1 mb-3">{exp.period} • {exp.location}</div>
-                <div className="inline-block px-2 py-1 bg-slate-100 text-slate-500 text-xs rounded">Previous Role</div>
+                {exp.tag && (
+                  <div className="inline-block px-2 py-1 bg-slate-100 text-slate-500 text-xs rounded">{exp.tag}</div>
+                )}
               </div>
             ))}
           </div>

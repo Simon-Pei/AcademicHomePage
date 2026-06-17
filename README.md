@@ -85,7 +85,7 @@ AcademicHomePage/
 │   ├── imgs/
 │   │   └── profilephoto260616.avif
 │   ├── pdfs/
-│   │   └── cv.pdf
+│   │   └── cv20260617.pdf
 │   └── vite.svg
 ├── src/
 ├── index.html
@@ -98,7 +98,7 @@ Use relative paths without the leading slash (or use the base path).
 ```tsx
 // ✅ Correct
 <img src="imgs/profilephoto260616.avif" alt="Profile" />
-<a href="pdfs/cv.pdf">Download CV</a>
+<a href="pdfs/cv20260617.pdf">Download CV</a>
 
 // ❌ Incorrect (This will look for the file at the domain root)
 <img src="/imgs/profilephoto260616.avif" />

@@ -33,17 +33,6 @@ export const EDUCATION: EducationItem[] = [
     ]
   },
   {
-    id: 'visiting-kaist',
-    institution: 'Korea Advanced Institute of Science and Technology (KAIST)',
-    degree: 'Visiting Ph.D. Student',
-    period: '03/2025 - 03/2026',
-    location: 'South Korea',
-    details: [
-      'Wearable and Interactive Technology (WIT) Lab',
-      'Supervisor: Professor Ian Oakley'
-    ]
-  },
-  {
     id: 'master-swust',
     institution: 'Southwest University of Science and Technology',
     degree: 'M.A. in Computer Science and Technology',
@@ -71,11 +60,20 @@ export const EDUCATION: EducationItem[] = [
 
 export const EXPERIENCE: ExperienceItem[] = [
   {
+    id: 'visiting-kaist',
+    role: 'Visiting Ph.D. Student',
+    company: 'KAIST WIT Lab',
+    period: '03/2025 - 03/2026',
+    location: 'Daejeon, South Korea',
+    tag: 'Research Visit'
+  },
+  {
     id: 'thoughtworks',
     role: 'Software Engineer',
     company: 'Thoughtworks',
     period: '07/2021 - 11/2021',
-    location: 'Chengdu, Sichuan, China'
+    location: 'Chengdu, Sichuan, China',
+    tag: 'Previous Role'
   }
 ];
 

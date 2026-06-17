@@ -34,6 +34,7 @@ export interface ExperienceItem {
   company: string;
   period: string;
   location: string;
+  tag?: string;
 }
 
 export interface NewsItem {
