@@ -4,6 +4,7 @@ import ARBackground from './components/ARBackground';
 import About from './components/sections/About';
 import Publications from './components/sections/Publications';
 import CV from './components/sections/CV';
+import Hardware from './components/sections/Hardware';
 import { Section } from './types';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -19,6 +20,8 @@ const App: React.FC = () => {
         return <Publications />;
       case Section.CV:
         return <CV />;
+      case Section.HARDWARE:
+        return <Hardware />;
       default:
         return <About />;
     }

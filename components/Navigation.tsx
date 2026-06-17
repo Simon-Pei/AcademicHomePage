@@ -21,6 +21,7 @@ const Navigation: React.FC<NavigationProps> = ({
     { id: Section.ABOUT, label: 'About', icon: User },
     { id: Section.PUBLICATIONS, label: 'Publications', icon: BookOpen },
     { id: Section.CV, label: 'CV', icon: FileText },
+    { id: Section.HARDWARE, label: 'Hardware', icon: Cpu },
   ];
 
   const sidebarContent = (

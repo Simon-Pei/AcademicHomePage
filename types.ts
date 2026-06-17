@@ -2,6 +2,7 @@ export enum Section {
   ABOUT = 'about',
   PUBLICATIONS = 'publications',
   CV = 'cv',
+  HARDWARE = 'hardware',
 }
 
 export interface Publication {
