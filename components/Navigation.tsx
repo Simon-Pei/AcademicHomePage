@@ -1,6 +1,6 @@
 import React from 'react';
 import { Section } from '../types';
-import { User, BookOpen, FileText, Menu, X, Mail, MapPin, Github, Linkedin, GraduationCap, ScanEye, Glasses, Cpu } from 'lucide-react';
+import { User, BookOpen, FileText, Menu, X, Mail, MapPin, Github, Linkedin, GraduationCap, Glasses, Cpu } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface NavigationProps {
@@ -8,17 +8,13 @@ interface NavigationProps {
   setActiveSection: (section: Section) => void;
   isMobileMenuOpen: boolean;
   setIsMobileMenuOpen: (isOpen: boolean) => void;
-  arFocusMode: boolean;
-  setArFocusMode: (active: boolean) => void;
 }
 
 const Navigation: React.FC<NavigationProps> = ({ 
   activeSection, 
   setActiveSection, 
   isMobileMenuOpen, 
-  setIsMobileMenuOpen,
-  arFocusMode,
-  setArFocusMode
+  setIsMobileMenuOpen
 }) => {
   
   const navItems = [
@@ -101,27 +97,6 @@ const Navigation: React.FC<NavigationProps> = ({
           </button>
         ))}
       </nav>
-
-      {/* AR Toggle Footer */}
-      <div className="p-4 sm:p-6 mt-auto border-t border-slate-100">
-        <div className="flex items-center justify-between p-3 bg-slate-50 rounded-lg border border-slate-200 transition-all hover:border-blue-300 hover:shadow-sm">
-          <div className="flex items-center gap-2">
-            <ScanEye className={`w-4 h-4 ${arFocusMode ? 'text-blue-600' : 'text-slate-400'}`} />
-            <span className={`text-xs font-semibold ${arFocusMode ? 'text-blue-700' : 'text-slate-600'}`}>
-              {arFocusMode ? 'AR HUD: ONLINE' : 'AR HUD: OFF'}
-            </span>
-          </div>
-          <button 
-            onClick={() => setArFocusMode(!arFocusMode)}
-            className={`w-10 h-5 rounded-full relative transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 ${arFocusMode ? 'bg-blue-600' : 'bg-slate-300'}`}
-          >
-            <div className={`absolute top-1 w-3 h-3 bg-white rounded-full transition-all duration-300 shadow-sm ${arFocusMode ? 'left-6' : 'left-1'}`} />
-          </button>
-        </div>
-        <p className="text-[10px] text-slate-400 mt-2 text-center">
-          {arFocusMode ? "Displaying augmented layers." : "Activate Heads-Up Display."}
-        </p>
-      </div>
     </div>
   );
 

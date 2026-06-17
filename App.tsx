@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Navigation from './components/Navigation';
 import ARBackground from './components/ARBackground';
-import ARHUD from './components/ARHUD';
 import About from './components/sections/About';
 import Publications from './components/sections/Publications';
 import CV from './components/sections/CV';
@@ -11,19 +10,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 const App: React.FC = () => {
   const [activeSection, setActiveSection] = useState<Section>(Section.ABOUT);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  
-  // AR Focus Mode State
-  const [arFocusMode, setArFocusMode] = useState(false);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-
-  // Handle Mouse Move for AR Spotlight
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePos({ x: e.clientX, y: e.clientY });
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
 
   const renderSection = () => {
     switch (activeSection) {
@@ -41,11 +27,8 @@ const App: React.FC = () => {
   return (
     <div className="min-h-screen text-slate-800 bg-slate-50 selection:bg-blue-100 selection:text-blue-900 font-sans relative">
       
-      {/* 1. Background Layer: Dynamic Particles */}
-      <ARBackground arModeActive={arFocusMode} />
-      
-      {/* 2. AR HUD Layer: Overlays only when active */}
-      <ARHUD active={arFocusMode} mousePos={mousePos} />
+      {/* Background Layer: Dynamic Particles */}
+      <ARBackground />
 
       <div className="flex min-h-screen relative z-10">
         {/* Navigation Sidebar */}
@@ -54,8 +37,6 @@ const App: React.FC = () => {
           setActiveSection={setActiveSection}
           isMobileMenuOpen={isMobileMenuOpen}
           setIsMobileMenuOpen={setIsMobileMenuOpen}
-          arFocusMode={arFocusMode}
-          setArFocusMode={setArFocusMode}
         />
 
         {/* Main Content Area */}
@@ -68,7 +49,7 @@ const App: React.FC = () => {
             {/* Header/Breadcrumb */}
             <div className="mb-8 hidden lg:block border-b border-slate-200 pb-2">
                <h2 className="text-xs font-mono text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                 <span className={`w-2 h-2 rounded-full ${arFocusMode ? 'bg-blue-500 animate-pulse' : 'bg-slate-300'}`}></span>
+                 <span className="w-2 h-2 rounded-full bg-slate-300"></span>
                  System / {activeSection}
                </h2>
             </div>

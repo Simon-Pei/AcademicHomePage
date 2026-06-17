@@ -10,7 +10,7 @@ export const NEWS: NewsItem[] = [
   { date: "2025.11", title: "Featured by UESTC", description: "Featured in UESTC's 'Takes Me to See the World' series on exploring future human-AI symbiosis at the intersection of AR and AI.", highlight: true },
   { date: "2025", title: "Academic Rising Star Honor", description: "Received the Academic Rising Star Honor of UESTC." },
   { date: "2025.10", title: "Volunteer @ ISMAR 2025", description: "Will serve as a Student Volunteer at ISMAR 2025 in Daejeon, South Korea." },
-  { date: "2025.07", title: "Paper Accepted to MM 2025", description: "Paper on 'Improving Interaction Comfort in AR-HRI' accepted as an Oral Paper at ACM Multimedia 2025.", highlight: true },
+  { date: "2025.07", title: "Paper Accepted to MM 2025", description: "Paper 'InteractGuide' accepted as an Oral Paper at ACM Multimedia 2025.", highlight: true },
   { date: "2025.07", title: "Paper Accepted to UIST 2025", description: "Paper 'AttentionAR' accepted to ACM UIST 2025.", highlight: true },
   { date: "2025.04", title: "Volunteer @ CHI 2025", description: "Served as a Student Volunteer at ACM CHI 2025 in Yokohama, Japan." },
   { date: "2025.03", title: "Visiting KAIST", description: "Started visiting research at KAIST WIT Lab under Prof. Ian Oakley." },
@@ -80,15 +80,15 @@ export const EXPERIENCE: ExperienceItem[] = [
 export const PUBLICATIONS: Publication[] = [
   {
     id: 'c1',
-    title: 'Improving Interaction Comfort in Authoring Task in AR-HRI through Dynamic Dual-Layer Interaction Adjustment',
-    authors: 'Yunqiang Pei, Hongrong Yang, Kaiyue Zhang, Guoqing Wang*, Peng Wang, Chaoning Zhang, Yang Yang, Heng Tao Shen',
+    title: 'InteractGuide: LLM-Enhanced Multimodal Reasoning for User-Centric Interaction Recommendations in AR-HRI Authoring',
+    authors: 'Yunqiang Pei, Hongrong Yang, Kaiyue Zhang, Guoqing Wang, Peng Wang, Chaoning Zhang, Yang Yang, Heng Tao Shen',
     venue: 'ACM International Conference on Multimedia (MM)',
     year: 2025,
     type: 'conference',
     awards: 'Oral Paper',
-    tags: ["AR-HRI", "Interaction Comfort", "Oral"],
+    tags: ["AR-HRI", "Interaction Recommendation", "Oral"],
     image: 'imgs/paper_imgs/MM25_img.png',
-    pdf: 'https://scholar.google.com/scholar?q=Improving%20Interaction%20Comfort%20in%20Authoring%20Task%20in%20AR-HRI%20through%20Dynamic%20Dual-Layer%20Interaction%20Adjustment'
+    pdf: 'https://scholar.google.com/scholar?q=InteractGuide%3A%20LLM-Enhanced%20Multimodal%20Reasoning%20for%20User-Centric%20Interaction%20Recommendations%20in%20AR-HRI%20Authoring'
   },
   {
     id: 'c2',
