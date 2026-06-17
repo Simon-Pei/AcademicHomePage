@@ -83,7 +83,7 @@ AcademicHomePage/
 ├── public/               <-- ⚠️ All static assets go here
 │   ├── .nojekyll         <-- Create this empty file
 │   ├── imgs/
-│   │   └── profilephoto.jpg
+│   │   └── profilephoto260616.avif
 │   ├── pdfs/
 │   │   └── cv.pdf
 │   └── vite.svg
@@ -97,11 +97,11 @@ Use relative paths without the leading slash (or use the base path).
 
 ```tsx
 // ✅ Correct
-<img src="imgs/profilephoto.jpg" alt="Profile" />
+<img src="imgs/profilephoto260616.avif" alt="Profile" />
 <a href="pdfs/cv.pdf">Download CV</a>
 
 // ❌ Incorrect (This will look for the file at the domain root)
-<img src="/imgs/profilephoto.jpg" />
+<img src="/imgs/profilephoto260616.avif" />
 ```
 
 ## 4\. Cleaning Up Invalid References
