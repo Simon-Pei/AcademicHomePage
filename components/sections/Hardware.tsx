@@ -30,7 +30,7 @@ const HARDWARE_DEVICES: HardwareDevice[] = [
   {
     name: 'Microsoft HoloLens 2',
     category: 'HMD & Glass',
-    image: 'imgs/hardware/hololens-2-exploded.png',
+    image: 'imgs/hardware/hololens.webp',
     imageAlt: 'Microsoft HoloLens 2 exploded view',
     price: 'Historical launch price USD 3,500; production has ended and support continues in maintenance mode.',
     release: 'Announced Feb 24, 2019; shipping began Nov 7, 2019.',
@@ -181,7 +181,7 @@ const HARDWARE_DEVICES: HardwareDevice[] = [
   {
     name: 'Shimmer3R GSR+',
     category: 'PPG & GSR',
-    image: 'imgs/hardware/shimmer3r-gsr-plus.jpg',
+    image: 'imgs/hardware/Shimmer3-GSR.jpg',
     imageAlt: 'Shimmer3R GSR+ product photo',
     price: 'Official price EUR 650.',
     release: 'Shimmer3R platform announced and purchasable Aug 26, 2025; GSR+ is among the first supported modules.',
@@ -210,7 +210,7 @@ const HARDWARE_DEVICES: HardwareDevice[] = [
   {
     name: 'BrainCo OxyZen',
     category: 'EEG & IMU',
-    image: 'imgs/hardware/brainco-oxyzen.jpg',
+    image: 'imgs/hardware/oxyzen.png',
     imageAlt: 'BrainCo OxyZen product image',
     price: 'BrainCo MSRP was not publicly available in the collected sources; Japan retail listing JPY 77,000.',
     release: 'Japan retail page lists sales from Jan 26, 2024; public material mentions a new OxyZen release in Oct 2024.',
@@ -236,7 +236,7 @@ const HARDWARE_DEVICES: HardwareDevice[] = [
   {
     name: 'OpenBCI Ganglion',
     category: 'EEG & IMU',
-    image: 'imgs/hardware/openbci-ganglion.png',
+    image: 'imgs/hardware/ganglion_3.webp',
     imageAlt: 'OpenBCI Ganglion transparent product image',
     price: 'Current official store price USD 624.99.',
     release: 'Publicly introduced through Kickstarter around 2015; current official store continues to sell it.',
