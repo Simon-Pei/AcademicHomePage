@@ -3,6 +3,16 @@ import { RESEARCH_INTERESTS, NEWS } from '../../constants';
 import { motion } from 'framer-motion';
 import { Sparkles, ScanEye, Briefcase, Mail } from 'lucide-react';
 
+const CONGRATS_ICON = 'imgs/icon/congrats.png';
+
+const shouldShowCongratsIcon = (title: string) => (
+  title.includes('Defense Completed') ||
+  title.includes('Featured') ||
+  title.includes('Honor') ||
+  title.includes('Paper Accepted') ||
+  title.includes('Best Paper')
+);
+
 const About: React.FC = () => {
   const [showContact, setShowContact] = useState(false);
 
@@ -99,7 +109,15 @@ const About: React.FC = () => {
                   {item.date}
                </div>
                <div>
-                 <h4 className={`text-sm font-bold ${item.highlight ? 'text-blue-700' : 'text-slate-800'}`}>
+                 <h4 className={`text-sm font-bold flex items-center gap-1.5 ${item.highlight ? 'text-blue-700' : 'text-slate-800'}`}>
+                    {shouldShowCongratsIcon(item.title) && (
+                      <img
+                        src={CONGRATS_ICON}
+                        alt=""
+                        aria-hidden="true"
+                        className="w-4 h-4 object-contain shrink-0"
+                      />
+                    )}
                     {item.title}
                  </h4>
                  <p className="text-sm text-slate-600 mt-1 leading-relaxed">{item.description}</p>
