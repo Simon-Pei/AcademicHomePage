@@ -17,6 +17,10 @@ export interface Publication {
   pdf?: string;
   image?: string;
   tags?: string[];
+  hardware?: Array<{
+    id: string;
+    name: string;
+  }>;
   highlight?: boolean;
 }
 

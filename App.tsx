@@ -11,17 +11,24 @@ import { motion, AnimatePresence } from 'framer-motion';
 const App: React.FC = () => {
   const [activeSection, setActiveSection] = useState<Section>(Section.ABOUT);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [hardwareFocusId, setHardwareFocusId] = useState<string | null>(null);
+
+  const handleHardwareSelect = (hardwareId: string) => {
+    setHardwareFocusId(hardwareId);
+    setActiveSection(Section.HARDWARE);
+    setIsMobileMenuOpen(false);
+  };
 
   const renderSection = () => {
     switch (activeSection) {
       case Section.ABOUT:
         return <About />;
       case Section.PUBLICATIONS:
-        return <Publications />;
+        return <Publications onHardwareSelect={handleHardwareSelect} />;
       case Section.CV:
         return <CV />;
       case Section.HARDWARE:
-        return <Hardware />;
+        return <Hardware focusDeviceId={hardwareFocusId} />;
       default:
         return <About />;
     }

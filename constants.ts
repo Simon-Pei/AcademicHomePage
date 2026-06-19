@@ -87,6 +87,10 @@ export const PUBLICATIONS: Publication[] = [
     type: 'conference',
     awards: 'Oral Paper',
     tags: ["AR-HRI", "Interaction Recommendation", "Oral"],
+    hardware: [
+      { id: 'hololens-2', name: 'HoloLens 2' },
+      { id: 'shimmer3r-gsr-plus', name: 'Shimmer3R GSR+' }
+    ],
     image: 'imgs/paper_imgs/MM25_img.png',
     pdf: 'https://scholar.google.com/scholar?q=InteractGuide%3A%20LLM-Enhanced%20Multimodal%20Reasoning%20for%20User-Centric%20Interaction%20Recommendations%20in%20AR-HRI%20Authoring'
   },
@@ -98,6 +102,10 @@ export const PUBLICATIONS: Publication[] = [
     year: 2025,
     type: 'conference',
     tags: ["Safety", "Attention Modeling", "MLLM"],
+    hardware: [
+      { id: 'hololens-2', name: 'HoloLens 2' },
+      { id: 'brainco-oxyzen', name: 'BrainCo OxyZen' }
+    ],
     image: 'imgs/paper_imgs/UIST25_img.png',
     pdf: 'https://scholar.google.com/scholar?q=AttentionAR%3A%20AR%20Adaptation%20and%20Warning%20for%20Real-World%20Safety%20via%20Attention%20Modeling%20and%20MLLM%20Reasoning'
   },
@@ -110,6 +118,10 @@ export const PUBLICATIONS: Publication[] = [
     type: 'conference',
     awards: 'Best Paper Nomination',
     tags: ["Best Paper Nomination", "HRI", "Ergonomics"],
+    hardware: [
+      { id: 'hololens-2', name: 'HoloLens 2' },
+      { id: 'shimmer3r-gsr-plus', name: 'Shimmer3R GSR+' }
+    ],
     highlight: true,
     image: 'imgs/paper_imgs/MM24_1_img.png',
     pdf: 'https://scholar.google.com/scholar?q=Improving%20Interaction%20Comfort%20in%20Authoring%20Tasks%20in%20AR-HRI%20through%20Dynamic%20Dual-Layer%20Interaction%20Adjustment'

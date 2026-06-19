@@ -1,11 +1,15 @@
 import React, { useState, useMemo } from 'react';
 import { PUBLICATIONS } from '../../constants';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FileText } from 'lucide-react';
+import { Cpu, FileText } from 'lucide-react';
 
 const MEDAL_ICON = 'imgs/icon/medal.png';
 
-const Publications: React.FC = () => {
+interface PublicationsProps {
+  onHardwareSelect?: (hardwareId: string) => void;
+}
+
+const Publications: React.FC<PublicationsProps> = ({ onHardwareSelect }) => {
   const [filter, setFilter] = useState<'all' | 'conference' | 'journal' | 'highlight'>('all');
 
   const filteredPubs = useMemo(() => {
@@ -159,6 +163,27 @@ const Publications: React.FC = () => {
                                  );
                                })}
                             </div>
+
+                            {pub.hardware && pub.hardware.length > 0 && (
+                              <div className="mt-3 flex flex-wrap items-center gap-2">
+                                <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-50 px-2 py-0.5 text-xs font-semibold uppercase tracking-wide text-slate-400">
+                                  <Cpu className="h-3.5 w-3.5" />
+                                  Hardware
+                                </span>
+                                {pub.hardware.map((device) => (
+                                  <button
+                                    key={`${pub.id}-${device.id}`}
+                                    type="button"
+                                    onClick={() => onHardwareSelect?.(device.id)}
+                                    className="inline-flex items-center gap-1.5 rounded-full border border-blue-100 bg-blue-50 px-2.5 py-1 text-xs font-medium text-blue-700 transition-colors hover:border-blue-200 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-200"
+                                    title={`Open ${device.name} in Hardware`}
+                                  >
+                                    <Cpu className="h-3.5 w-3.5" />
+                                    {device.name}
+                                  </button>
+                                ))}
+                              </div>
+                            )}
                           </div>
                           
                           {/* PDF Link Button */}

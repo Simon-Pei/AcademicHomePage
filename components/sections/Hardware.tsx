@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Activity, BookOpen, Calendar, Cpu, DollarSign, ExternalLink, Eye, Link2 } from 'lucide-react';
 
@@ -10,6 +10,7 @@ interface HardwareLink {
 }
 
 interface HardwareDevice {
+  id: string;
   name: string;
   category: HardwareCategory;
   image: string;
@@ -28,6 +29,7 @@ const VISITOR_BADGE =
 
 const HARDWARE_DEVICES: HardwareDevice[] = [
   {
+    id: 'hololens-2',
     name: 'Microsoft HoloLens 2',
     category: 'HMD & Glass',
     image: 'imgs/hardware/hololens.webp',
@@ -58,6 +60,7 @@ const HARDWARE_DEVICES: HardwareDevice[] = [
     ]
   },
   {
+    id: 'xreal-air-2-ultra',
     name: 'XREAL Air 2 Ultra',
     category: 'HMD & Glass',
     image: 'imgs/hardware/xreal-air-2-ultra.jpg',
@@ -92,6 +95,7 @@ const HARDWARE_DEVICES: HardwareDevice[] = [
     ]
   },
   {
+    id: 'xreal-1s',
     name: 'XREAL 1S',
     category: 'HMD & Glass',
     image: 'imgs/hardware/xreal-1s.webp',
@@ -121,6 +125,7 @@ const HARDWARE_DEVICES: HardwareDevice[] = [
     ]
   },
   {
+    id: 'xreal-beam-pro',
     name: 'XREAL Beam Pro',
     category: 'HMD & Glass',
     image: 'imgs/hardware/xreal-beam-pro.png',
@@ -149,6 +154,7 @@ const HARDWARE_DEVICES: HardwareDevice[] = [
     ]
   },
   {
+    id: 'xreal-eye',
     name: 'XREAL Eye',
     category: 'HMD & Glass',
     image: 'imgs/hardware/xreal-eye.webp',
@@ -179,6 +185,7 @@ const HARDWARE_DEVICES: HardwareDevice[] = [
     ]
   },
   {
+    id: 'shimmer3r-gsr-plus',
     name: 'Shimmer3R GSR+',
     category: 'PPG & GSR',
     image: 'imgs/hardware/Shimmer3-GSR.jpg',
@@ -208,6 +215,7 @@ const HARDWARE_DEVICES: HardwareDevice[] = [
     ]
   },
   {
+    id: 'brainco-oxyzen',
     name: 'BrainCo OxyZen',
     category: 'EEG & IMU',
     image: 'imgs/hardware/oxyzen.png',
@@ -234,6 +242,7 @@ const HARDWARE_DEVICES: HardwareDevice[] = [
     ]
   },
   {
+    id: 'openbci-ganglion',
     name: 'OpenBCI Ganglion',
     category: 'EEG & IMU',
     image: 'imgs/hardware/ganglion_3.webp',
@@ -271,8 +280,36 @@ const HARDWARE_DEVICES: HardwareDevice[] = [
 
 const categories: Array<'All' | HardwareCategory> = ['All', 'HMD & Glass', 'PPG & GSR', 'EEG & IMU'];
 
-const Hardware: React.FC = () => {
+interface HardwareProps {
+  focusDeviceId?: string | null;
+}
+
+const Hardware: React.FC<HardwareProps> = ({ focusDeviceId }) => {
   const [activeCategory, setActiveCategory] = useState<'All' | HardwareCategory>('All');
+  const [spotlightDeviceId, setSpotlightDeviceId] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!focusDeviceId) return;
+
+    setActiveCategory('All');
+    setSpotlightDeviceId(focusDeviceId);
+
+    const scrollTimer = window.setTimeout(() => {
+      document.getElementById(`hardware-${focusDeviceId}`)?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
+    }, 350);
+
+    const clearTimer = window.setTimeout(() => {
+      setSpotlightDeviceId(null);
+    }, 3200);
+
+    return () => {
+      window.clearTimeout(scrollTimer);
+      window.clearTimeout(clearTimer);
+    };
+  }, [focusDeviceId]);
 
   const filteredDevices = useMemo(() => {
     if (activeCategory === 'All') return HARDWARE_DEVICES;
@@ -340,14 +377,22 @@ const Hardware: React.FC = () => {
 
       <div className="grid gap-6">
         <AnimatePresence mode="popLayout">
-          {filteredDevices.map((device) => (
+          {filteredDevices.map((device) => {
+            const isSpotlighted = spotlightDeviceId === device.id;
+
+            return (
             <motion.article
-              key={device.name}
+              id={`hardware-${device.id}`}
+              key={device.id}
               layout
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.98 }}
-              className="group overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:border-blue-300 hover:shadow-lg"
+              className={`group scroll-mt-24 overflow-hidden rounded-xl border bg-white transition-all duration-300 ${
+                isSpotlighted
+                  ? 'border-blue-400 shadow-xl ring-2 ring-blue-200'
+                  : 'border-slate-200 shadow-sm hover:border-blue-300 hover:shadow-lg'
+              }`}
             >
               <div className="grid gap-0 lg:grid-cols-[280px_minmax(0,1fr)]">
                 <div className="relative flex min-h-[220px] items-center justify-center border-b border-slate-200 bg-gradient-to-br from-slate-50 to-blue-50/50 p-6 lg:border-b-0 lg:border-r">
@@ -418,7 +463,8 @@ const Hardware: React.FC = () => {
                 </div>
               </div>
             </motion.article>
-          ))}
+            );
+          })}
         </AnimatePresence>
       </div>
 
