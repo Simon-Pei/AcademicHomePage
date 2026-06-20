@@ -5,6 +5,7 @@ import About from './components/sections/About';
 import Publications from './components/sections/Publications';
 import CV from './components/sections/CV';
 import Hardware from './components/sections/Hardware';
+import Gallery from './components/sections/Gallery';
 import { Section } from './types';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -29,6 +30,8 @@ const App: React.FC = () => {
         return <CV />;
       case Section.HARDWARE:
         return <Hardware focusDeviceId={hardwareFocusId} />;
+      case Section.GALLERY:
+        return <Gallery />;
       default:
         return <About />;
     }

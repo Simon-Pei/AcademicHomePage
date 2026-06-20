@@ -3,6 +3,7 @@ export enum Section {
   PUBLICATIONS = 'publications',
   CV = 'cv',
   HARDWARE = 'hardware',
+  GALLERY = 'gallery',
 }
 
 export interface Publication {
