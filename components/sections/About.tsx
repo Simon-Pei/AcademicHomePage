@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { RESEARCH_INTERESTS, NEWS } from '../../constants';
 import { motion } from 'framer-motion';
-import { Sparkles, ScanEye, Briefcase, Mail } from 'lucide-react';
+import { ExternalLink, Sparkles, ScanEye, Briefcase, Mail } from 'lucide-react';
 
 const CONGRATS_ICON = 'imgs/icon/congrats.png';
 
@@ -104,12 +104,19 @@ const About: React.FC = () => {
         </h3>
         <div className="space-y-3">
           {NEWS.map((item, index) => (
-             <div key={index} className={`grid gap-2 sm:grid-cols-[96px_minmax(0,1fr)] group ${item.highlight ? 'bg-blue-50/60 border border-blue-100 p-4 rounded-lg' : 'py-2'}`}>
+             <div
+               key={index}
+               className={`grid gap-2 rounded-lg border p-4 transition-colors sm:grid-cols-[96px_minmax(0,1fr)] group ${
+                 item.highlight
+                   ? 'bg-blue-50/60 border-blue-100'
+                   : 'border-transparent hover:border-slate-100 hover:bg-slate-50/70'
+               }`}
+             >
                <div className="font-mono text-xs text-slate-400 pt-1 group-hover:text-blue-500 transition-colors">
                   {item.date}
                </div>
-               <div>
-                 <h4 className={`text-sm font-bold flex items-center gap-1.5 ${item.highlight ? 'text-blue-700' : 'text-slate-800'}`}>
+               <div className="flex items-start gap-2">
+                 <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center">
                     {shouldShowCongratsIcon(item.title) && (
                       <img
                         src={CONGRATS_ICON}
@@ -118,9 +125,25 @@ const About: React.FC = () => {
                         className="w-4 h-4 object-contain shrink-0"
                       />
                     )}
-                    {item.title}
-                 </h4>
-                 <p className="text-sm text-slate-600 mt-1 leading-relaxed">{item.description}</p>
+                 </span>
+                 <div className="min-w-0">
+                   {item.link ? (
+                     <a
+                       href={item.link}
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       className={`inline-flex items-center gap-1.5 text-sm font-bold transition-colors hover:text-blue-800 hover:underline underline-offset-2 ${item.highlight ? 'text-blue-700' : 'text-slate-800'}`}
+                     >
+                       {item.title}
+                       <ExternalLink className="h-3.5 w-3.5 shrink-0" />
+                     </a>
+                   ) : (
+                     <h4 className={`text-sm font-bold ${item.highlight ? 'text-blue-700' : 'text-slate-800'}`}>
+                       {item.title}
+                     </h4>
+                   )}
+                   <p className="text-sm text-slate-600 mt-1 leading-relaxed">{item.description}</p>
+                 </div>
                </div>
              </div>
           ))}

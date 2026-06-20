@@ -7,7 +7,7 @@ export const RESEARCH_INTERESTS = [
 
 export const NEWS: NewsItem[] = [
   { date: "2026.05", title: "Ph.D. Defense Completed", description: "Completed the Ph.D. defense on May 28, 2026.", highlight: true },
-  { date: "2025.11", title: "Featured by UESTC", description: "Featured in UESTC's 'Takes Me to See the World' series on exploring future human-AI symbiosis at the intersection of AR and AI.", highlight: true },
+  { date: "2025.11", title: "Featured by UESTC", description: "Featured in UESTC's 'Takes Me to See the World' series on exploring future human-AI symbiosis at the intersection of AR and AI.", link: "https://mp.weixin.qq.com/s/uvNcBX9Ou_LuxPm8EfBM0Q", highlight: true },
   { date: "2025", title: "Academic Rising Star Honor", description: "Received the Academic Rising Star Honor of UESTC." },
   { date: "2025.10", title: "Volunteer @ ISMAR 2025", description: "Will serve as a Student Volunteer at ISMAR 2025 in Daejeon, South Korea." },
   { date: "2025.07", title: "Paper Accepted to MM 2025", description: "Paper 'InteractGuide' accepted as an Oral Paper at ACM Multimedia 2025.", highlight: true },

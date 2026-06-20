@@ -47,5 +47,6 @@ export interface NewsItem {
   date: string;
   title: string;
   description: string;
+  link?: string;
   highlight?: boolean;
 }
