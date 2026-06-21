@@ -45,7 +45,8 @@ const albums: GalleryAlbum[] = [
       { src: `${VISIT_BASE}/2025_10_Dublin_MM2025/20251029_112306.jpg`, alt: 'ACM Multimedia 2025 Dublin photo 2', caption: 'Conference day record in Dublin.' },
       { src: `${VISIT_BASE}/2025_10_Dublin_MM2025/20251031_170924.jpg`, alt: 'ACM Multimedia 2025 Dublin photo 3', caption: 'Dublin visit during MM 2025.', orientation: 'portrait' },
       { src: `${VISIT_BASE}/2025_10_Dublin_MM2025/20251029_145722.jpg`, alt: 'ACM Multimedia 2025 Dublin photo 4', caption: 'Conference and city snapshot.', orientation: 'portrait' },
-      { src: `${VISIT_BASE}/2025_10_Dublin_MM2025/20251028_175312.jpg`, alt: 'ACM Multimedia 2025 Dublin photo 5', caption: 'Arrival and venue memory.' }
+      { src: `${VISIT_BASE}/2025_10_Dublin_MM2025/20251028_175312.jpg`, alt: 'ACM Multimedia 2025 Dublin photo 5', caption: 'Arrival and venue memory.' },
+      { src: `${VISIT_BASE}/2025_10_Dublin_MM2025/20251031_120519.jpg`, alt: 'ACM Multimedia 2025 Dublin photo 6', caption: 'Additional conference memory from MM 2025.' }
     ]
   },
   {
@@ -135,7 +136,8 @@ const albums: GalleryAlbum[] = [
     photos: [
       { src: `${VISIT_BASE}/2019_11_Shenzhen_ICVRV2019/IMG_20191122_150249.jpg`, alt: 'ICVRV 2019 Shenzhen photo 1', caption: 'ICVRV 2019 visit record in Shenzhen.', orientation: 'portrait' },
       { src: `${VISIT_BASE}/2019_11_Shenzhen_ICVRV2019/IMG_20191123_090349.jpg`, alt: 'ICVRV 2019 Shenzhen photo 2', caption: 'ICVRV 2019, Shenzhen.' },
-      { src: `${VISIT_BASE}/2019_11_Shenzhen_ICVRV2019/IMG_20191124_120323.jpg`, alt: 'ICVRV 2019 Shenzhen photo 3', caption: 'Additional conference memory from ICVRV 2019.' }
+      { src: `${VISIT_BASE}/2019_11_Shenzhen_ICVRV2019/IMG_20191124_120323.jpg`, alt: 'ICVRV 2019 Shenzhen photo 3', caption: 'Additional conference memory from ICVRV 2019.' },
+      { src: `${VISIT_BASE}/2019_11_Shenzhen_ICVRV2019/IMG_20191124_120427.jpg`, alt: 'ICVRV 2019 Shenzhen photo 4', caption: 'Conference visit record from ICVRV 2019.' }
     ]
   },
   {
@@ -215,24 +217,20 @@ const Gallery: React.FC = () => {
                 </div>
               </div>
 
-              <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="mt-5 columns-1 gap-3 sm:columns-2 lg:columns-3">
                 {album.photos.map((photo, index) => (
                   <button
                     key={photo.src}
                     type="button"
                     onClick={() => setSelectedPhoto({ ...photo, albumTitle: album.title, albumDate: album.date })}
-                    className={`group relative overflow-hidden rounded-lg border border-slate-200 bg-slate-100 text-left shadow-sm transition-all hover:border-blue-300 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-200 ${
-                      photo.orientation === 'wide' ? 'sm:col-span-2 lg:col-span-3' : ''
-                    }`}
+                    className="group relative mb-3 block w-full break-inside-avoid overflow-hidden rounded-lg border border-slate-200 bg-slate-100 text-left shadow-sm transition-all hover:border-blue-300 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-200"
                   >
-                    <div className={photo.orientation === 'portrait' ? 'aspect-[3/4]' : 'aspect-[4/3]'}>
-                      <img
-                        src={photo.src}
-                        alt={photo.alt}
-                        loading="lazy"
-                        className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-                      />
-                    </div>
+                    <img
+                      src={photo.src}
+                      alt={photo.alt}
+                      loading="lazy"
+                      className="block h-auto w-full transition-transform duration-300 group-hover:scale-[1.03]"
+                    />
                     <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950/80 to-transparent p-3 text-white opacity-0 transition-opacity group-hover:opacity-100">
                       <div className="flex items-center justify-between gap-3">
                         <p className="line-clamp-2 text-xs font-medium leading-5">{photo.caption}</p>
