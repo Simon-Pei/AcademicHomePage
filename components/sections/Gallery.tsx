@@ -134,7 +134,7 @@ const albums: GalleryAlbum[] = [
     description: 'Early conference record from ICVRV 2019.',
     photos: [
       { src: `${VISIT_BASE}/2019_11_Shenzhen_ICVRV2019/IMG_20191122_150249.jpg`, alt: 'ICVRV 2019 Shenzhen photo 1', caption: 'ICVRV 2019 visit record in Shenzhen.', orientation: 'portrait' },
-      { src: `${VISIT_BASE}/2019_11_Shenzhen_ICVRV2019/IMG_20191123_090349.jpg`, alt: 'ICVRV 2019 Shenzhen photo 2', caption: 'ICVRV 2019, Shenzhen.', orientation: 'wide' },
+      { src: `${VISIT_BASE}/2019_11_Shenzhen_ICVRV2019/IMG_20191123_090349.jpg`, alt: 'ICVRV 2019 Shenzhen photo 2', caption: 'ICVRV 2019, Shenzhen.' },
       { src: `${VISIT_BASE}/2019_11_Shenzhen_ICVRV2019/IMG_20191124_120323.jpg`, alt: 'ICVRV 2019 Shenzhen photo 3', caption: 'Additional conference memory from ICVRV 2019.' }
     ]
   },
