@@ -30,7 +30,8 @@ const albums: GalleryAlbum[] = [
     photos: [
       { src: `${VISIT_BASE}/2026_03_Daejeon_KAIST_leave/20260224_115134.jpg`, alt: 'KAIST visiting research wrap-up photo 1', caption: 'KAIST visit wrap-up, Daejeon.' },
       { src: `${VISIT_BASE}/2026_03_Daejeon_KAIST_leave/20260224_115314.jpg`, alt: 'KAIST visiting research wrap-up photo 2', caption: 'Campus memory during the closing period.' },
-      { src: `${VISIT_BASE}/2026_03_Daejeon_KAIST_leave/20260224_115202.jpg`, alt: 'KAIST visiting research wrap-up photo 3', caption: 'Final record from the KAIST visit.' }
+      { src: `${VISIT_BASE}/2026_03_Daejeon_KAIST_leave/20260224_115202.jpg`, alt: 'KAIST visiting research wrap-up photo 3', caption: 'Final record from the KAIST visit.' },
+      { src: `${VISIT_BASE}/2026_03_Daejeon_KAIST_leave/mmexport1752138984441.jpg`, alt: 'KAIST visiting research wrap-up photo 4', caption: 'Additional wrap-up memory from KAIST.' }
     ]
   },
   {
@@ -66,7 +67,21 @@ const albums: GalleryAlbum[] = [
     description: 'Visit records around the UIST 2025 conference trip.',
     photos: [
       { src: `${VISIT_BASE}/2025_09_Pusan_UIST2025/20250929_084629.jpg`, alt: 'UIST 2025 Busan photo 1', caption: 'UIST 2025 visit, Busan.', orientation: 'portrait' },
-      { src: `${VISIT_BASE}/2025_09_Pusan_UIST2025/20250929_085016.jpg`, alt: 'UIST 2025 Busan photo 2', caption: 'Conference travel record in Busan.' }
+      { src: `${VISIT_BASE}/2025_09_Pusan_UIST2025/20250929_085016.jpg`, alt: 'UIST 2025 Busan photo 2', caption: 'Conference travel record in Busan.' },
+      { src: `${VISIT_BASE}/2025_09_Pusan_UIST2025/UIST2025_presentation.jpg`, alt: 'UIST 2025 presentation record', caption: 'Presentation record from UIST 2025.' },
+      { src: `${VISIT_BASE}/2025_09_Pusan_UIST2025/20250323_181323.jpg`, alt: 'UIST 2025 Busan photo 3', caption: 'Additional travel record around the UIST visit.', orientation: 'portrait' },
+      { src: `${VISIT_BASE}/2025_09_Pusan_UIST2025/20250323_184820.jpg`, alt: 'UIST 2025 Busan photo 4', caption: 'Additional Busan visit memory.', orientation: 'portrait' }
+    ]
+  },
+  {
+    id: 'sigchi-korea-2025-daejeon',
+    date: '2025.06',
+    title: 'SIGCHI Korea 2025',
+    location: 'Daejeon, South Korea',
+    description: 'Academic exchange records from the SIGCHI Korea event in Daejeon.',
+    photos: [
+      { src: `${VISIT_BASE}/2025_06_Daejeon_SIGCHI_Korea/20250624_140100.jpg`, alt: 'SIGCHI Korea 2025 Daejeon photo 1', caption: 'SIGCHI Korea 2025, Daejeon.' },
+      { src: `${VISIT_BASE}/2025_06_Daejeon_SIGCHI_Korea/20250624_145908.jpg`, alt: 'SIGCHI Korea 2025 Daejeon photo 2', caption: 'Academic exchange record in Daejeon.' }
     ]
   },
   {
@@ -77,7 +92,8 @@ const albums: GalleryAlbum[] = [
     description: 'Student volunteer and conference visit records from CHI 2025.',
     photos: [
       { src: `${VISIT_BASE}/2025_04_Yokohama_CHI2025/20250428_090554.jpg`, alt: 'ACM CHI 2025 Yokohama photo 1', caption: 'CHI 2025, Yokohama.' },
-      { src: `${VISIT_BASE}/2025_04_Yokohama_CHI2025/20250429_175811.jpg`, alt: 'ACM CHI 2025 Yokohama photo 2', caption: 'Conference visit record in Yokohama.' }
+      { src: `${VISIT_BASE}/2025_04_Yokohama_CHI2025/20250429_175811.jpg`, alt: 'ACM CHI 2025 Yokohama photo 2', caption: 'Conference visit record in Yokohama.' },
+      { src: `${VISIT_BASE}/2025_04_Yokohama_CHI2025/mmexport1750773543881.jpg`, alt: 'ACM CHI 2025 Yokohama photo 3', caption: 'Additional CHI 2025 visit record.' }
     ]
   },
   {
@@ -87,8 +103,13 @@ const albums: GalleryAlbum[] = [
     location: 'Daejeon, South Korea',
     description: 'First records from the KAIST WIT Lab visiting research period.',
     photos: [
-      { src: `${VISIT_BASE}/2025_03_Daejeon_KAIST_start/20250316_163830.jpg`, alt: 'KAIST visiting research start photo 1', caption: 'Start of the KAIST visiting research period.' },
-      { src: `${VISIT_BASE}/2025_03_Daejeon_KAIST_start/20250317_110758.jpg`, alt: 'KAIST visiting research start photo 2', caption: 'Early visit record in Daejeon.', orientation: 'portrait' }
+      { src: `${VISIT_BASE}/2025_03_Daejeon_KAIST_start/20250316_162622.jpg`, alt: 'KAIST visiting research start photo 1', caption: 'Arrival record at the start of the KAIST visit.' },
+      { src: `${VISIT_BASE}/2025_03_Daejeon_KAIST_start/20250316_163830.jpg`, alt: 'KAIST visiting research start photo 2', caption: 'Start of the KAIST visiting research period.' },
+      { src: `${VISIT_BASE}/2025_03_Daejeon_KAIST_start/20250316_182358.jpg`, alt: 'KAIST visiting research start photo 3', caption: 'First-day record in Daejeon.' },
+      { src: `${VISIT_BASE}/2025_03_Daejeon_KAIST_start/20250317_110758.jpg`, alt: 'KAIST visiting research start photo 4', caption: 'Early visit record in Daejeon.', orientation: 'portrait' },
+      { src: `${VISIT_BASE}/2025_03_Daejeon_KAIST_start/20250404_180021.jpg`, alt: 'KAIST visiting research start photo 5', caption: 'Campus and city record during the KAIST visit.' },
+      { src: `${VISIT_BASE}/2025_03_Daejeon_KAIST_start/20250406_115231.jpg`, alt: 'KAIST visiting research start photo 6', caption: 'Spring visit memory in Daejeon.' },
+      { src: `${VISIT_BASE}/2025_03_Daejeon_KAIST_start/20250621_221234.jpg`, alt: 'KAIST visiting research start photo 7', caption: 'Later record from the KAIST visiting period.' }
     ]
   },
   {
@@ -101,7 +122,8 @@ const albums: GalleryAlbum[] = [
       { src: `${VISIT_BASE}/2024_10_Melbourne_MM24/mmexport1732343859363.jpg`, alt: 'ACM Multimedia 2024 Melbourne photo 1', caption: 'ACM Multimedia 2024, Melbourne.' },
       { src: `${VISIT_BASE}/2024_10_Melbourne_MM24/IMG_20241029_124330.jpg`, alt: 'ACM Multimedia 2024 Melbourne photo 2', caption: 'Conference day record in Melbourne.' },
       { src: `${VISIT_BASE}/2024_10_Melbourne_MM24/mmexport1732343867042.jpg`, alt: 'ACM Multimedia 2024 Melbourne photo 3', caption: 'Conference memory from MM 2024.' },
-      { src: `${VISIT_BASE}/2024_10_Melbourne_MM24/IMG_20241030_103641.jpg`, alt: 'ACM Multimedia 2024 Melbourne photo 4', caption: 'Visit record during MM 2024.' }
+      { src: `${VISIT_BASE}/2024_10_Melbourne_MM24/IMG_20241030_103641.jpg`, alt: 'ACM Multimedia 2024 Melbourne photo 4', caption: 'Visit record during MM 2024.' },
+      { src: `${VISIT_BASE}/2024_10_Melbourne_MM24/IMG_20241029_203750.jpg`, alt: 'ACM Multimedia 2024 Melbourne photo 5', caption: 'Additional conference travel memory from MM 2024.' }
     ]
   },
   {
@@ -111,7 +133,21 @@ const albums: GalleryAlbum[] = [
     location: 'Shenzhen, China',
     description: 'Early conference record from ICVRV 2019.',
     photos: [
-      { src: `${VISIT_BASE}/2019_11_Shenzhen_ICVRV2019/IMG_20191123_090349.jpg`, alt: 'ICVRV 2019 Shenzhen photo', caption: 'ICVRV 2019, Shenzhen.', orientation: 'wide' }
+      { src: `${VISIT_BASE}/2019_11_Shenzhen_ICVRV2019/IMG_20191122_150249.jpg`, alt: 'ICVRV 2019 Shenzhen photo 1', caption: 'ICVRV 2019 visit record in Shenzhen.', orientation: 'portrait' },
+      { src: `${VISIT_BASE}/2019_11_Shenzhen_ICVRV2019/IMG_20191123_090349.jpg`, alt: 'ICVRV 2019 Shenzhen photo 2', caption: 'ICVRV 2019, Shenzhen.', orientation: 'wide' },
+      { src: `${VISIT_BASE}/2019_11_Shenzhen_ICVRV2019/IMG_20191124_120323.jpg`, alt: 'ICVRV 2019 Shenzhen photo 3', caption: 'Additional conference memory from ICVRV 2019.' }
+    ]
+  },
+  {
+    id: 'chinavis-2019-chengdu',
+    date: '2019.07',
+    title: 'ChinaVIS 2019',
+    location: 'Chengdu, China',
+    description: 'Student volunteer and conference records from ChinaVIS 2019.',
+    photos: [
+      { src: `${VISIT_BASE}/2019_07_Chengdu_ChinaVIS/ChinaVIS2019_volunteercertification.jpg`, alt: 'ChinaVIS 2019 volunteer certification', caption: 'Student volunteer certification from ChinaVIS 2019.', orientation: 'portrait' },
+      { src: `${VISIT_BASE}/2019_07_Chengdu_ChinaVIS/mmexport1576422557278.jpg`, alt: 'ChinaVIS 2019 Chengdu photo 1', caption: 'ChinaVIS 2019, Chengdu.' },
+      { src: `${VISIT_BASE}/2019_07_Chengdu_ChinaVIS/mmexport1576422718333.jpg`, alt: 'ChinaVIS 2019 Chengdu photo 2', caption: 'Conference record from ChinaVIS 2019.' }
     ]
   }
 ];
