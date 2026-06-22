@@ -4,6 +4,7 @@ export enum Section {
   CV = 'cv',
   HARDWARE = 'hardware',
   GALLERY = 'gallery',
+  RECOMMENDATIONS = 'recommendations',
 }
 
 export interface Publication {
