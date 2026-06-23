@@ -96,8 +96,13 @@ const Recommendations: React.FC = () => {
               </div>
 
               <div className="bg-slate-50 p-4">
-                <div className="overflow-hidden rounded-lg border border-slate-200 bg-white">
-                  <img src={tool.screenshot} alt={`${tool.name} conversation interface`} className="w-full object-contain" loading="lazy" />
+                <div className="flex h-72 items-center justify-center overflow-hidden rounded-lg border border-slate-200 bg-white p-3 sm:h-80 lg:h-96">
+                  <img
+                    src={tool.screenshot}
+                    alt={`${tool.name} conversation interface`}
+                    className="h-full w-full object-contain"
+                    loading="lazy"
+                  />
                 </div>
               </div>
 
