@@ -1,23 +1,7 @@
 import React from 'react';
 import { Section } from '../types';
-import {
-  BookOpen,
-  ChevronRight,
-  Cpu,
-  FileText,
-  Github,
-  GraduationCap,
-  Images,
-  Landmark,
-  Linkedin,
-  Mail,
-  MapPin,
-  Menu,
-  Sparkles,
-  User,
-  X
-} from 'lucide-react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { User, BookOpen, FileText, Menu, X, Mail, MapPin, Github, Linkedin, GraduationCap, Glasses, Cpu, Images, Sparkles, MapPinned } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface NavigationProps {
   activeSection: Section;
@@ -26,175 +10,138 @@ interface NavigationProps {
   setIsMobileMenuOpen: (isOpen: boolean) => void;
 }
 
-const NAV_ITEMS = [
-  { id: Section.ABOUT, number: '01', label: 'About', icon: User },
-  { id: Section.PUBLICATIONS, number: '02', label: 'Publications', icon: BookOpen },
-  { id: Section.CV, number: '03', label: 'CV', icon: FileText },
-  { id: Section.HARDWARE, number: '04', label: 'Hardware', icon: Cpu },
-  { id: Section.GALLERY, number: '05', label: 'Gallery', icon: Images },
-  { id: Section.RECOMMENDATIONS, number: '06', label: 'Recommendations', icon: Sparkles }
-];
-
 const Navigation: React.FC<NavigationProps> = ({
   activeSection,
   setActiveSection,
   isMobileMenuOpen,
   setIsMobileMenuOpen
 }) => {
-  const selectSection = (section: Section) => {
-    setActiveSection(section);
-    setIsMobileMenuOpen(false);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+
+  const navItems = [
+    { id: Section.ABOUT, label: 'About', icon: User },
+    { id: Section.PUBLICATIONS, label: 'Publications', icon: BookOpen },
+    { id: Section.CV, label: 'CV', icon: FileText },
+    { id: Section.KAIST_GUIDE, label: 'KAIST Guide', icon: MapPinned },
+    { id: Section.HARDWARE, label: 'Hardware', icon: Cpu },
+    { id: Section.GALLERY, label: 'Gallery', icon: Images },
+    { id: Section.RECOMMENDATIONS, label: 'Recommendations', icon: Sparkles },
+  ];
 
   const sidebarContent = (
-    <div className="relative flex h-full flex-col overflow-hidden border-r border-white/10 bg-[#0b0d11]/[0.96] text-white shadow-[12px_0_50px_rgba(0,0,0,0.34)] backdrop-blur-xl">
-      <div className="h-1 w-full bg-[#c9a766]" />
+    <div className="flex flex-col h-full bg-white border-r border-slate-200 shadow-[4px_0_24px_rgba(0,0,0,0.02)] relative z-20">
+      <div className="p-5 sm:p-7 flex-shrink-0">
+        {/* Profile Image with AR Effect */}
+        <div className="relative group mx-auto w-32 h-32 sm:w-44 sm:h-44 mb-4 sm:mb-5">
+          <div className="w-full h-full rounded-full bg-slate-200 overflow-hidden border-4 border-white shadow-lg relative z-10">
+            {/* Profile Placeholder / Initials */}
+            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-slate-100 to-slate-300 text-slate-400">
+                <img
+                  src="imgs/profilephoto260616.avif"
+                  alt="Profile Photo"
+                  className="w-full h-full rounded-full object-cover object-center scale-[1.18]"
+                />
+            </div>
+          </div>
 
-      <div className="shrink-0 px-6 pb-5 pt-6">
-        <div className="mb-5 flex items-center gap-2 text-[11px] font-semibold uppercase text-[#c9a766]">
-          <Landmark className="h-4 w-4" />
-          Personal Museum
+          {/* Animated AR Rings */}
+          <div className="absolute inset-0 -m-1 border border-blue-200 rounded-full animate-[spin_8s_linear_infinite] opacity-70"></div>
+          <div className="absolute inset-0 -m-2 border border-dashed border-blue-100 rounded-full animate-[spin_12s_linear_infinite_reverse] opacity-70"></div>
+
+          <div className="absolute -bottom-2 -right-2 bg-white p-2 rounded-full shadow-md border border-slate-100 z-20">
+             <Glasses className="text-blue-600 w-5 h-5" />
+          </div>
         </div>
 
-        <div className="relative mx-auto mb-4 w-36 sm:w-40">
-          <div className="aspect-[4/5] overflow-hidden border border-[#c9a766]/70 bg-[#171a20] p-1 shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
-            <img
-              src="imgs/profilephoto260616.avif"
-              alt="Yunqiang Pei"
-              className="h-full w-full object-cover object-center scale-[1.12]"
-            />
-          </div>
-          <div className="absolute -bottom-2 -right-2 flex h-9 w-9 items-center justify-center border border-[#c9a766]/60 bg-[#11141a] text-[#c9a766] shadow-lg">
-            <GraduationCap className="h-4 w-4" />
-          </div>
-        </div>
+        <h1 className="text-xl sm:text-2xl font-bold text-slate-900 text-center mb-1">Yunqiang Pei</h1>
 
-        <h1 className="text-center text-2xl font-semibold text-white">Yunqiang Pei</h1>
-        <p className="mt-1 text-center text-xs text-white/45">AR x AI Researcher</p>
-
-        <div className="mt-5 space-y-2 border-y border-white/10 py-4 text-xs text-white/65">
+        <div className="space-y-2 sm:space-y-3 text-xs sm:text-sm text-slate-600 mb-4 sm:mb-7 px-2">
           <div className="flex items-start gap-3">
-            <GraduationCap className="mt-0.5 h-4 w-4 shrink-0 text-[#c9a766]" />
-            <span className="leading-5">UESTC Ph.D. Candidate</span>
+            <GraduationCap className="w-4 h-4 mt-1 text-slate-400 shrink-0" />
+            <span className="leading-snug">UESTC Ph.D. Candidate</span>
           </div>
           <div className="flex items-center gap-3">
-            <MapPin className="h-4 w-4 shrink-0 text-[#c9a766]" />
+            <MapPin className="w-4 h-4 text-slate-400 shrink-0" />
             <span>Chengdu</span>
           </div>
-          <div className="flex items-start gap-3">
-            <Mail className="mt-0.5 h-4 w-4 shrink-0 text-[#c9a766]" />
-            <span className="min-w-0 break-words leading-5">yqsimonpei3940 [at] hotmail.com</span>
+          <div className="flex items-center gap-3">
+            <Mail className="w-4 h-4 text-slate-400 shrink-0" />
+            <span className="truncate">yqsimonpei3940 [at] hotmail.com</span>
           </div>
         </div>
 
-        <div className="mt-4 flex justify-center gap-2">
-          <SocialIcon icon={Github} label="GitHub" link="https://github.com/Simon-Pei" />
-          <SocialIcon
-            icon={GraduationCap}
-            label="Google Scholar"
-            link="https://scholar.google.com/citations?user=XzZSbxAAAAAJ&hl=en&authuser=1"
-          />
-          <SocialIcon
-            icon={Linkedin}
-            label="LinkedIn"
-            link="https://www.linkedin.com/in/yunqiang-pei-198b16334/"
-          />
+        {/* Social Links Row */}
+        <div className="flex justify-center gap-3 mb-2">
+           <SocialIcon icon={Github} label="GitHub" link="https://github.com/Simon-Pei" />
+           <SocialIcon icon={GraduationCap} label="Scholar" link="https://scholar.google.com/citations?user=XzZSbxAAAAAJ&hl=en&authuser=1" />
+           <SocialIcon icon={Linkedin} label="LinkedIn" link="https://www.linkedin.com/in/yunqiang-pei-198b16334/" />
         </div>
       </div>
 
-      <nav className="min-h-0 flex-1 overflow-y-auto px-4 pb-5" aria-label="Museum rooms">
-        <div className="mb-2 px-3 text-[10px] font-semibold uppercase text-white/30">Exhibition Rooms</div>
-        <div className="space-y-1">
-          {NAV_ITEMS.map((item) => {
-            const isActive = activeSection === item.id;
-            return (
-              <button
-                key={item.id}
-                type="button"
-                onClick={() => selectSection(item.id)}
-                className={`group relative flex min-h-11 w-full items-center gap-3 px-3 py-2 text-left text-sm transition-colors ${
-                  isActive
-                    ? 'bg-white/[0.09] text-white'
-                    : 'text-white/55 hover:bg-white/[0.05] hover:text-white'
-                }`}
-              >
-                <span className={`font-mono text-[10px] ${isActive ? 'text-[#f4c86b]' : 'text-white/25'}`}>
-                  {item.number}
-                </span>
-                <item.icon className={`h-4 w-4 shrink-0 ${isActive ? 'text-[#f4c86b]' : 'text-white/40'}`} />
-                <span className="min-w-0 flex-1 truncate font-medium">{item.label}</span>
-                <ChevronRight
-                  className={`h-4 w-4 shrink-0 transition-transform ${
-                    isActive
-                      ? 'translate-x-0 text-[#f4c86b]'
-                      : '-translate-x-1 text-white/20 group-hover:translate-x-0'
-                  }`}
-                />
-                {isActive && <span className="absolute inset-y-2 left-0 w-0.5 bg-[#c9a766]" />}
-              </button>
-            );
-          })}
-        </div>
+      {/* Nav Links */}
+      <nav className="flex-1 overflow-y-auto px-5 sm:px-6 space-y-1">
+        {navItems.map((item) => (
+          <button
+            key={item.id}
+            onClick={() => {
+              setActiveSection(item.id);
+              setIsMobileMenuOpen(false);
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            className={`w-full flex items-center gap-3 px-4 py-2.5 sm:py-3 rounded-lg text-sm font-medium transition-all duration-200 group relative ${
+              activeSection === item.id
+                ? 'bg-blue-50 text-blue-700 font-semibold shadow-sm ring-1 ring-blue-100'
+                : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+            }`}
+          >
+            <item.icon className={`w-4.5 h-4.5 ${activeSection === item.id ? 'text-blue-600' : 'text-slate-400 group-hover:text-slate-600'}`} />
+            {item.label}
+            {activeSection === item.id && (
+              <div className="absolute right-3 w-1.5 h-1.5 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.6)]" />
+            )}
+          </button>
+        ))}
       </nav>
-
-      <div className="shrink-0 border-t border-white/10 px-6 py-4">
-        <div className="flex items-center justify-between text-[10px] uppercase text-white/30">
-          <span>Digital Archive</span>
-          <span>Est. 2026</span>
-        </div>
-      </div>
     </div>
   );
 
   return (
     <>
-      <div className="fixed inset-x-0 top-0 z-50 flex h-16 items-center justify-between border-b border-white/10 bg-[#0b0d11]/[0.94] px-4 text-white shadow-lg backdrop-blur-xl lg:hidden">
-        <div className="flex items-center gap-3">
-          <Landmark className="h-5 w-5 text-[#c9a766]" />
-          <div>
-            <div className="text-sm font-semibold">Yunqiang Pei</div>
-            <div className="text-[10px] uppercase text-white/40">Personal Museum</div>
-          </div>
+      {/* Mobile Toggle */}
+      <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-white/90 backdrop-blur-md z-50 flex items-center justify-between px-4 border-b border-slate-200 shadow-sm">
+        <div className="font-bold text-lg text-slate-800 flex items-center gap-2">
+          <Cpu className="text-blue-600 w-5 h-5" />
+          <span>Yunqiang Pei</span>
         </div>
         <button
-          type="button"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="flex h-10 w-10 items-center justify-center border border-white/10 text-white/70 transition-colors hover:bg-white/10 hover:text-white"
-          aria-label={isMobileMenuOpen ? 'Close museum guide' : 'Open museum guide'}
-          aria-expanded={isMobileMenuOpen}
+          className="p-2 text-slate-600 hover:bg-slate-100 rounded-md"
         >
-          {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          {isMobileMenuOpen ? <X /> : <Menu />}
         </button>
       </div>
 
-      <aside className="fixed inset-y-0 left-0 z-40 hidden w-72 lg:block">
+      {/* Desktop Sidebar */}
+      <div className="hidden lg:block fixed top-0 left-0 bottom-0 w-80 z-40">
         {sidebarContent}
-      </aside>
+      </div>
 
+      {/* Mobile Drawer */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            className="fixed inset-x-0 bottom-0 top-16 z-40 lg:hidden"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            initial={{ x: '-100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '-100%' }}
+            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+            className="fixed inset-x-0 top-16 bottom-0 z-40 lg:hidden"
           >
-            <button
-              type="button"
-              aria-label="Close museum guide"
-              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            <div
+              className="absolute inset-0 bg-black/20 backdrop-blur-sm"
               onClick={() => setIsMobileMenuOpen(false)}
             />
-            <motion.aside
-              initial={{ x: '-100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '-100%' }}
-              transition={{ type: 'spring', damping: 28, stiffness: 230 }}
-              className="absolute inset-y-0 left-0 w-[min(18rem,88vw)]"
-            >
+            <div className="absolute inset-y-0 left-0 w-80 h-full">
               {sidebarContent}
-            </motion.aside>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -202,20 +149,15 @@ const Navigation: React.FC<NavigationProps> = ({
   );
 };
 
-const SocialIcon: React.FC<{ icon: React.ElementType; label: string; link: string }> = ({
-  icon: Icon,
-  label,
-  link
-}) => (
+const SocialIcon: React.FC<{ icon: React.ElementType, label: string, link: string }> = ({ icon: Icon, label, link }) => (
   <a
     href={link}
     target="_blank"
     rel="noopener noreferrer"
-    className="group relative flex h-9 w-9 items-center justify-center border border-white/10 text-white/45 transition-colors hover:border-[#c9a766]/50 hover:bg-[#c9a766]/10 hover:text-[#f4c86b]"
-    aria-label={label}
+    className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-all duration-200 group relative"
   >
-    <Icon className="h-4 w-4" />
-    <span className="pointer-events-none absolute bottom-full left-1/2 z-50 mb-2 -translate-x-1/2 whitespace-nowrap bg-[#f4f1e8] px-2 py-1 text-[10px] text-slate-800 opacity-0 shadow-lg transition-opacity group-hover:opacity-100">
+    <Icon className="w-5 h-5" />
+    <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-slate-800 text-white text-[10px] rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50">
       {label}
     </span>
   </a>

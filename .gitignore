@@ -13,6 +13,10 @@ dist-ssr
 tsconfig.tsbuildinfo
 *.local
 
+# Private source notes and generated inspection files
+notion/
+tmp/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
