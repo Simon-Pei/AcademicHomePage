@@ -2,7 +2,6 @@ export enum Section {
   ABOUT = 'about',
   PUBLICATIONS = 'publications',
   CV = 'cv',
-  KAIST_GUIDE = 'kaist-guide',
   HARDWARE = 'hardware',
   GALLERY = 'gallery',
   RECOMMENDATIONS = 'recommendations',

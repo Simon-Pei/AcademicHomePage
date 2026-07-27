@@ -1,6 +1,6 @@
 import React from 'react';
 import { Section } from '../types';
-import { User, BookOpen, FileText, Menu, X, Mail, MapPin, Github, Linkedin, GraduationCap, Glasses, Cpu, Images, Sparkles, MapPinned } from 'lucide-react';
+import { User, BookOpen, FileText, Menu, X, Mail, MapPin, Github, Linkedin, GraduationCap, Glasses, Cpu, Images, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface NavigationProps {
@@ -21,7 +21,6 @@ const Navigation: React.FC<NavigationProps> = ({
     { id: Section.ABOUT, label: 'About', icon: User },
     { id: Section.PUBLICATIONS, label: 'Publications', icon: BookOpen },
     { id: Section.CV, label: 'CV', icon: FileText },
-    { id: Section.KAIST_GUIDE, label: 'KAIST Guide', icon: MapPinned },
     { id: Section.HARDWARE, label: 'Hardware', icon: Cpu },
     { id: Section.GALLERY, label: 'Gallery', icon: Images },
     { id: Section.RECOMMENDATIONS, label: 'Recommendations', icon: Sparkles },

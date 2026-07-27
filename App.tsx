@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Navigation from './components/Navigation';
 import ARBackground from './components/ARBackground';
 import About from './components/sections/About';
 import Publications from './components/sections/Publications';
 import CV from './components/sections/CV';
-import KaistGuide from './components/sections/KaistGuide';
 import Hardware from './components/sections/Hardware';
 import Gallery from './components/sections/Gallery';
 import Recommendations from './components/sections/Recommendations';
@@ -12,34 +11,13 @@ import { Section } from './types';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const App: React.FC = () => {
-  const [activeSection, setActiveSection] = useState<Section>(() => {
-    if (typeof window === 'undefined') return Section.ABOUT;
-    const hash = window.location.hash.slice(1);
-    return Object.values(Section).includes(hash as Section) ? hash as Section : Section.ABOUT;
-  });
+  const [activeSection, setActiveSection] = useState<Section>(Section.ABOUT);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [hardwareFocusId, setHardwareFocusId] = useState<string | null>(null);
 
-  const handleSectionSelect = (section: Section) => {
-    setActiveSection(section);
-    window.history.replaceState(null, '', `#${section}`);
-  };
-
-  useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash.slice(1);
-      if (Object.values(Section).includes(hash as Section)) {
-        setActiveSection(hash as Section);
-      }
-    };
-
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
-  }, []);
-
   const handleHardwareSelect = (hardwareId: string) => {
     setHardwareFocusId(hardwareId);
-    handleSectionSelect(Section.HARDWARE);
+    setActiveSection(Section.HARDWARE);
     setIsMobileMenuOpen(false);
   };
 
@@ -51,8 +29,6 @@ const App: React.FC = () => {
         return <Publications onHardwareSelect={handleHardwareSelect} />;
       case Section.CV:
         return <CV />;
-      case Section.KAIST_GUIDE:
-        return <KaistGuide />;
       case Section.HARDWARE:
         return <Hardware focusDeviceId={hardwareFocusId} />;
       case Section.GALLERY:
@@ -74,7 +50,7 @@ const App: React.FC = () => {
         {/* Navigation Sidebar */}
         <Navigation
           activeSection={activeSection}
-          setActiveSection={handleSectionSelect}
+          setActiveSection={setActiveSection}
           isMobileMenuOpen={isMobileMenuOpen}
           setIsMobileMenuOpen={setIsMobileMenuOpen}
         />
