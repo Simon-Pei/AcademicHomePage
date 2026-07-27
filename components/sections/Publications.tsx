@@ -123,6 +123,7 @@ const Publications: React.FC<PublicationsProps> = ({ onHardwareSelect }) => {
                               src={pub.image}
                               alt={`${pub.title} figure`}
                               loading="lazy"
+                              decoding="async"
                               className="h-full w-full object-contain p-2 transition-transform duration-300 group-hover:scale-[1.02]"
                             />
                           </div>
@@ -156,6 +157,8 @@ const Publications: React.FC<PublicationsProps> = ({ onHardwareSelect }) => {
                                         alt=""
                                         className="w-3.5 h-3.5 object-contain shrink-0"
                                         aria-hidden="true"
+                                        loading="lazy"
+                                        decoding="async"
                                       />
                                     )}
                                     {tag}

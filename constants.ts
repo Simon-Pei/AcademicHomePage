@@ -91,7 +91,7 @@ export const PUBLICATIONS: Publication[] = [
       { id: 'hololens-2', name: 'HoloLens 2' },
       { id: 'shimmer3r-gsr-plus', name: 'Shimmer3R GSR+' }
     ],
-    image: 'imgs/paper_imgs/MM25_img.png',
+    image: 'imgs/optimized/paper_imgs/MM25_img.webp',
     pdf: 'https://scholar.google.com/scholar?q=InteractGuide%3A%20LLM-Enhanced%20Multimodal%20Reasoning%20for%20User-Centric%20Interaction%20Recommendations%20in%20AR-HRI%20Authoring'
   },
   {
@@ -106,7 +106,7 @@ export const PUBLICATIONS: Publication[] = [
       { id: 'hololens-2', name: 'HoloLens 2' },
       { id: 'brainco-oxyzen', name: 'BrainCo OxyZen' }
     ],
-    image: 'imgs/paper_imgs/UIST25_img.png',
+    image: 'imgs/optimized/paper_imgs/UIST25_img.webp',
     pdf: 'https://scholar.google.com/scholar?q=AttentionAR%3A%20AR%20Adaptation%20and%20Warning%20for%20Real-World%20Safety%20via%20Attention%20Modeling%20and%20MLLM%20Reasoning'
   },
   {
@@ -123,7 +123,7 @@ export const PUBLICATIONS: Publication[] = [
       { id: 'shimmer3r-gsr-plus', name: 'Shimmer3R GSR+' }
     ],
     highlight: true,
-    image: 'imgs/paper_imgs/MM24_1_img.png',
+    image: 'imgs/optimized/paper_imgs/MM24_1_img.webp',
     pdf: 'https://scholar.google.com/scholar?q=Improving%20Interaction%20Comfort%20in%20Authoring%20Tasks%20in%20AR-HRI%20through%20Dynamic%20Dual-Layer%20Interaction%20Adjustment'
   },
   {
@@ -134,7 +134,7 @@ export const PUBLICATIONS: Publication[] = [
     year: 2024,
     type: 'conference',
     tags: ["Emotion Recognition", "HMD", "Physiological"],
-    image: 'imgs/paper_imgs/MM24_2_img.png',
+    image: 'imgs/optimized/paper_imgs/MM24_2_img.webp',
     pdf: 'https://dl.acm.org/doi/10.1145/3664647.3681533'
   },
   {
@@ -145,7 +145,7 @@ export const PUBLICATIONS: Publication[] = [
     year: 2024,
     type: 'poster',
     tags: ["Ergonomics", "Poster"],
-    image: 'imgs/paper_imgs/VR24_img.png',
+    image: 'imgs/optimized/paper_imgs/VR24_img.webp',
     pdf: 'https://scholar.google.com/scholar?q=Toward%20Optimized%20AR-based%20Human-Robot%20Interaction%20Ergonomics%3A%20Modeling%20and%20Predicting%20Interaction%20Comfort'
   },
   {
@@ -156,7 +156,7 @@ export const PUBLICATIONS: Publication[] = [
     year: 2024,
     type: 'conference',
     tags: ["3D Visual Grounding", "Embodied AI"],
-    image: 'imgs/paper_imgs/AAAI_img.png',
+    image: 'imgs/optimized/paper_imgs/AAAI_img.webp',
     pdf: 'https://arxiv.org/pdf/2312.15848.pdf'
   },
   {
@@ -199,7 +199,7 @@ export const PUBLICATIONS: Publication[] = [
     year: 2023,
     type: 'journal',
     tags: ["HRI", "Survey", "Science China"],
-    image: 'imgs/paper_imgs/SCIS_img.png',
+    image: 'imgs/optimized/paper_imgs/SCIS_img.webp',
     pdf: 'https://www.sciengine.com/SCIS/doi/10.1007/s11432-022-3619-8'
   },
   {

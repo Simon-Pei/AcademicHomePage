@@ -19,6 +19,14 @@ interface GalleryAlbum {
 }
 
 const VISIT_BASE = 'imgs/visit';
+const visitThumbnailSrc = (src: string) => src.replace(
+  `${VISIT_BASE}/`,
+  'imgs/optimized/visit-thumbnails/'
+);
+const optimizedVisitSrc = (src: string) => src.replace(
+  `${VISIT_BASE}/`,
+  'imgs/optimized/visit/'
+);
 
 const albums: GalleryAlbum[] = [
   {
@@ -226,9 +234,10 @@ const Gallery: React.FC = () => {
                     className="group relative mb-3 block w-full break-inside-avoid overflow-hidden rounded-lg border border-slate-200 bg-slate-100 text-left shadow-sm transition-all hover:border-blue-300 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-blue-200"
                   >
                     <img
-                      src={photo.src}
+                      src={visitThumbnailSrc(photo.src)}
                       alt={photo.alt}
                       loading="lazy"
+                      decoding="async"
                       className="block h-auto w-full transition-transform duration-300 group-hover:scale-[1.03]"
                     />
                     <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950/80 to-transparent p-3 text-white opacity-0 transition-opacity group-hover:opacity-100">
@@ -280,7 +289,13 @@ const Gallery: React.FC = () => {
               </div>
 
               <div className="flex max-h-[74vh] items-center justify-center bg-black">
-                <img src={selectedPhoto.src} alt={selectedPhoto.alt} className="max-h-[74vh] w-full object-contain" />
+                <img
+                  src={optimizedVisitSrc(selectedPhoto.src)}
+                  alt={selectedPhoto.alt}
+                  decoding="async"
+                  fetchPriority="high"
+                  className="max-h-[74vh] w-full object-contain"
+                />
               </div>
 
               <div className="px-4 py-3 text-sm text-slate-200">

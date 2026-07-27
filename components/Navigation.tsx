@@ -37,6 +37,9 @@ const Navigation: React.FC<NavigationProps> = ({
                 <img
                   src="imgs/profilephoto260616.avif"
                   alt="Profile Photo"
+                  loading="eager"
+                  decoding="async"
+                  fetchPriority="high"
                   className="w-full h-full rounded-full object-cover object-center scale-[1.18]"
                 />
             </div>

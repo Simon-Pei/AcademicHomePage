@@ -123,6 +123,8 @@ const About: React.FC = () => {
                         alt=""
                         aria-hidden="true"
                         className="w-4 h-4 object-contain shrink-0"
+                        loading="lazy"
+                        decoding="async"
                       />
                     )}
                  </span>

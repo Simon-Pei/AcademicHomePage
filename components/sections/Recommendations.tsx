@@ -26,7 +26,7 @@ const SPEAKING_TOOLS: SpeakingTool[] = [
   {
     name: 'Hilokal',
     logo: 'imgs/icon/language_learn/hilokal_logo.png',
-    screenshot: 'imgs/icon/language_learn/hilokal_chatroom.svg',
+    screenshot: 'imgs/optimized/recommendations/hilokal_chatroom.webp',
     tagline: 'Join topic-based live rooms and speak when ready.',
     bestFor: 'Low-pressure group speaking and listening.',
     highlights: ['Live rooms', 'Group practice', 'Listen first'],
@@ -73,7 +73,13 @@ const Recommendations: React.FC = () => {
               <div className="border-b border-slate-100 p-4">
                 <div className="flex items-start gap-3">
                   <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg border border-slate-200 bg-slate-50 p-2">
-                    <img src={tool.logo} alt={`${tool.name} logo`} className="max-h-full max-w-full object-contain" />
+                    <img
+                      src={tool.logo}
+                      alt={`${tool.name} logo`}
+                      loading="lazy"
+                      decoding="async"
+                      className="max-h-full max-w-full object-contain"
+                    />
                   </div>
                   <div className="min-w-0 flex-1">
                     <div className="flex flex-wrap items-center gap-2">
@@ -94,6 +100,7 @@ const Recommendations: React.FC = () => {
                     alt={`${tool.name} conversation interface`}
                     className="h-full w-full object-contain"
                     loading="lazy"
+                    decoding="async"
                   />
                 </div>
               </div>

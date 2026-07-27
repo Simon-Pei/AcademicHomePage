@@ -32,7 +32,7 @@ const HARDWARE_DEVICES: HardwareDevice[] = [
     id: 'hololens-2',
     name: 'Microsoft HoloLens 2',
     category: 'HMD & Glass',
-    image: 'imgs/hardware/hololens.webp',
+    image: 'imgs/optimized/hardware/hololens.webp',
     imageAlt: 'Microsoft HoloLens 2 exploded view',
     price: 'Historical launch price USD 3,500; production has ended and support continues in maintenance mode.',
     release: 'Announced Feb 24, 2019; shipping began Nov 7, 2019.',
@@ -63,7 +63,7 @@ const HARDWARE_DEVICES: HardwareDevice[] = [
     id: 'xreal-air-2-ultra',
     name: 'XREAL Air 2 Ultra',
     category: 'HMD & Glass',
-    image: 'imgs/hardware/xreal-air-2-ultra.jpg',
+    image: 'imgs/optimized/hardware/xreal-air-2-ultra.webp',
     imageAlt: 'XREAL Air 2 Ultra product render',
     price: 'Launch price USD 699; Japan official store JPY 99,800.',
     release: 'Announced at CES on Jan 7, 2024; supply began around Mar 2024.',
@@ -98,7 +98,7 @@ const HARDWARE_DEVICES: HardwareDevice[] = [
     id: 'xreal-1s',
     name: 'XREAL 1S',
     category: 'HMD & Glass',
-    image: 'imgs/hardware/xreal-1s.webp',
+    image: 'imgs/optimized/hardware/xreal-1s.webp',
     imageAlt: 'XREAL 1S product render',
     price: 'US official store USD 449; Japan reference JPY 67,980.',
     release: 'First shown at XR Kaigi on Dec 1, 2025; Japan shipment Jan 2026; CES 2026 global showcase.',
@@ -128,7 +128,7 @@ const HARDWARE_DEVICES: HardwareDevice[] = [
     id: 'xreal-beam-pro',
     name: 'XREAL Beam Pro',
     category: 'HMD & Glass',
-    image: 'imgs/hardware/xreal-beam-pro.png',
+    image: 'imgs/optimized/hardware/xreal-beam-pro.webp',
     imageAlt: 'XREAL Beam Pro product render',
     price: 'USD 199 / 128GB Wi-Fi; USD 249 / 256GB Wi-Fi; USD 299 / 256GB 5G.',
     release: 'Public retail launch around Jun 2024.',
@@ -157,7 +157,7 @@ const HARDWARE_DEVICES: HardwareDevice[] = [
     id: 'xreal-eye',
     name: 'XREAL Eye',
     category: 'HMD & Glass',
-    image: 'imgs/hardware/xreal-eye.webp',
+    image: 'imgs/optimized/hardware/xreal-eye.webp',
     imageAlt: 'XREAL Eye product render',
     price: 'US official store USD 99, marked as coming soon in some regions; Japan official store JPY 13,980.',
     release: 'Introduced around the XREAL One / 1S ecosystem; regional availability varies.',
@@ -188,7 +188,7 @@ const HARDWARE_DEVICES: HardwareDevice[] = [
     id: 'shimmer3r-gsr-plus',
     name: 'Shimmer3R GSR+',
     category: 'PPG & GSR',
-    image: 'imgs/hardware/Shimmer3-GSR.jpg',
+    image: 'imgs/optimized/hardware/Shimmer3-GSR.webp',
     imageAlt: 'Shimmer3R GSR+ product photo',
     price: 'Official price EUR 650.',
     release: 'Shimmer3R platform announced and purchasable Aug 26, 2025; GSR+ is among the first supported modules.',
@@ -218,7 +218,7 @@ const HARDWARE_DEVICES: HardwareDevice[] = [
     id: 'brainco-oxyzen',
     name: 'BrainCo OxyZen',
     category: 'EEG & IMU',
-    image: 'imgs/hardware/oxyzen.png',
+    image: 'imgs/optimized/hardware/oxyzen.webp',
     imageAlt: 'BrainCo OxyZen product image',
     price: 'BrainCo MSRP was not publicly available in the collected sources; Japan retail listing JPY 77,000.',
     release: 'Japan retail page lists sales from Jan 26, 2024; public material mentions a new OxyZen release in Oct 2024.',
@@ -245,7 +245,7 @@ const HARDWARE_DEVICES: HardwareDevice[] = [
     id: 'openbci-ganglion',
     name: 'OpenBCI Ganglion',
     category: 'EEG & IMU',
-    image: 'imgs/hardware/ganglion_3.webp',
+    image: 'imgs/optimized/hardware/ganglion_3.webp',
     imageAlt: 'OpenBCI Ganglion transparent product image',
     price: 'Current official store price USD 624.99.',
     release: 'Publicly introduced through Kickstarter around 2015; current official store continues to sell it.',
@@ -339,7 +339,14 @@ const Hardware: React.FC<HardwareProps> = ({ focusDeviceId }) => {
           </div>
           <div className="flex items-center gap-3 rounded-lg border border-slate-200 bg-white px-4 py-3 shadow-sm">
             <Eye className="h-4 w-4 text-slate-400" />
-            <img src={VISITOR_BADGE} alt="Hardware page visits" className="h-5" referrerPolicy="no-referrer" />
+            <img
+              src={VISITOR_BADGE}
+              alt="Hardware page visits"
+              className="h-5"
+              loading="lazy"
+              decoding="async"
+              referrerPolicy="no-referrer"
+            />
           </div>
         </div>
 
@@ -403,6 +410,7 @@ const Hardware: React.FC<HardwareProps> = ({ focusDeviceId }) => {
                     src={device.image}
                     alt={device.imageAlt}
                     loading="lazy"
+                    decoding="async"
                     className="max-h-44 w-full object-contain mix-blend-multiply drop-shadow-xl transition-transform duration-300 group-hover:scale-[1.03]"
                   />
                 </div>
