@@ -1,7 +1,22 @@
 import React from 'react';
 import { Section } from '../types';
-import { User, BookOpen, FileText, Menu, X, Mail, MapPin, Github, Linkedin, GraduationCap, Glasses, Cpu, Images, Sparkles } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import {
+  BookOpen,
+  Cpu,
+  FileText,
+  Glasses,
+  Github,
+  GraduationCap,
+  Images,
+  Linkedin,
+  Mail,
+  MapPin,
+  Menu,
+  Sparkles,
+  User,
+  X,
+} from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
 
 interface NavigationProps {
   activeSection: Section;
@@ -10,140 +25,164 @@ interface NavigationProps {
   setIsMobileMenuOpen: (isOpen: boolean) => void;
 }
 
+const navItems = [
+  { id: Section.ABOUT, label: 'About', icon: User },
+  { id: Section.PUBLICATIONS, label: 'Publications', icon: BookOpen },
+  { id: Section.CV, label: 'CV', icon: FileText },
+  { id: Section.HARDWARE, label: 'Research Hardware', icon: Cpu },
+  { id: Section.GALLERY, label: 'Gallery', icon: Images },
+  { id: Section.RECOMMENDATIONS, label: 'Recommendations', icon: Sparkles },
+];
+
 const Navigation: React.FC<NavigationProps> = ({
   activeSection,
   setActiveSection,
   isMobileMenuOpen,
-  setIsMobileMenuOpen
+  setIsMobileMenuOpen,
 }) => {
-
-  const navItems = [
-    { id: Section.ABOUT, label: 'About', icon: User },
-    { id: Section.PUBLICATIONS, label: 'Publications', icon: BookOpen },
-    { id: Section.CV, label: 'CV', icon: FileText },
-    { id: Section.HARDWARE, label: 'Hardware', icon: Cpu },
-    { id: Section.GALLERY, label: 'Gallery', icon: Images },
-    { id: Section.RECOMMENDATIONS, label: 'Recommendations', icon: Sparkles },
-  ];
+  const navigateTo = (event: React.MouseEvent<HTMLAnchorElement>, section: Section) => {
+    event.preventDefault();
+    setActiveSection(section);
+  };
 
   const sidebarContent = (
-    <div className="flex flex-col h-full bg-white border-r border-slate-200 shadow-[4px_0_24px_rgba(0,0,0,0.02)] relative z-20">
-      <div className="p-5 sm:p-7 flex-shrink-0">
-        {/* Profile Image with AR Effect */}
-        <div className="relative group mx-auto w-32 h-32 sm:w-44 sm:h-44 mb-4 sm:mb-5">
-          <div className="w-full h-full rounded-full bg-slate-200 overflow-hidden border-4 border-white shadow-lg relative z-10">
-            {/* Profile Placeholder / Initials */}
-            <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-slate-100 to-slate-300 text-slate-400">
-                <img
-                  src="imgs/profilephoto260616.avif"
-                  alt="Profile Photo"
-                  loading="eager"
-                  decoding="async"
-                  fetchPriority="high"
-                  className="w-full h-full rounded-full object-cover object-center scale-[1.18]"
-                />
-            </div>
+    <div className="relative z-20 flex h-full flex-col border-r border-[#dce5e2] bg-white">
+      <div className="shrink-0 px-6 pb-5 pt-7">
+        <div className="relative mx-auto mb-4 h-32 w-32">
+          <div className="h-full w-full overflow-hidden rounded-full border-4 border-white bg-[#edf2f0] shadow-[0_8px_28px_rgba(28,64,61,0.12)]">
+            <img
+              src="imgs/profilephoto260616.avif"
+              alt="Yunqiang Pei"
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
+              className="h-full w-full scale-[1.18] object-cover object-center"
+            />
           </div>
-
-          {/* Animated AR Rings */}
-          <div className="absolute inset-0 -m-1 border border-blue-200 rounded-full animate-[spin_8s_linear_infinite] opacity-70"></div>
-          <div className="absolute inset-0 -m-2 border border-dashed border-blue-100 rounded-full animate-[spin_12s_linear_infinite_reverse] opacity-70"></div>
-
-          <div className="absolute -bottom-2 -right-2 bg-white p-2 rounded-full shadow-md border border-slate-100 z-20">
-             <Glasses className="text-blue-600 w-5 h-5" />
+          <div className="absolute -bottom-1 -right-1 flex h-9 w-9 items-center justify-center rounded-full border-2 border-white bg-teal-700 text-white shadow-md">
+            <Glasses className="h-4 w-4" aria-hidden="true" />
           </div>
         </div>
 
-        <h1 className="text-xl sm:text-2xl font-bold text-slate-900 text-center mb-1">Yunqiang Pei</h1>
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-[#172526]">Yunqiang Pei</h1>
+          <p className="mt-1 text-sm font-semibold text-teal-700">AR × AI Researcher</p>
+        </div>
 
-        <div className="space-y-2 sm:space-y-3 text-xs sm:text-sm text-slate-600 mb-4 sm:mb-7 px-2">
+        <div className="mt-5 space-y-2.5 border-y border-[#e6ecea] py-4 text-sm text-[#586869]">
           <div className="flex items-start gap-3">
-            <GraduationCap className="w-4 h-4 mt-1 text-slate-400 shrink-0" />
+            <GraduationCap className="mt-0.5 h-4 w-4 shrink-0 text-teal-600" aria-hidden="true" />
             <span className="leading-snug">UESTC Ph.D. Candidate</span>
           </div>
           <div className="flex items-center gap-3">
-            <MapPin className="w-4 h-4 text-slate-400 shrink-0" />
+            <MapPin className="h-4 w-4 shrink-0 text-teal-600" aria-hidden="true" />
             <span>Chengdu</span>
           </div>
-          <div className="flex items-center gap-3">
-            <Mail className="w-4 h-4 text-slate-400 shrink-0" />
-            <span className="truncate">yqsimonpei3940 [at] hotmail.com</span>
+          <div className="flex items-start gap-3">
+            <Mail className="mt-0.5 h-4 w-4 shrink-0 text-teal-600" aria-hidden="true" />
+            <span className="min-w-0 break-words leading-snug">yqsimonpei3940 [at] hotmail.com</span>
           </div>
         </div>
 
-        {/* Social Links Row */}
-        <div className="flex justify-center gap-3 mb-2">
-           <SocialIcon icon={Github} label="GitHub" link="https://github.com/Simon-Pei" />
-           <SocialIcon icon={GraduationCap} label="Scholar" link="https://scholar.google.com/citations?user=XzZSbxAAAAAJ&hl=en&authuser=1" />
-           <SocialIcon icon={Linkedin} label="LinkedIn" link="https://www.linkedin.com/in/yunqiang-pei-198b16334/" />
+        <div className="mt-4 flex justify-center gap-2">
+          <SocialIcon icon={Github} label="GitHub" link="https://github.com/Simon-Pei" />
+          <SocialIcon
+            icon={GraduationCap}
+            label="Google Scholar"
+            link="https://scholar.google.com/citations?user=XzZSbxAAAAAJ&hl=en&authuser=1"
+          />
+          <SocialIcon
+            icon={Linkedin}
+            label="LinkedIn"
+            link="https://www.linkedin.com/in/yunqiang-pei-198b16334/"
+          />
         </div>
       </div>
 
-      {/* Nav Links */}
-      <nav className="flex-1 overflow-y-auto px-5 sm:px-6 space-y-1">
-        {navItems.map((item) => (
-          <button
-            key={item.id}
-            onClick={() => {
-              setActiveSection(item.id);
-              setIsMobileMenuOpen(false);
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
-            className={`w-full flex items-center gap-3 px-4 py-2.5 sm:py-3 rounded-lg text-sm font-medium transition-all duration-200 group relative ${
-              activeSection === item.id
-                ? 'bg-blue-50 text-blue-700 font-semibold shadow-sm ring-1 ring-blue-100'
-                : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
-            }`}
-          >
-            <item.icon className={`w-4.5 h-4.5 ${activeSection === item.id ? 'text-blue-600' : 'text-slate-400 group-hover:text-slate-600'}`} />
-            {item.label}
-            {activeSection === item.id && (
-              <div className="absolute right-3 w-1.5 h-1.5 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.6)]" />
-            )}
-          </button>
-        ))}
+      <nav aria-label="Primary navigation" className="flex-1 overflow-y-auto px-4 pb-4">
+        <p className="mb-2 px-3 text-[11px] font-semibold uppercase text-[#8a9896]">Explore</p>
+        <div className="space-y-1">
+          {navItems.map((item) => {
+            const isActive = activeSection === item.id;
+            return (
+              <a
+                key={item.id}
+                href={`#${item.id}`}
+                onClick={(event) => navigateTo(event, item.id)}
+                aria-current={isActive ? 'page' : undefined}
+                className={`relative flex w-full items-center gap-3 rounded-md px-3 py-2.5 text-sm font-medium transition-colors ${
+                  isActive
+                    ? 'bg-teal-50 text-teal-900'
+                    : 'text-[#5c6b6c] hover:bg-[#f3f6f5] hover:text-[#172526]'
+                }`}
+              >
+                {isActive && <span className="absolute inset-y-2 left-0 w-0.5 rounded-full bg-teal-600" />}
+                <item.icon
+                  className={`h-[18px] w-[18px] shrink-0 ${isActive ? 'text-teal-700' : 'text-[#84918f]'}`}
+                  aria-hidden="true"
+                />
+                <span>{item.label}</span>
+              </a>
+            );
+          })}
+        </div>
       </nav>
+
     </div>
   );
 
   return (
     <>
-      {/* Mobile Toggle */}
-      <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-white/90 backdrop-blur-md z-50 flex items-center justify-between px-4 border-b border-slate-200 shadow-sm">
-        <div className="font-bold text-lg text-slate-800 flex items-center gap-2">
-          <Cpu className="text-blue-600 w-5 h-5" />
-          <span>Yunqiang Pei</span>
-        </div>
-        <button
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="p-2 text-slate-600 hover:bg-slate-100 rounded-md"
+      <header className="fixed inset-x-0 top-0 z-50 flex h-16 items-center justify-between border-b border-[#dce5e2] bg-white/95 px-4 backdrop-blur-md lg:hidden">
+        <a
+          href="#about"
+          onClick={(event) => navigateTo(event, Section.ABOUT)}
+          className="flex min-w-0 items-center gap-2.5"
         >
-          {isMobileMenuOpen ? <X /> : <Menu />}
+          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-teal-700 text-white">
+            <Glasses className="h-4 w-4" aria-hidden="true" />
+          </span>
+          <span className="truncate font-bold text-[#172526]">Yunqiang Pei</span>
+        </a>
+        <button
+          type="button"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          className="rounded-md p-2 text-[#536263] transition-colors hover:bg-[#f0f4f3] focus:outline-none focus:ring-2 focus:ring-teal-500"
+          aria-label={isMobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-expanded={isMobileMenuOpen}
+        >
+          {isMobileMenuOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
         </button>
-      </div>
+      </header>
 
-      {/* Desktop Sidebar */}
-      <div className="hidden lg:block fixed top-0 left-0 bottom-0 w-80 z-40">
+      <aside className="fixed inset-y-0 left-0 z-40 hidden w-72 lg:block">
         {sidebarContent}
-      </div>
+      </aside>
 
-      {/* Mobile Drawer */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ x: '-100%' }}
-            animate={{ x: 0 }}
-            exit={{ x: '-100%' }}
-            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed inset-x-0 top-16 bottom-0 z-40 lg:hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.18 }}
+            className="fixed inset-x-0 bottom-0 top-16 z-40 lg:hidden"
           >
-            <div
-              className="absolute inset-0 bg-black/20 backdrop-blur-sm"
+            <button
+              type="button"
+              className="absolute inset-0 h-full w-full bg-[#172526]/30 backdrop-blur-sm"
               onClick={() => setIsMobileMenuOpen(false)}
+              aria-label="Close navigation menu"
             />
-            <div className="absolute inset-y-0 left-0 w-80 h-full">
+            <motion.aside
+              initial={{ x: '-100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '-100%' }}
+              transition={{ type: 'spring', damping: 28, stiffness: 260 }}
+              className="absolute inset-y-0 left-0 w-[min(18rem,88vw)]"
+            >
               {sidebarContent}
-            </div>
+            </motion.aside>
           </motion.div>
         )}
       </AnimatePresence>
@@ -151,17 +190,20 @@ const Navigation: React.FC<NavigationProps> = ({
   );
 };
 
-const SocialIcon: React.FC<{ icon: React.ElementType, label: string, link: string }> = ({ icon: Icon, label, link }) => (
+const SocialIcon: React.FC<{ icon: React.ElementType; label: string; link: string }> = ({
+  icon: Icon,
+  label,
+  link,
+}) => (
   <a
     href={link}
     target="_blank"
     rel="noopener noreferrer"
-    className="p-2 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-all duration-200 group relative"
+    aria-label={label}
+    title={label}
+    className="flex h-9 w-9 items-center justify-center rounded-md border border-[#dce5e2] text-[#718080] transition-colors hover:border-teal-300 hover:bg-teal-50 hover:text-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500"
   >
-    <Icon className="w-5 h-5" />
-    <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-slate-800 text-white text-[10px] rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50">
-      {label}
-    </span>
+    <Icon className="h-[18px] w-[18px]" aria-hidden="true" />
   </a>
 );
 

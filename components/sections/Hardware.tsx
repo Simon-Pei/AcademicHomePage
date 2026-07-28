@@ -328,7 +328,7 @@ const Hardware: React.FC<HardwareProps> = ({ focusDeviceId }) => {
       <header className="border-b border-slate-200 pb-6">
         <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">
+            <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-teal-100 bg-teal-50 px-3 py-1 text-xs font-semibold text-teal-700">
               <Cpu className="h-3.5 w-3.5" />
               Hardware Toolkit
             </div>
@@ -359,7 +359,7 @@ const Hardware: React.FC<HardwareProps> = ({ focusDeviceId }) => {
           ].map((stat) => (
             <div key={stat.label} className="rounded-lg border border-slate-200 bg-white px-4 py-3 shadow-sm">
               <div className="text-2xl font-bold text-slate-900">{stat.value}</div>
-              <div className="mt-1 text-xs font-medium uppercase tracking-wide text-slate-400">{stat.label}</div>
+              <div className="mt-1 text-xs font-medium uppercase text-slate-400">{stat.label}</div>
             </div>
           ))}
         </div>
@@ -395,14 +395,14 @@ const Hardware: React.FC<HardwareProps> = ({ focusDeviceId }) => {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.98 }}
-              className={`group scroll-mt-24 overflow-hidden rounded-xl border bg-white transition-all duration-300 ${
+              className={`group scroll-mt-24 overflow-hidden rounded-lg border bg-white transition-all duration-300 ${
                 isSpotlighted
-                  ? 'border-blue-400 shadow-xl ring-2 ring-blue-200'
-                  : 'border-slate-200 shadow-sm hover:border-blue-300 hover:shadow-lg'
+                  ? 'border-teal-400 shadow-md ring-2 ring-teal-200'
+                  : 'border-slate-200 shadow-sm hover:border-teal-300 hover:shadow-md'
               }`}
             >
               <div className="grid gap-0 lg:grid-cols-[280px_minmax(0,1fr)]">
-                <div className="relative flex min-h-[220px] items-center justify-center border-b border-slate-200 bg-gradient-to-br from-slate-50 to-blue-50/50 p-6 lg:border-b-0 lg:border-r">
+                <div className="relative flex min-h-[220px] items-center justify-center border-b border-slate-200 bg-gradient-to-br from-slate-50 to-teal-50/50 p-6 lg:border-b-0 lg:border-r">
                   <div className="absolute left-4 top-4 rounded-full border border-white/80 bg-white/80 px-2.5 py-1 text-[11px] font-semibold text-slate-600 shadow-sm backdrop-blur">
                     {device.category}
                   </div>
@@ -411,7 +411,7 @@ const Hardware: React.FC<HardwareProps> = ({ focusDeviceId }) => {
                     alt={device.imageAlt}
                     loading="lazy"
                     decoding="async"
-                    className="max-h-44 w-full object-contain mix-blend-multiply drop-shadow-xl transition-transform duration-300 group-hover:scale-[1.03]"
+                    className="max-h-44 w-full object-contain mix-blend-multiply drop-shadow-md transition-transform duration-300 group-hover:scale-[1.03]"
                   />
                 </div>
 
@@ -436,7 +436,7 @@ const Hardware: React.FC<HardwareProps> = ({ focusDeviceId }) => {
 
                   <div className="mt-5 border-t border-slate-100 pt-5">
                     <h4 className="mb-3 flex items-center gap-2 text-sm font-bold text-slate-900">
-                      <Cpu className="h-4 w-4 text-blue-500" />
+                      <Cpu className="h-4 w-4 text-teal-500" />
                       Sensors & Input
                     </h4>
                     <div className="flex flex-wrap gap-2">
@@ -454,14 +454,14 @@ const Hardware: React.FC<HardwareProps> = ({ focusDeviceId }) => {
                   </div>
 
                   <div className="mt-5 flex flex-wrap gap-2 border-t border-slate-100 pt-4">
-                    <span className="text-xs font-semibold uppercase tracking-wide text-slate-400">Sources</span>
+                    <span className="text-xs font-semibold uppercase text-slate-400">Sources</span>
                     {device.sources.map((source) => (
                       <a
                         key={source.url}
                         href={source.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-xs font-medium text-blue-600 hover:text-blue-800"
+                        className="inline-flex items-center gap-1 text-xs font-medium text-teal-600 hover:text-teal-800"
                       >
                         {source.label}
                         <ExternalLink className="h-3 w-3" />
@@ -485,7 +485,7 @@ const Hardware: React.FC<HardwareProps> = ({ focusDeviceId }) => {
 
 const InfoBlock: React.FC<{ icon: React.ElementType; label: string; value: string }> = ({ icon: Icon, label, value }) => (
   <div>
-    <div className="mb-1 flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-slate-400">
+    <div className="mb-1 flex items-center gap-2 text-xs font-semibold uppercase text-slate-400">
       <Icon className="h-3.5 w-3.5" />
       {label}
     </div>
@@ -496,7 +496,7 @@ const InfoBlock: React.FC<{ icon: React.ElementType; label: string; value: strin
 const LinkGroup: React.FC<{ title: string; icon: React.ElementType; links: HardwareLink[] }> = ({ title, icon: Icon, links }) => (
   <div>
     <h4 className="mb-3 flex items-center gap-2 text-sm font-bold text-slate-900">
-      <Icon className="h-4 w-4 text-blue-500" />
+      <Icon className="h-4 w-4 text-teal-500" />
       {title}
     </h4>
     <div className="flex flex-wrap gap-2">
@@ -506,7 +506,7 @@ const LinkGroup: React.FC<{ title: string; icon: React.ElementType; links: Hardw
           href={link.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1 rounded-full border border-slate-200 px-2.5 py-1 text-xs font-medium text-slate-600 transition-colors hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700"
+          className="inline-flex items-center gap-1 rounded-full border border-slate-200 px-2.5 py-1 text-xs font-medium text-slate-600 transition-colors hover:border-teal-200 hover:bg-teal-50 hover:text-teal-700"
         >
           {link.label}
           <ExternalLink className="h-3 w-3" />

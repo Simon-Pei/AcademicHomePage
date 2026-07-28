@@ -1,7 +1,7 @@
-import React, { useState, useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { PUBLICATIONS } from '../../constants';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Cpu, FileText } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { Cpu, ExternalLink, Layers3 } from 'lucide-react';
 
 const MEDAL_ICON = 'imgs/icon/medal.png';
 
@@ -9,17 +9,19 @@ interface PublicationsProps {
   onHardwareSelect?: (hardwareId: string) => void;
 }
 
+type PublicationFilter = 'all' | 'conference' | 'journal' | 'highlight';
+
 const Publications: React.FC<PublicationsProps> = ({ onHardwareSelect }) => {
-  const [filter, setFilter] = useState<'all' | 'conference' | 'journal' | 'highlight'>('all');
+  const [filter, setFilter] = useState<PublicationFilter>('all');
 
   const filteredPubs = useMemo(() => {
     if (filter === 'all') return PUBLICATIONS;
-    if (filter === 'highlight') return PUBLICATIONS.filter(p => p.highlight);
-    return PUBLICATIONS.filter(p => p.type === filter);
+    if (filter === 'highlight') return PUBLICATIONS.filter((publication) => publication.highlight);
+    return PUBLICATIONS.filter((publication) => publication.type === filter);
   }, [filter]);
 
   const sortedPubs = useMemo(() => {
-    const originalOrder = new Map(PUBLICATIONS.map((pub, index) => [pub.id, index]));
+    const originalOrder = new Map(PUBLICATIONS.map((publication, index) => [publication.id, index]));
     return [...filteredPubs].sort((a, b) => {
       if (a.year !== b.year) return b.year - a.year;
       return (originalOrder.get(a.id) ?? 0) - (originalOrder.get(b.id) ?? 0);
@@ -28,183 +30,228 @@ const Publications: React.FC<PublicationsProps> = ({ onHardwareSelect }) => {
 
   const pubsByYear = useMemo(() => {
     const groups = new Map<number, typeof PUBLICATIONS>();
-    sortedPubs.forEach((pub) => {
-      const group = groups.get(pub.year) ?? [];
-      group.push(pub);
-      groups.set(pub.year, group);
+    sortedPubs.forEach((publication) => {
+      const group = groups.get(publication.year) ?? [];
+      group.push(publication);
+      groups.set(publication.year, group);
     });
     return Array.from(groups.entries());
   }, [sortedPubs]);
 
-  // Count metrics
   const counts = {
     all: PUBLICATIONS.length,
-    highlight: PUBLICATIONS.filter(p => p.highlight).length,
-    conference: PUBLICATIONS.filter(p => p.type === 'conference').length,
-    journal: PUBLICATIONS.filter(p => p.type === 'journal').length
+    highlight: PUBLICATIONS.filter((publication) => publication.highlight).length,
+    conference: PUBLICATIONS.filter((publication) => publication.type === 'conference').length,
+    journal: PUBLICATIONS.filter((publication) => publication.type === 'journal').length,
   };
+
   const awardTags = new Set(['Best Paper Nomination', 'Best Paper Honorable Mention']);
+  const filters: Array<{ id: PublicationFilter; label: string; count: number }> = [
+    { id: 'all', label: 'All', count: counts.all },
+    { id: 'highlight', label: 'Selected', count: counts.highlight },
+    { id: 'conference', label: 'Conference', count: counts.conference },
+    { id: 'journal', label: 'Journal', count: counts.journal },
+  ];
 
   return (
-    <div className="space-y-8">
-      <header className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-slate-200 pb-6">
-        <div>
-          <h2 className="text-3xl font-bold text-slate-900 mb-2">Publications</h2>
-          <p className="text-slate-500 text-sm">
-            Selected research works and academic contributions.
-          </p>
-        </div>
-        
-        {/* Filters */}
-        <div className="flex flex-wrap gap-2">
-          {[
-            { id: 'all', label: 'All', count: counts.all },
-            { id: 'highlight', label: 'Selected', count: counts.highlight },
-            { id: 'conference', label: 'Conference', count: counts.conference },
-            { id: 'journal', label: 'Journal', count: counts.journal }
-          ].map((f) => (
-            <button
-              key={f.id}
-              onClick={() => setFilter(f.id as any)}
-              className={`px-3 py-1.5 text-xs font-medium rounded-full border transition-all flex items-center gap-1.5 ${
-                filter === f.id
-                  ? 'bg-slate-900 text-white border-slate-900 shadow-md transform scale-105'
-                  : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400 hover:bg-slate-50'
-              }`}
-            >
-              {f.label} <span className="opacity-60 ml-0.5">({f.count})</span>
-            </button>
-          ))}
+    <div className="space-y-9">
+      <header className="border-b border-[#dce5e2] pb-6">
+        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <div>
+            <div className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase text-teal-700">
+              <Layers3 className="h-4 w-4" aria-hidden="true" />
+              Research output
+            </div>
+            <h2 className="text-3xl font-bold text-[#172526] sm:text-4xl">Publications</h2>
+            <p className="mt-2 text-sm leading-6 text-[#697878]">
+              Research in augmented reality, human-AI interaction, and multimodal systems.
+            </p>
+          </div>
+
+          <div
+            className="flex w-fit max-w-full overflow-x-auto rounded-md border border-[#cfdad7] bg-white p-1"
+            role="group"
+            aria-label="Filter publications"
+          >
+            {filters.map((item) => (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => setFilter(item.id)}
+                aria-pressed={filter === item.id}
+                className={`flex shrink-0 items-center gap-1.5 rounded px-3 py-1.5 text-xs font-semibold transition-colors ${
+                  filter === item.id
+                    ? 'bg-teal-700 text-white'
+                    : 'text-[#647374] hover:bg-[#f0f4f3] hover:text-[#243536]'
+                }`}
+              >
+                {item.label}
+                <span className={filter === item.id ? 'text-teal-100' : 'text-[#97a3a1]'}>{item.count}</span>
+              </button>
+            ))}
+          </div>
         </div>
       </header>
 
-      <div className="space-y-9">
+      <div className="space-y-10">
         <AnimatePresence mode="popLayout">
           {sortedPubs.length === 0 ? (
-             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-12 text-slate-400 italic">
-               No publications found in this category.
-             </motion.div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="py-12 text-center text-sm text-[#7c8a89]"
+            >
+              No publications found in this category.
+            </motion.div>
           ) : (
-            pubsByYear.map(([year, pubs]) => (
+            pubsByYear.map(([year, publications]) => (
               <motion.section
                 key={year}
                 layout
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95 }}
+                exit={{ opacity: 0 }}
                 className="space-y-4"
               >
-                <div className="flex items-center gap-3">
-                  <h3 className="text-xl font-bold text-slate-900 tracking-tight">{year}</h3>
-                  <div className="h-px flex-1 bg-slate-200" />
+                <div className="flex items-center gap-4">
+                  <h3 className="text-2xl font-bold text-[#172526]">{year}</h3>
+                  <div className="h-px flex-1 bg-[#dce5e2]" />
+                  <span className="text-xs font-medium text-[#83918f]">
+                    {publications.length} {publications.length === 1 ? 'work' : 'works'}
+                  </span>
                 </div>
 
-                <div className="grid gap-6">
-                  {pubs.map((pub) => (
-                    <motion.div
-                      key={pub.id}
+                <div className="space-y-4">
+                  {publications.map((publication) => (
+                    <motion.article
+                      key={publication.id}
                       layout
-                      className={`group relative p-6 bg-white rounded-xl border transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 ${
-                        pub.highlight 
-                          ? 'border-blue-200 ring-1 ring-blue-50 shadow-sm' 
-                          : 'border-slate-200 hover:border-blue-300'
+                      className={`relative overflow-hidden rounded-lg border bg-white transition-colors ${
+                        publication.highlight
+                          ? 'border-teal-300'
+                          : 'border-[#dce5e2] hover:border-[#b9cac6]'
                       }`}
                     >
-                      {/* Decorative corner markers on hover */}
-                      <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-tl-lg"></div>
-                      <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-tr-lg"></div>
-                      <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-bl-lg"></div>
-                      <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-br-lg"></div>
+                      {publication.highlight && (
+                        <span className="absolute inset-y-0 left-0 w-1 bg-teal-600" aria-hidden="true" />
+                      )}
 
-                      <div className={`grid gap-5 ${pub.image ? 'md:grid-cols-[220px_minmax(0,1fr)]' : ''}`}>
-                        {pub.image && (
-                          <div className="relative aspect-[16/9] w-full overflow-hidden rounded-lg border border-slate-200 bg-slate-50">
+                      <div className={`grid ${publication.image ? 'md:grid-cols-[210px_minmax(0,1fr)]' : ''}`}>
+                        {publication.image && (
+                          <div className="flex min-h-44 items-center justify-center border-b border-[#e4ebe9] bg-[#f2f6f5] p-4 md:border-b-0 md:border-r">
                             <img
-                              src={pub.image}
-                              alt={`${pub.title} figure`}
+                              src={publication.image}
+                              alt={`${publication.title} research figure`}
                               loading="lazy"
                               decoding="async"
-                              className="h-full w-full object-contain p-2 transition-transform duration-300 group-hover:scale-[1.02]"
+                              className="aspect-video w-full object-contain"
                             />
                           </div>
                         )}
 
-                        <div className="flex items-start justify-between gap-4 min-w-0">
-                          <div className="flex-1 min-w-0">
-                            <h4 className="text-lg font-bold text-slate-900 leading-snug group-hover:text-blue-700 transition-colors">
-                              {pub.title}
-                            </h4>
-                            <div className="mt-2 text-sm text-slate-600 leading-relaxed">
-                              {pub.authors.split(', ').map((author, i) => (
-                                <span key={i} className={author.includes('Yunqiang Pei') ? 'font-bold text-slate-900 underline decoration-blue-300 decoration-2 underline-offset-2' : ''}>
-                                  {author}{i < pub.authors.split(', ').length - 1 ? ', ' : ''}
-                                </span>
-                              ))}
-                            </div>
-                            
-                            <div className="mt-4 flex flex-wrap items-center gap-3">
-                               <span className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded text-xs font-semibold ${pub.highlight ? 'bg-blue-100 text-blue-800' : 'bg-slate-100 text-slate-700'}`}>
-                                 {pub.venue}
-                               </span>
-                               <span className="text-xs text-slate-400 font-mono">[{pub.year}]</span>
-                               {pub.tags?.map((tag, i) => {
-                                 const isAward = awardTags.has(tag);
-                                 return (
-                                 <span key={i} className={`inline-flex items-center gap-1.5 text-xs border px-2 py-0.5 rounded-full ${isAward ? 'border-amber-200 bg-amber-50 text-amber-800 font-medium' : 'text-slate-500 border-slate-200'}`}>
-                                    {isAward && (
-                                      <img
-                                        src={MEDAL_ICON}
-                                        alt=""
-                                        className="w-3.5 h-3.5 object-contain shrink-0"
-                                        aria-hidden="true"
-                                        loading="lazy"
-                                        decoding="async"
-                                      />
-                                    )}
-                                    {tag}
-                                 </span>
-                                 );
-                               })}
-                            </div>
-
-                            {pub.hardware && pub.hardware.length > 0 && (
-                              <div className="mt-3 flex flex-wrap items-center gap-2">
-                                <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-50 px-2 py-0.5 text-xs font-semibold uppercase tracking-wide text-slate-400">
-                                  <Cpu className="h-3.5 w-3.5" />
-                                  Hardware
-                                </span>
-                                {pub.hardware.map((device) => (
-                                  <button
-                                    key={`${pub.id}-${device.id}`}
-                                    type="button"
-                                    onClick={() => onHardwareSelect?.(device.id)}
-                                    className="inline-flex items-center gap-1.5 rounded-full border border-blue-100 bg-blue-50 px-2.5 py-1 text-xs font-medium text-blue-700 transition-colors hover:border-blue-200 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-200"
-                                    title={`Open ${device.name} in Hardware`}
-                                  >
-                                    <Cpu className="h-3.5 w-3.5" />
-                                    {device.name}
-                                  </button>
-                                ))}
-                              </div>
+                        <div className="min-w-0 p-5 sm:p-6">
+                          <div className="flex flex-wrap items-start justify-between gap-2">
+                            <p className="max-w-3xl text-xs font-semibold leading-5 text-teal-700">
+                              {publication.venue}
+                            </p>
+                            {publication.highlight && (
+                              <span className="rounded bg-teal-50 px-2 py-1 text-[11px] font-bold uppercase text-teal-800">
+                                Selected
+                              </span>
                             )}
                           </div>
-                          
-                          {/* PDF Link Button */}
-                          {pub.pdf && (
-                            <a 
-                              href={pub.pdf} 
-                              target="_blank" 
+
+                          {publication.pdf ? (
+                            <a
+                              href={publication.pdf}
+                              target="_blank"
                               rel="noopener noreferrer"
-                              className="shrink-0 flex flex-col items-center justify-center w-12 h-12 rounded-lg bg-slate-50 border border-slate-200 text-slate-400 hover:text-red-500 hover:bg-red-50 hover:border-red-200 transition-all duration-200 group/pdf"
-                              title="Download PDF"
+                              className="group/title mt-2 inline-flex items-start gap-2 text-lg font-bold leading-snug text-[#1d2c2d] transition-colors hover:text-teal-800"
                             >
-                              <FileText className="w-5 h-5 mb-0.5" />
-                              <span className="text-[9px] font-bold">PDF</span>
+                              <span>{publication.title}</span>
+                              <ExternalLink
+                                className="mt-1 h-4 w-4 shrink-0 opacity-0 transition-opacity group-hover/title:opacity-100"
+                                aria-hidden="true"
+                              />
                             </a>
+                          ) : (
+                            <h4 className="mt-2 text-lg font-bold leading-snug text-[#1d2c2d]">{publication.title}</h4>
                           )}
+
+                          <p className="mt-2 text-sm leading-6 text-[#627172]">
+                            {publication.authors.split(', ').map((author, index) => (
+                              <React.Fragment key={`${publication.id}-${author}-${index}`}>
+                                <span
+                                  className={
+                                    author.includes('Yunqiang Pei')
+                                      ? 'font-bold text-[#263536] underline decoration-teal-400 decoration-2 underline-offset-2'
+                                      : ''
+                                  }
+                                >
+                                  {author}
+                                </span>
+                                {index < publication.authors.split(', ').length - 1 ? ', ' : ''}
+                              </React.Fragment>
+                            ))}
+                          </p>
+
+                          <div className="mt-4 flex flex-wrap gap-2">
+                            {publication.tags?.map((tag) => {
+                              const isAward = awardTags.has(tag);
+                              return (
+                                <span
+                                  key={`${publication.id}-${tag}`}
+                                  className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-medium ${
+                                    isAward
+                                      ? 'border-amber-200 bg-amber-50 text-amber-800'
+                                      : 'border-[#d7e0de] bg-[#f7f9f8] text-[#627172]'
+                                  }`}
+                                >
+                                  {isAward && (
+                                    <img
+                                      src={MEDAL_ICON}
+                                      alt=""
+                                      aria-hidden="true"
+                                      loading="lazy"
+                                      decoding="async"
+                                      className="h-3.5 w-3.5 object-contain"
+                                    />
+                                  )}
+                                  {tag}
+                                </span>
+                              );
+                            })}
+                          </div>
+
+                          <div className="mt-5 flex flex-wrap items-center gap-2 border-t border-[#edf1f0] pt-4">
+                            {publication.pdf && (
+                              <a
+                                href={publication.pdf}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1.5 rounded-md bg-teal-700 px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-teal-800 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
+                              >
+                                Open paper
+                                <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
+                              </a>
+                            )}
+
+                            {publication.hardware?.map((device) => (
+                              <button
+                                key={`${publication.id}-${device.id}`}
+                                type="button"
+                                onClick={() => onHardwareSelect?.(device.id)}
+                                className="inline-flex items-center gap-1.5 rounded-md border border-[#cfdad7] bg-white px-3 py-1.5 text-xs font-semibold text-[#526263] transition-colors hover:border-teal-400 hover:bg-teal-50 hover:text-teal-800 focus:outline-none focus:ring-2 focus:ring-teal-500"
+                                title={`Open ${device.name} in Research Hardware`}
+                              >
+                                <Cpu className="h-3.5 w-3.5" aria-hidden="true" />
+                                {device.name}
+                              </button>
+                            ))}
+                          </div>
                         </div>
                       </div>
-                    </motion.div>
+                    </motion.article>
                   ))}
                 </div>
               </motion.section>

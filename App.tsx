@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Navigation from './components/Navigation';
 import ARBackground from './components/ARBackground';
 import About from './components/sections/About';
@@ -10,15 +10,56 @@ import Recommendations from './components/sections/Recommendations';
 import { Section } from './types';
 import { motion, AnimatePresence } from 'framer-motion';
 
+const SECTION_TITLES: Record<Section, string> = {
+  [Section.ABOUT]: 'About',
+  [Section.PUBLICATIONS]: 'Publications',
+  [Section.CV]: 'Curriculum Vitae',
+  [Section.HARDWARE]: 'Research Hardware',
+  [Section.GALLERY]: 'Gallery',
+  [Section.RECOMMENDATIONS]: 'Recommendations',
+};
+
+const getSectionFromHash = (): Section | null => {
+  const hash = window.location.hash.replace('#', '').toLowerCase();
+  return Object.values(Section).includes(hash as Section) ? hash as Section : null;
+};
+
 const App: React.FC = () => {
-  const [activeSection, setActiveSection] = useState<Section>(Section.ABOUT);
+  const [activeSection, setActiveSection] = useState<Section>(() => getSectionFromHash() ?? Section.ABOUT);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [hardwareFocusId, setHardwareFocusId] = useState<string | null>(null);
 
+  useEffect(() => {
+    const handleHashChange = () => {
+      const nextSection = getSectionFromHash();
+      if (!nextSection) return;
+
+      setActiveSection(nextSection);
+      setIsMobileMenuOpen(false);
+      window.scrollTo({ top: 0 });
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  useEffect(() => {
+    document.title = `${SECTION_TITLES[activeSection]} | Yunqiang Pei`;
+  }, [activeSection]);
+
+  const handleSectionChange = (section: Section) => {
+    if (section === activeSection && window.location.hash === `#${section}`) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      setIsMobileMenuOpen(false);
+      return;
+    }
+
+    window.location.hash = section;
+  };
+
   const handleHardwareSelect = (hardwareId: string) => {
     setHardwareFocusId(hardwareId);
-    setActiveSection(Section.HARDWARE);
-    setIsMobileMenuOpen(false);
+    handleSectionChange(Section.HARDWARE);
   };
 
   const renderSection = () => {
@@ -41,52 +82,47 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen text-slate-800 bg-slate-50 selection:bg-blue-100 selection:text-blue-900 font-sans relative">
+    <div className="min-h-screen bg-[#f5f8f7] text-[#263536] selection:bg-teal-100 selection:text-teal-950 font-sans relative">
+      <a
+        href="#main-content"
+        className="fixed left-4 top-3 z-[100] -translate-y-20 rounded-md bg-teal-800 px-4 py-2 text-sm font-semibold text-white shadow-lg transition-transform focus:translate-y-0"
+      >
+        Skip to main content
+      </a>
 
-      {/* Background Layer: Dynamic Particles */}
       <ARBackground />
 
       <div className="flex min-h-screen relative z-10">
-        {/* Navigation Sidebar */}
         <Navigation
           activeSection={activeSection}
-          setActiveSection={setActiveSection}
+          setActiveSection={handleSectionChange}
           isMobileMenuOpen={isMobileMenuOpen}
           setIsMobileMenuOpen={setIsMobileMenuOpen}
         />
 
-        {/* Main Content Area */}
-        <main className="flex-1 lg:ml-80 w-full pt-20 lg:pt-0 min-h-screen relative overflow-hidden">
-
-          {/* Content Wrapper */}
+        <main
+          id="main-content"
+          className="min-h-screen w-full flex-1 overflow-hidden pt-16 lg:ml-72 lg:pt-0"
+        >
           <div
-            className="relative z-10 px-4 sm:px-8 lg:px-12 py-12 lg:py-16 max-w-6xl mx-auto"
+            className="relative z-10 mx-auto max-w-[1180px] px-5 py-10 sm:px-8 lg:px-12 lg:py-14"
           >
-            {/* Header/Breadcrumb */}
-            <div className="mb-8 hidden lg:block border-b border-slate-200 pb-2">
-               <h2 className="text-xs font-mono text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                 <span className="w-2 h-2 rounded-full bg-slate-300"></span>
-                 System / {activeSection}
-               </h2>
-            </div>
-
-            {/* Page Transition Wrapper */}
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeSection}
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 0, y: 6 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.3 }}
+                exit={{ opacity: 0, y: -4 }}
+                transition={{ duration: 0.2 }}
               >
                 {renderSection()}
               </motion.div>
             </AnimatePresence>
 
-            {/* Footer for main content */}
-            <div className="mt-20 pt-6 border-t border-slate-200 text-center text-slate-400 text-xs font-light">
-              <p>&copy; {new Date().getFullYear()} Yunqiang Pei. Academic Homepage.</p>
-            </div>
+            <footer className="mt-20 flex flex-col gap-2 border-t border-[#dce5e2] pt-6 text-xs text-[#718080] sm:flex-row sm:items-center sm:justify-between">
+              <p>&copy; {new Date().getFullYear()} Yunqiang Pei</p>
+              <p>AR, AI, and human-centered interactive systems</p>
+            </footer>
           </div>
         </main>
       </div>

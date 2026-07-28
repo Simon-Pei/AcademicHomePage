@@ -123,7 +123,7 @@ const Recommendations: React.FC = () => {
                   href={tool.url}
                   target="_blank"
                   rel="noreferrer"
-                  className="mt-auto inline-flex items-center gap-1.5 pt-4 text-sm font-semibold text-blue-600 transition-colors hover:text-blue-800"
+                  className="mt-auto inline-flex items-center gap-1.5 pt-4 text-sm font-semibold text-teal-600 transition-colors hover:text-teal-800"
                 >
                   Official site
                   <ExternalLink className="h-3.5 w-3.5" />
