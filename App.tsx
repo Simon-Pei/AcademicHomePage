@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { lazy, Suspense, useEffect, useState } from 'react';
 import Navigation from './components/Navigation';
-import ARBackground from './components/ARBackground';
-import About from './components/sections/About';
-import Publications from './components/sections/Publications';
-import CV from './components/sections/CV';
-import Hardware from './components/sections/Hardware';
-import Gallery from './components/sections/Gallery';
-import Recommendations from './components/sections/Recommendations';
 import { Section } from './types';
-import { motion, AnimatePresence } from 'framer-motion';
+
+const About = lazy(() => import('./components/sections/About'));
+const Publications = lazy(() => import('./components/sections/Publications'));
+const CV = lazy(() => import('./components/sections/CV'));
+const Hardware = lazy(() => import('./components/sections/Hardware'));
+const Gallery = lazy(() => import('./components/sections/Gallery'));
+const Recommendations = lazy(() => import('./components/sections/Recommendations'));
 
 const SECTION_TITLES: Record<Section, string> = {
   [Section.ABOUT]: 'About',
@@ -82,52 +81,43 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#f5f8f7] text-[#263536] selection:bg-teal-100 selection:text-teal-950 font-sans relative">
+    <div className="min-h-screen bg-canvas font-sans text-ink">
       <a
         href="#main-content"
-        className="fixed left-4 top-3 z-[100] -translate-y-20 rounded-md bg-teal-800 px-4 py-2 text-sm font-semibold text-white shadow-lg transition-transform focus:translate-y-0"
+        className="fixed left-4 top-3 z-[100] -translate-y-20 rounded-md bg-brand-800 px-4 py-2 text-sm font-semibold text-white shadow-lg transition-transform focus:translate-y-0"
       >
         Skip to main content
       </a>
 
-      <ARBackground />
+      <Navigation
+        activeSection={activeSection}
+        setActiveSection={handleSectionChange}
+        isMobileMenuOpen={isMobileMenuOpen}
+        setIsMobileMenuOpen={setIsMobileMenuOpen}
+      />
 
-      <div className="flex min-h-screen relative z-10">
-        <Navigation
-          activeSection={activeSection}
-          setActiveSection={handleSectionChange}
-          isMobileMenuOpen={isMobileMenuOpen}
-          setIsMobileMenuOpen={setIsMobileMenuOpen}
-        />
-
-        <main
-          id="main-content"
-          className="min-h-screen w-full flex-1 overflow-hidden pt-16 lg:ml-72 lg:pt-0"
-        >
-          <div
-            className="relative z-10 mx-auto max-w-[1180px] px-5 py-10 sm:px-8 lg:px-12 lg:py-14"
-          >
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeSection}
-                initial={{ opacity: 0, y: 6 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -4 }}
-                transition={{ duration: 0.2 }}
-              >
-                {renderSection()}
-              </motion.div>
-            </AnimatePresence>
-
-            <footer className="mt-20 flex flex-col gap-2 border-t border-[#dce5e2] pt-6 text-xs text-[#718080] sm:flex-row sm:items-center sm:justify-between">
-              <p>&copy; {new Date().getFullYear()} Yunqiang Pei</p>
-              <p>AR, AI, and human-centered interactive systems</p>
-            </footer>
+      <main id="main-content" className="min-h-[calc(100vh-72px)] overflow-hidden">
+        <div className="mx-auto max-w-[1240px] px-5 py-9 sm:px-8 sm:py-12 lg:px-10 lg:py-14">
+          <div key={activeSection} className="page-enter">
+            <Suspense fallback={<SectionLoading />}>
+              {renderSection()}
+            </Suspense>
           </div>
-        </main>
-      </div>
+
+          <footer className="mt-20 flex flex-col gap-2 border-t border-line pt-6 text-xs text-[#718080] sm:flex-row sm:items-center sm:justify-between">
+            <p>&copy; {new Date().getFullYear()} Yunqiang Pei</p>
+            <p>AR, AI, and human-centered interactive systems</p>
+          </footer>
+        </div>
+      </main>
     </div>
   );
 };
+
+const SectionLoading: React.FC = () => (
+  <div className="flex min-h-[50vh] items-center justify-center" role="status" aria-label="Loading page">
+    <span className="h-8 w-8 animate-spin rounded-full border-2 border-brand-200 border-t-brand-600" />
+  </div>
+);
 
 export default App;

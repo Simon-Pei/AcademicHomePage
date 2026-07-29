@@ -86,7 +86,7 @@ export const PUBLICATIONS: Publication[] = [
     year: 2025,
     type: 'conference',
     awards: 'Oral Paper',
-    tags: ["AR-HRI", "Interaction Recommendation", "Oral"],
+    tags: ["AR-HRI", "Interaction Recommendation", "Oral Paper"],
     hardware: [
       { id: 'hololens-2', name: 'HoloLens 2' },
       { id: 'shimmer3r-gsr-plus', name: 'Shimmer3R GSR+' }

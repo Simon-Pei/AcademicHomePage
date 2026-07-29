@@ -1,6 +1,6 @@
-import React, { useMemo, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Calendar, Images, MapPin, Maximize2, X } from 'lucide-react';
+import PageHeader from '../PageHeader';
 
 interface GalleryPhoto {
   src: string;
@@ -18,14 +18,10 @@ interface GalleryAlbum {
   photos: GalleryPhoto[];
 }
 
-const VISIT_BASE = 'imgs/visit';
+const VISIT_BASE = 'imgs/optimized/visit';
 const visitThumbnailSrc = (src: string) => src.replace(
   `${VISIT_BASE}/`,
   'imgs/optimized/visit-thumbnails/'
-);
-const optimizedVisitSrc = (src: string) => src.replace(
-  `${VISIT_BASE}/`,
-  'imgs/optimized/visit/'
 );
 
 const albums: GalleryAlbum[] = [
@@ -167,45 +163,59 @@ const Gallery: React.FC = () => {
 
   const totalPhotos = useMemo(() => albums.reduce((sum, album) => sum + album.photos.length, 0), []);
 
-  return (
-    <div className="space-y-8">
-      <header className="border-b border-slate-200 pb-6">
-        <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-teal-100 bg-teal-50 px-3 py-1 text-xs font-semibold text-teal-700">
-              <Images className="h-3.5 w-3.5" />
-              Timeline Album
-            </div>
-            <h2 className="text-3xl font-bold text-slate-900">Gallery</h2>
-            <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500">
-              Selected photos from conferences, academic visits, and research travel.
-            </p>
-          </div>
+  useEffect(() => {
+    if (!selectedPhoto) return;
 
-          <div className="grid grid-cols-2 gap-3 sm:min-w-[260px]">
-            <StatCard label="Albums" value={albums.length} />
-            <StatCard label="Photos" value={totalPhotos} />
-          </div>
-        </div>
-      </header>
+    const previousOverflow = document.body.style.overflow;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setSelectedPhoto(null);
+    };
+
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', closeOnEscape);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', closeOnEscape);
+    };
+  }, [selectedPhoto]);
+
+  return (
+    <div className="space-y-9">
+      <PageHeader
+        icon={Images}
+        eyebrow="Timeline album"
+        title="Gallery"
+        description="Selected photos from conferences, academic visits, and research travel."
+        aside={
+          <dl className="flex divide-x divide-line border-y border-line bg-white">
+            {[
+              { label: 'Albums', value: albums.length },
+              { label: 'Photos', value: totalPhotos },
+            ].map((stat) => (
+              <div key={stat.label} className="min-w-24 px-4 py-3">
+                <dd className="text-xl font-bold text-ink">{stat.value}</dd>
+                <dt className="mt-0.5 text-[11px] font-bold uppercase text-[#879492]">{stat.label}</dt>
+              </div>
+            ))}
+          </dl>
+        }
+      />
 
       <div className="relative space-y-8">
-        <div className="absolute bottom-0 left-3 top-1 hidden w-px bg-slate-200 md:block" />
+        <div className="absolute bottom-0 left-3 top-1 hidden w-px bg-line md:block" />
 
         {albums.map((album) => (
-          <motion.section
+          <section
             key={album.id}
-            layout
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="relative md:pl-10"
+            className="page-enter relative md:pl-10"
           >
-            <div className="absolute left-0 top-2 hidden h-6 w-6 rounded-full border-4 border-white bg-teal-500 shadow-sm md:block" />
+            <div className="absolute left-0 top-2 hidden h-6 w-6 rounded-full border-4 border-canvas bg-brand-500 md:block" />
 
-            <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+            <div className="rounded-lg border border-line bg-white p-5">
               <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
                 <div>
-                  <div className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase text-slate-400">
+                  <div className="flex flex-wrap items-center gap-3 text-xs font-bold uppercase text-[#7a8887]">
                     <span className="inline-flex items-center gap-1.5">
                       <Calendar className="h-3.5 w-3.5" />
                       {album.date}
@@ -215,11 +225,11 @@ const Gallery: React.FC = () => {
                       {album.location}
                     </span>
                   </div>
-                  <h3 className="mt-2 text-xl font-bold text-slate-900">{album.title}</h3>
-                  <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500">{album.description}</p>
+                  <h2 className="mt-2 text-xl font-bold text-ink">{album.title}</h2>
+                  <p className="mt-2 max-w-2xl text-sm leading-6 text-muted">{album.description}</p>
                 </div>
 
-                <div className="inline-flex w-fit items-center gap-1.5 rounded-full border border-slate-200 px-2.5 py-1 text-xs font-semibold text-slate-500">
+                <div className="inline-flex w-fit items-center gap-1.5 text-xs font-semibold text-[#7a8887]">
                   <Images className="h-3.5 w-3.5" />
                   {album.photos.length} photos
                 </div>
@@ -231,7 +241,7 @@ const Gallery: React.FC = () => {
                     key={photo.src}
                     type="button"
                     onClick={() => setSelectedPhoto({ ...photo, albumTitle: album.title, albumDate: album.date })}
-                    className="group relative mb-3 block w-full break-inside-avoid overflow-hidden rounded-lg border border-slate-200 bg-slate-100 text-left shadow-sm transition-all hover:border-teal-300 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-teal-200"
+                    className="group relative mb-3 block w-full break-inside-avoid overflow-hidden rounded-lg border border-line bg-[#eef2f1] text-left transition-all hover:border-brand-300 hover:shadow-soft focus:outline-none focus:ring-2 focus:ring-brand-200"
                   >
                     <img
                       src={visitThumbnailSrc(photo.src)}
@@ -240,43 +250,39 @@ const Gallery: React.FC = () => {
                       decoding="async"
                       className="block h-auto w-full transition-transform duration-300 group-hover:scale-[1.03]"
                     />
-                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950/80 to-transparent p-3 text-white opacity-0 transition-opacity group-hover:opacity-100">
+                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950/80 to-transparent p-3 text-white opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
                       <div className="flex items-center justify-between gap-3">
                         <p className="line-clamp-2 text-xs font-medium leading-5">{photo.caption}</p>
                         <Maximize2 className="h-4 w-4 shrink-0" />
                       </div>
                     </div>
-                    <span className="absolute left-3 top-3 rounded-full bg-white/90 px-2 py-0.5 text-[11px] font-semibold text-slate-600 shadow-sm">
+                    <span className="absolute left-3 top-3 flex h-6 min-w-6 items-center justify-center rounded-md bg-white/90 px-1.5 text-[11px] font-bold text-[#5c6b6c] shadow-sm">
                       {index + 1}
                     </span>
                   </button>
                 ))}
               </div>
             </div>
-          </motion.section>
+          </section>
         ))}
       </div>
 
-      <AnimatePresence>
-        {selectedPhoto && (
-          <motion.div
-            className="fixed inset-0 z-[80] flex items-center justify-center bg-slate-950/85 p-4 backdrop-blur-sm"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+      {selectedPhoto && (
+          <div
+            className="page-enter fixed inset-0 z-[80] flex items-center justify-center bg-[#101819]/90 p-4 backdrop-blur-sm"
             onClick={() => setSelectedPhoto(null)}
           >
-            <motion.div
-              className="max-h-[90vh] w-full max-w-5xl overflow-hidden rounded-lg border border-white/10 bg-slate-950 shadow-2xl"
-              initial={{ opacity: 0, scale: 0.98 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.98 }}
+            <div
+              className="max-h-[90vh] w-full max-w-5xl overflow-hidden rounded-lg border border-white/10 bg-[#101819] shadow-2xl"
               onClick={(event) => event.stopPropagation()}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="gallery-dialog-title"
             >
               <div className="flex items-center justify-between gap-4 border-b border-white/10 px-4 py-3 text-white">
                 <div>
-                  <p className="text-xs font-semibold uppercase text-teal-200">{selectedPhoto.albumDate}</p>
-                  <h3 className="text-sm font-bold">{selectedPhoto.albumTitle}</h3>
+                  <p className="text-xs font-semibold uppercase text-brand-200">{selectedPhoto.albumDate}</p>
+                  <h3 id="gallery-dialog-title" className="text-sm font-bold">{selectedPhoto.albumTitle}</h3>
                 </div>
                 <button
                   type="button"
@@ -290,7 +296,7 @@ const Gallery: React.FC = () => {
 
               <div className="flex max-h-[74vh] items-center justify-center bg-black">
                 <img
-                  src={optimizedVisitSrc(selectedPhoto.src)}
+                  src={selectedPhoto.src}
                   alt={selectedPhoto.alt}
                   decoding="async"
                   fetchPriority="high"
@@ -301,19 +307,11 @@ const Gallery: React.FC = () => {
               <div className="px-4 py-3 text-sm text-slate-200">
                 {selectedPhoto.caption}
               </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            </div>
+          </div>
+      )}
     </div>
   );
 };
-
-const StatCard: React.FC<{ label: string; value: number }> = ({ label, value }) => (
-  <div className="rounded-lg border border-slate-200 bg-white px-4 py-3 shadow-sm">
-    <div className="text-2xl font-bold text-slate-900">{value}</div>
-    <div className="mt-1 text-xs font-medium uppercase text-slate-400">{label}</div>
-  </div>
-);
 
 export default Gallery;

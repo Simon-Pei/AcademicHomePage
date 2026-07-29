@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { PUBLICATIONS } from '../../constants';
-import { AnimatePresence, motion } from 'framer-motion';
 import { Cpu, ExternalLink, Layers3 } from 'lucide-react';
+import PageHeader from '../PageHeader';
 
 const MEDAL_ICON = 'imgs/icon/medal.png';
 
@@ -55,19 +55,12 @@ const Publications: React.FC<PublicationsProps> = ({ onHardwareSelect }) => {
 
   return (
     <div className="space-y-9">
-      <header className="border-b border-[#dce5e2] pb-6">
-        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <div>
-            <div className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase text-teal-700">
-              <Layers3 className="h-4 w-4" aria-hidden="true" />
-              Research output
-            </div>
-            <h2 className="text-3xl font-bold text-[#172526] sm:text-4xl">Publications</h2>
-            <p className="mt-2 text-sm leading-6 text-[#697878]">
-              Research in augmented reality, human-AI interaction, and multimodal systems.
-            </p>
-          </div>
-
+      <PageHeader
+        icon={Layers3}
+        eyebrow="Research output"
+        title="Publications"
+        description="Research in augmented reality, human-AI interaction, and multimodal systems."
+        aside={
           <div
             className="flex w-fit max-w-full overflow-x-auto rounded-md border border-[#cfdad7] bg-white p-1"
             role="group"
@@ -81,41 +74,33 @@ const Publications: React.FC<PublicationsProps> = ({ onHardwareSelect }) => {
                 aria-pressed={filter === item.id}
                 className={`flex shrink-0 items-center gap-1.5 rounded px-3 py-1.5 text-xs font-semibold transition-colors ${
                   filter === item.id
-                    ? 'bg-teal-700 text-white'
+                    ? 'bg-brand-700 text-white'
                     : 'text-[#647374] hover:bg-[#f0f4f3] hover:text-[#243536]'
                 }`}
               >
                 {item.label}
-                <span className={filter === item.id ? 'text-teal-100' : 'text-[#97a3a1]'}>{item.count}</span>
+                <span className={filter === item.id ? 'text-brand-100' : 'text-[#97a3a1]'}>{item.count}</span>
               </button>
             ))}
           </div>
-        </div>
-      </header>
+        }
+      />
 
       <div className="space-y-10">
-        <AnimatePresence mode="popLayout">
+        <>
           {sortedPubs.length === 0 ? (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="py-12 text-center text-sm text-[#7c8a89]"
-            >
+            <div className="py-12 text-center text-sm text-[#7c8a89]">
               No publications found in this category.
-            </motion.div>
+            </div>
           ) : (
             pubsByYear.map(([year, publications]) => (
-              <motion.section
+              <section
                 key={year}
-                layout
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                className="space-y-4"
+                className="page-enter space-y-4"
               >
                 <div className="flex items-center gap-4">
-                  <h3 className="text-2xl font-bold text-[#172526]">{year}</h3>
-                  <div className="h-px flex-1 bg-[#dce5e2]" />
+                  <h2 className="text-2xl font-bold text-ink">{year}</h2>
+                  <div className="h-px flex-1 bg-line" />
                   <span className="text-xs font-medium text-[#83918f]">
                     {publications.length} {publications.length === 1 ? 'work' : 'works'}
                   </span>
@@ -123,22 +108,21 @@ const Publications: React.FC<PublicationsProps> = ({ onHardwareSelect }) => {
 
                 <div className="space-y-4">
                   {publications.map((publication) => (
-                    <motion.article
+                    <article
                       key={publication.id}
-                      layout
                       className={`relative overflow-hidden rounded-lg border bg-white transition-colors ${
                         publication.highlight
-                          ? 'border-teal-300'
+                          ? 'border-brand-300'
                           : 'border-[#dce5e2] hover:border-[#b9cac6]'
                       }`}
                     >
                       {publication.highlight && (
-                        <span className="absolute inset-y-0 left-0 w-1 bg-teal-600" aria-hidden="true" />
+                        <span className="absolute inset-y-0 left-0 w-1 bg-brand-600" aria-hidden="true" />
                       )}
 
-                      <div className={`grid ${publication.image ? 'md:grid-cols-[210px_minmax(0,1fr)]' : ''}`}>
+                      <div className={`grid ${publication.image ? 'md:grid-cols-[230px_minmax(0,1fr)]' : ''}`}>
                         {publication.image && (
-                          <div className="flex min-h-44 items-center justify-center border-b border-[#e4ebe9] bg-[#f2f6f5] p-4 md:border-b-0 md:border-r">
+                          <div className="flex min-h-44 items-center justify-center border-b border-[#e4ebe9] bg-[#f1f5f4] p-5 md:border-b-0 md:border-r">
                             <img
                               src={publication.image}
                               alt={`${publication.title} research figure`}
@@ -150,23 +134,16 @@ const Publications: React.FC<PublicationsProps> = ({ onHardwareSelect }) => {
                         )}
 
                         <div className="min-w-0 p-5 sm:p-6">
-                          <div className="flex flex-wrap items-start justify-between gap-2">
-                            <p className="max-w-3xl text-xs font-semibold leading-5 text-teal-700">
-                              {publication.venue}
-                            </p>
-                            {publication.highlight && (
-                              <span className="rounded bg-teal-50 px-2 py-1 text-[11px] font-bold uppercase text-teal-800">
-                                Selected
-                              </span>
-                            )}
-                          </div>
+                          <p className="max-w-3xl text-xs font-bold leading-5 text-brand-700">
+                            {publication.venue}
+                          </p>
 
                           {publication.pdf ? (
                             <a
                               href={publication.pdf}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="group/title mt-2 inline-flex items-start gap-2 text-lg font-bold leading-snug text-[#1d2c2d] transition-colors hover:text-teal-800"
+                              className="group/title mt-2 inline-flex items-start gap-2 text-lg font-bold leading-snug text-[#1d2c2d] transition-colors hover:text-brand-800 sm:text-xl"
                             >
                               <span>{publication.title}</span>
                               <ExternalLink
@@ -175,7 +152,7 @@ const Publications: React.FC<PublicationsProps> = ({ onHardwareSelect }) => {
                               />
                             </a>
                           ) : (
-                            <h4 className="mt-2 text-lg font-bold leading-snug text-[#1d2c2d]">{publication.title}</h4>
+                            <h3 className="mt-2 text-lg font-bold leading-snug text-[#1d2c2d] sm:text-xl">{publication.title}</h3>
                           )}
 
                           <p className="mt-2 text-sm leading-6 text-[#627172]">
@@ -184,7 +161,7 @@ const Publications: React.FC<PublicationsProps> = ({ onHardwareSelect }) => {
                                 <span
                                   className={
                                     author.includes('Yunqiang Pei')
-                                      ? 'font-bold text-[#263536] underline decoration-teal-400 decoration-2 underline-offset-2'
+                                      ? 'font-bold text-[#263536] underline decoration-brand-400 decoration-2 underline-offset-2'
                                       : ''
                                   }
                                 >
@@ -201,7 +178,7 @@ const Publications: React.FC<PublicationsProps> = ({ onHardwareSelect }) => {
                               return (
                                 <span
                                   key={`${publication.id}-${tag}`}
-                                  className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-medium ${
+                                  className={`inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1 text-xs font-medium ${
                                     isAward
                                       ? 'border-amber-200 bg-amber-50 text-amber-800'
                                       : 'border-[#d7e0de] bg-[#f7f9f8] text-[#627172]'
@@ -229,7 +206,7 @@ const Publications: React.FC<PublicationsProps> = ({ onHardwareSelect }) => {
                                 href={publication.pdf}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1.5 rounded-md bg-teal-700 px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-teal-800 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
+                                className="inline-flex items-center gap-1.5 rounded-md bg-brand-700 px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:bg-brand-800 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"
                               >
                                 Open paper
                                 <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
@@ -241,7 +218,7 @@ const Publications: React.FC<PublicationsProps> = ({ onHardwareSelect }) => {
                                 key={`${publication.id}-${device.id}`}
                                 type="button"
                                 onClick={() => onHardwareSelect?.(device.id)}
-                                className="inline-flex items-center gap-1.5 rounded-md border border-[#cfdad7] bg-white px-3 py-1.5 text-xs font-semibold text-[#526263] transition-colors hover:border-teal-400 hover:bg-teal-50 hover:text-teal-800 focus:outline-none focus:ring-2 focus:ring-teal-500"
+                                className="inline-flex items-center gap-1.5 rounded-md border border-[#cfdad7] bg-white px-3 py-1.5 text-xs font-semibold text-[#526263] transition-colors hover:border-brand-400 hover:bg-brand-50 hover:text-brand-800 focus:outline-none focus:ring-2 focus:ring-brand-500"
                                 title={`Open ${device.name} in Research Hardware`}
                               >
                                 <Cpu className="h-3.5 w-3.5" aria-hidden="true" />
@@ -251,13 +228,13 @@ const Publications: React.FC<PublicationsProps> = ({ onHardwareSelect }) => {
                           </div>
                         </div>
                       </div>
-                    </motion.article>
+                    </article>
                   ))}
                 </div>
-              </motion.section>
+              </section>
             ))
           )}
-        </AnimatePresence>
+        </>
       </div>
     </div>
   );

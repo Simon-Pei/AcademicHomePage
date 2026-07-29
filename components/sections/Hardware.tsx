@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Activity, BookOpen, Calendar, Cpu, DollarSign, ExternalLink, Eye, Link2 } from 'lucide-react';
+import PageHeader from '../PageHeader';
 
 type HardwareCategory = 'HMD & Glass' | 'PPG & GSR' | 'EEG & IMU';
 
@@ -324,21 +324,15 @@ const Hardware: React.FC<HardwareProps> = ({ focusDeviceId }) => {
   }, []);
 
   return (
-    <div className="space-y-8">
-      <header className="border-b border-slate-200 pb-6">
-        <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-teal-100 bg-teal-50 px-3 py-1 text-xs font-semibold text-teal-700">
-              <Cpu className="h-3.5 w-3.5" />
-              Hardware Toolkit
-            </div>
-            <h2 className="text-3xl font-bold text-slate-900">Hardware Showcase</h2>
-            <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-500">
-              Devices I have worked with across AR displays, physiological sensing, EEG, and spatial computing.
-            </p>
-          </div>
-          <div className="flex items-center gap-3 rounded-lg border border-slate-200 bg-white px-4 py-3 shadow-sm">
-            <Eye className="h-4 w-4 text-slate-400" />
+    <div className="space-y-9">
+      <PageHeader
+        icon={Cpu}
+        eyebrow="Research toolkit"
+        title="Research Hardware"
+        description="Devices I have worked with across AR displays, physiological sensing, EEG, and spatial computing."
+        aside={
+          <div className="flex items-center gap-2 border-l border-line pl-4">
+            <Eye className="h-4 w-4 text-[#7a8887]" aria-hidden="true" />
             <img
               src={VISITOR_BADGE}
               alt="Hardware page visits"
@@ -348,32 +342,43 @@ const Hardware: React.FC<HardwareProps> = ({ focusDeviceId }) => {
               referrerPolicy="no-referrer"
             />
           </div>
-        </div>
+        }
+      />
 
-        <div className="mt-6 grid grid-cols-2 gap-3 md:grid-cols-4">
-          {[
-            { label: 'Devices', value: HARDWARE_DEVICES.length },
-            { label: 'Official tutorials', value: HARDWARE_DEVICES.reduce((sum, item) => sum + item.officialTutorials.length, 0) },
-            { label: 'Community links', value: HARDWARE_DEVICES.reduce((sum, item) => sum + item.communityTutorials.length, 0) },
-            { label: 'Local images', value: HARDWARE_DEVICES.length }
-          ].map((stat) => (
-            <div key={stat.label} className="rounded-lg border border-slate-200 bg-white px-4 py-3 shadow-sm">
-              <div className="text-2xl font-bold text-slate-900">{stat.value}</div>
-              <div className="mt-1 text-xs font-medium uppercase text-slate-400">{stat.label}</div>
-            </div>
-          ))}
-        </div>
-      </header>
+      <dl className="grid grid-cols-2 border-y border-line bg-white md:grid-cols-4">
+        {[
+          { label: 'Devices', value: HARDWARE_DEVICES.length },
+          { label: 'Official tutorials', value: HARDWARE_DEVICES.reduce((sum, item) => sum + item.officialTutorials.length, 0) },
+          { label: 'Community links', value: HARDWARE_DEVICES.reduce((sum, item) => sum + item.communityTutorials.length, 0) },
+          { label: 'Categories', value: 3 },
+        ].map((stat, index) => (
+          <div
+            key={stat.label}
+            className={`px-4 py-4 ${index % 2 === 1 ? 'border-l border-line' : ''} ${
+              index >= 2 ? 'border-t border-line md:border-t-0' : ''
+            } ${index === 2 ? 'md:border-l' : ''}`}
+          >
+            <dd className="text-2xl font-bold text-ink">{stat.value}</dd>
+            <dt className="mt-1 text-xs font-bold uppercase text-[#7a8887]">{stat.label}</dt>
+          </div>
+        ))}
+      </dl>
 
-      <div className="flex flex-wrap gap-2">
+      <div
+        className="flex w-fit max-w-full overflow-x-auto rounded-md border border-[#cfdad7] bg-white p-1"
+        role="group"
+        aria-label="Filter hardware by category"
+      >
         {categories.map((category) => (
           <button
             key={category}
+            type="button"
             onClick={() => setActiveCategory(category)}
-            className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-all ${
+            aria-pressed={activeCategory === category}
+            className={`shrink-0 rounded px-3 py-1.5 text-xs font-semibold transition-colors ${
               activeCategory === category
-                ? 'border-slate-900 bg-slate-900 text-white shadow-md'
-                : 'border-slate-200 bg-white text-slate-600 hover:border-slate-400 hover:bg-slate-50'
+                ? 'bg-brand-700 text-white'
+                : 'text-[#647374] hover:bg-[#f0f4f3] hover:text-ink'
             }`}
           >
             {category}
@@ -382,28 +387,24 @@ const Hardware: React.FC<HardwareProps> = ({ focusDeviceId }) => {
         ))}
       </div>
 
-      <div className="grid gap-6">
-        <AnimatePresence mode="popLayout">
+      <div className="grid gap-5">
+        <>
           {filteredDevices.map((device) => {
             const isSpotlighted = spotlightDeviceId === device.id;
 
             return (
-            <motion.article
+            <article
               id={`hardware-${device.id}`}
               key={device.id}
-              layout
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.98 }}
-              className={`group scroll-mt-24 overflow-hidden rounded-lg border bg-white transition-all duration-300 ${
+              className={`page-enter group scroll-mt-24 overflow-hidden rounded-lg border bg-white transition-all duration-300 ${
                 isSpotlighted
-                  ? 'border-teal-400 shadow-md ring-2 ring-teal-200'
-                  : 'border-slate-200 shadow-sm hover:border-teal-300 hover:shadow-md'
+                  ? 'border-brand-400 shadow-soft ring-2 ring-brand-200'
+                  : 'border-line hover:border-[#b9cac6]'
               }`}
             >
-              <div className="grid gap-0 lg:grid-cols-[280px_minmax(0,1fr)]">
-                <div className="relative flex min-h-[220px] items-center justify-center border-b border-slate-200 bg-gradient-to-br from-slate-50 to-teal-50/50 p-6 lg:border-b-0 lg:border-r">
-                  <div className="absolute left-4 top-4 rounded-full border border-white/80 bg-white/80 px-2.5 py-1 text-[11px] font-semibold text-slate-600 shadow-sm backdrop-blur">
+              <div className="grid gap-0 lg:grid-cols-[270px_minmax(0,1fr)]">
+                <div className="relative flex min-h-[220px] items-center justify-center border-b border-line bg-[#eef2f1] p-6 lg:border-b-0 lg:border-r">
+                  <div className="absolute left-4 top-4 rounded-md border border-white bg-white px-2.5 py-1 text-[11px] font-bold text-[#667576]">
                     {device.category}
                   </div>
                   <img
@@ -411,57 +412,56 @@ const Hardware: React.FC<HardwareProps> = ({ focusDeviceId }) => {
                     alt={device.imageAlt}
                     loading="lazy"
                     decoding="async"
-                    className="max-h-44 w-full object-contain mix-blend-multiply drop-shadow-md transition-transform duration-300 group-hover:scale-[1.03]"
+                    className="max-h-44 w-full object-contain drop-shadow-md transition-transform duration-300 group-hover:scale-[1.02]"
                   />
                 </div>
 
-                <div className="p-6">
+                <div className="p-5 sm:p-6">
                   <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
                     <div>
-                      <h3 className="text-xl font-bold text-slate-900">{device.name}</h3>
-                      <p className="mt-2 text-sm leading-6 text-slate-500">{device.notes[0]}</p>
+                      <h2 className="text-xl font-bold text-ink">{device.name}</h2>
+                      <p className="mt-2 max-w-3xl text-sm leading-6 text-muted">{device.notes[0]}</p>
                     </div>
-                    <div className="flex shrink-0 gap-2 text-xs font-semibold text-slate-500">
-                      <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2.5 py-1">
-                        <Activity className="h-3.5 w-3.5" />
-                        {device.sensors.length} sensor notes
-                      </span>
-                    </div>
+                    <span className="inline-flex shrink-0 items-center gap-1.5 text-xs font-semibold text-[#7a8887]">
+                      <Activity className="h-3.5 w-3.5 text-brand-600" aria-hidden="true" />
+                      {device.sensors.length} sensor notes
+                    </span>
                   </div>
 
-                  <div className="mt-5 grid gap-4 md:grid-cols-2">
+                  <div className="mt-5 grid border-y border-[#e5ebe9] md:grid-cols-2 md:divide-x md:divide-[#e5ebe9]">
                     <InfoBlock icon={DollarSign} label="Official / Public Price" value={device.price} />
                     <InfoBlock icon={Calendar} label="Release / Public Timeline" value={device.release} />
                   </div>
 
-                  <div className="mt-5 border-t border-slate-100 pt-5">
-                    <h4 className="mb-3 flex items-center gap-2 text-sm font-bold text-slate-900">
-                      <Cpu className="h-4 w-4 text-teal-500" />
+                  <div className="mt-5">
+                    <h3 className="mb-3 flex items-center gap-2 text-sm font-bold text-ink">
+                      <Cpu className="h-4 w-4 text-brand-600" aria-hidden="true" />
                       Sensors & Input
-                    </h4>
-                    <div className="flex flex-wrap gap-2">
+                    </h3>
+                    <ul className="grid gap-x-6 gap-y-2 sm:grid-cols-2">
                       {device.sensors.map((sensor) => (
-                        <span key={sensor} className="rounded-full border border-slate-200 px-2.5 py-1 text-xs text-slate-600">
-                          {sensor}
-                        </span>
+                        <li key={sensor} className="flex items-start gap-2 text-xs leading-5 text-[#5c6b6c]">
+                          <span className="mt-2 h-1 w-1 shrink-0 bg-brand-400" aria-hidden="true" />
+                          <span>{sensor}</span>
+                        </li>
                       ))}
-                    </div>
+                    </ul>
                   </div>
 
-                  <div className="mt-5 grid gap-5 border-t border-slate-100 pt-5 lg:grid-cols-2">
+                  <div className="mt-5 grid gap-6 border-t border-[#e5ebe9] pt-5 lg:grid-cols-2">
                     <LinkGroup title="Official Tutorials" icon={BookOpen} links={device.officialTutorials} />
                     <LinkGroup title="Community / Non-official" icon={Link2} links={device.communityTutorials} />
                   </div>
 
-                  <div className="mt-5 flex flex-wrap gap-2 border-t border-slate-100 pt-4">
-                    <span className="text-xs font-semibold uppercase text-slate-400">Sources</span>
+                  <div className="mt-5 flex flex-wrap gap-x-3 gap-y-2 border-t border-[#e5ebe9] pt-4">
+                    <span className="text-xs font-bold uppercase text-[#879492]">Sources</span>
                     {device.sources.map((source) => (
                       <a
                         key={source.url}
                         href={source.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-xs font-medium text-teal-600 hover:text-teal-800"
+                        className="inline-flex items-center gap-1 text-xs font-semibold text-brand-700 hover:text-brand-900"
                       >
                         {source.label}
                         <ExternalLink className="h-3 w-3" />
@@ -470,13 +470,13 @@ const Hardware: React.FC<HardwareProps> = ({ focusDeviceId }) => {
                   </div>
                 </div>
               </div>
-            </motion.article>
+            </article>
             );
           })}
-        </AnimatePresence>
+        </>
       </div>
 
-      <p className="text-xs leading-5 text-slate-400">
+      <p className="text-xs leading-5 text-[#7a8887]">
         Last reviewed on Jun 17, 2026. Prices, regional availability, SDK pages, and tutorials may change over time.
       </p>
     </div>
@@ -484,32 +484,32 @@ const Hardware: React.FC<HardwareProps> = ({ focusDeviceId }) => {
 };
 
 const InfoBlock: React.FC<{ icon: React.ElementType; label: string; value: string }> = ({ icon: Icon, label, value }) => (
-  <div>
-    <div className="mb-1 flex items-center gap-2 text-xs font-semibold uppercase text-slate-400">
-      <Icon className="h-3.5 w-3.5" />
+  <div className="py-4 first:pr-0 last:border-t last:border-[#e5ebe9] md:first:pr-5 md:last:border-t-0 md:last:pl-5">
+    <div className="mb-1.5 flex items-center gap-2 text-xs font-bold uppercase text-[#879492]">
+      <Icon className="h-3.5 w-3.5 text-brand-600" aria-hidden="true" />
       {label}
     </div>
-    <p className="text-sm leading-6 text-slate-700">{value}</p>
+    <p className="text-sm leading-6 text-[#465657]">{value}</p>
   </div>
 );
 
 const LinkGroup: React.FC<{ title: string; icon: React.ElementType; links: HardwareLink[] }> = ({ title, icon: Icon, links }) => (
   <div>
-    <h4 className="mb-3 flex items-center gap-2 text-sm font-bold text-slate-900">
-      <Icon className="h-4 w-4 text-teal-500" />
+    <h3 className="mb-3 flex items-center gap-2 text-sm font-bold text-ink">
+      <Icon className="h-4 w-4 text-brand-600" aria-hidden="true" />
       {title}
-    </h4>
-    <div className="flex flex-wrap gap-2">
+    </h3>
+    <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
       {links.map((link) => (
         <a
           key={link.url}
           href={link.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1 rounded-full border border-slate-200 px-2.5 py-1 text-xs font-medium text-slate-600 transition-colors hover:border-teal-200 hover:bg-teal-50 hover:text-teal-700"
+          className="group inline-flex items-start gap-1.5 text-xs font-semibold leading-5 text-[#5c6b6c] transition-colors hover:text-brand-800"
         >
-          {link.label}
-          <ExternalLink className="h-3 w-3" />
+          <ExternalLink className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#9aa6a4] transition-colors group-hover:text-brand-600" aria-hidden="true" />
+          <span>{link.label}</span>
         </a>
       ))}
     </div>

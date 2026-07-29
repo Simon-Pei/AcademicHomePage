@@ -1,197 +1,199 @@
 import React from 'react';
 import { EDUCATION, EXPERIENCE, VOLUNTEERING } from '../../constants';
-import { motion } from 'framer-motion';
-import { Award, Code, Cpu, Download, Globe2, Languages, MapPin } from 'lucide-react';
+import {
+  Award,
+  BriefcaseBusiness,
+  ExternalLink,
+  FileText,
+  Globe2,
+  GraduationCap,
+  Languages,
+  MapPin,
+  Users,
+} from 'lucide-react';
+import PageHeader from '../PageHeader';
 
-const CV: React.FC = () => {
-  return (
-    <div className="space-y-10">
-      <header className="border-b border-slate-200 pb-6 flex justify-between items-center">
-        <h2 className="text-3xl font-bold text-slate-900">Curriculum Vitae</h2>
-        <a 
-          href="pdfs/Brief.pdf" 
+const awards = [
+  'National Scholarship (2015-2017)',
+  'Sichuan Province Outstanding Graduate',
+  'Best Paper Nomination, ACM Multimedia 2024',
+  'Best Paper Honorable Mention, ICVRV 2019',
+  'UESTC Academic Rising Star',
+];
+
+const languages = [
+  { name: 'Chinese', level: 'Native / Proficient' },
+  { name: 'English', level: 'Advanced' },
+  { name: 'Korean', level: 'Intermediate' },
+];
+
+const CV: React.FC = () => (
+  <div className="space-y-12">
+    <PageHeader
+      icon={FileText}
+      eyebrow="Academic record"
+      title="Curriculum Vitae"
+      description="Education, professional experience, honors, academic service, and training."
+      aside={
+        <a
+          href="pdfs/Brief.pdf"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-2 px-4 py-2 bg-slate-900 text-white rounded-lg text-sm font-medium hover:bg-slate-800 transition-colors shadow-lg shadow-slate-200/50"
+          className="inline-flex items-center gap-2 rounded-md border border-[#cfdad7] bg-white px-4 py-2 text-sm font-semibold text-[#465657] transition-colors hover:border-brand-400 hover:text-brand-800"
         >
-          <Download className="w-4 h-4" />
-          Download PDF
+          View PDF
+          <ExternalLink className="h-4 w-4" aria-hidden="true" />
         </a>
-      </header>
+      }
+    />
 
-      {/* Education */}
-      <motion.section 
-        initial={{ opacity: 0, x: -10 }}
-        animate={{ opacity: 1, x: 0 }}
-      >
-        <h3 className="text-lg font-bold text-slate-900 mb-8 uppercaser text-sm border-l-4 border-teal-500 pl-3">Education</h3>
-        
-        <div className="relative border-l border-slate-200 ml-3 space-y-10 pb-4">
-          {EDUCATION.map((edu) => (
-            <div key={edu.id} className="ml-8 relative group">
-              <div className="absolute -left-[41px] top-1.5 w-3 h-3 bg-white border-2 border-teal-500 rounded-full shadow-[0_0_0_4px_rgba(241,245,249,1)] group-hover:scale-125 transition-transform duration-300"></div>
-              <div className="text-xs font-mono text-teal-600 font-semibold mb-1">{edu.period}</div>
-              <h4 className="text-slate-900 font-bold text-lg group-hover:text-teal-700 transition-colors">{edu.institution}</h4>
-              <div className="text-slate-700 font-medium mb-2">{edu.degree}</div>
-              <ul className="space-y-1">
-                {edu.details.map((detail, idx) => (
-                  <li key={idx} className="text-slate-500 text-sm flex items-start gap-2">
-                    <span className="mt-1.5 w-1 h-1 bg-slate-400 rounded-full shrink-0"></span>
-                    {detail}
+    <CVSection icon={GraduationCap} title="Education">
+      <div className="divide-y divide-[#e5ebe9] border-y border-[#e5ebe9]">
+        {EDUCATION.map((education) => (
+          <article
+            key={education.id}
+            className="grid gap-3 py-6 md:grid-cols-[185px_minmax(0,1fr)] md:gap-8"
+          >
+            <div>
+              <p className="font-mono text-xs font-bold text-brand-700">{education.period}</p>
+              {education.location && (
+                <p className="mt-2 inline-flex items-center gap-1.5 text-xs text-[#7a8887]">
+                  <MapPin className="h-3.5 w-3.5" aria-hidden="true" />
+                  {education.location}
+                </p>
+              )}
+            </div>
+            <div>
+              <h3 className="text-lg font-bold leading-snug text-ink">{education.institution}</h3>
+              <p className="mt-1 text-sm font-semibold text-[#465657]">{education.degree}</p>
+              <ul className="mt-3 grid gap-2 sm:grid-cols-2">
+                {education.details.map((detail) => (
+                  <li key={detail} className="flex items-start gap-2 text-sm leading-6 text-muted">
+                    <span className="mt-2.5 h-1 w-1 shrink-0 bg-brand-400" aria-hidden="true" />
+                    <span>{detail}</span>
                   </li>
                 ))}
               </ul>
             </div>
-          ))}
-        </div>
-      </motion.section>
+          </article>
+        ))}
+      </div>
+    </CVSection>
 
-      {/* Professional experience and awards */}
-      <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
-      >
-        <h3 className="text-lg font-bold text-slate-900 mb-6 uppercaser text-sm border-l-4 border-teal-500 pl-3">Highlights</h3>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-white p-6 rounded-lg border border-slate-200 shadow-sm hover:border-teal-300 transition-colors">
-            <h4 className="font-bold text-slate-800 mb-4 flex items-center gap-2 text-lg">
-              <Award className="text-teal-500 w-5 h-5" /> Awards & Honors
-            </h4>
-            <ul className="space-y-3 text-sm text-slate-600">
-              <li className="flex items-center gap-2">
-                 <span className="w-1.5 h-1.5 bg-teal-400 rounded-full"></span>
-                 National Scholarship (2015-2017)
-              </li>
-              <li className="flex items-center gap-2">
-                 <span className="w-1.5 h-1.5 bg-teal-400 rounded-full"></span>
-                 Sichuan Province Outstanding Graduate
-              </li>
-              <li className="flex items-center gap-2">
-                 <span className="w-1.5 h-1.5 bg-teal-400 rounded-full"></span>
-                 Best Paper Nomination (MM 2024)
-              </li>
-              <li className="flex items-center gap-2">
-                 <span className="w-1.5 h-1.5 bg-teal-400 rounded-full"></span>
-                 Best Paper Honorable Mention (ICVRV 2019)
-              </li>
-              <li className="flex items-center gap-2">
-                 <span className="w-1.5 h-1.5 bg-teal-400 rounded-full"></span>
-                 UESTC Academic Rising Star
-              </li>
-            </ul>
-          </div>
+    <CVSection icon={BriefcaseBusiness} title="Professional Experience">
+      <div className="divide-y divide-[#e5ebe9] border-y border-[#e5ebe9]">
+        {EXPERIENCE.map((experience) => (
+          <article
+            key={experience.id}
+            className="grid gap-3 py-6 md:grid-cols-[185px_minmax(0,1fr)] md:gap-8"
+          >
+            <p className="font-mono text-xs font-bold text-brand-700">{experience.period}</p>
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+              <div>
+                <h3 className="text-lg font-bold text-ink">{experience.role}</h3>
+                <p className="mt-1 text-sm font-semibold text-[#465657]">{experience.company}</p>
+                <p className="mt-2 inline-flex items-center gap-1.5 text-sm text-muted">
+                  <MapPin className="h-4 w-4 text-[#8a9795]" aria-hidden="true" />
+                  {experience.location}
+                </p>
+              </div>
+              {experience.tag && (
+                <span className="w-fit rounded-md border border-[#d7e0de] bg-white px-2.5 py-1 text-xs font-semibold text-[#687776]">
+                  {experience.tag}
+                </span>
+              )}
+            </div>
+          </article>
+        ))}
+      </div>
+    </CVSection>
 
-          <div className="bg-white p-6 rounded-lg border border-slate-200 shadow-sm hover:border-teal-300 transition-colors">
-            <h4 className="font-bold text-slate-800 mb-4 flex items-center gap-2 text-lg">
-              <Cpu className="text-teal-500 w-5 h-5" /> Professional Experience
-            </h4>
-            {EXPERIENCE.map((exp) => (
-              <div key={exp.id} className="mb-5 last:mb-0">
-                <div className="font-semibold text-slate-900">{exp.role}</div>
-                <div className="text-slate-600">{exp.company}</div>
-                <div className="text-xs text-slate-400 mt-1 mb-3">{exp.period} • {exp.location}</div>
-                {exp.tag && (
-                  <div className="inline-block px-2 py-1 bg-slate-100 text-slate-500 text-xs rounded">{exp.tag}</div>
-                )}
+    <CVSection icon={Award} title="Awards & Honors">
+      <ul className="grid border-y border-[#e5ebe9] sm:grid-cols-2">
+        {awards.map((award, index) => (
+          <li
+            key={award}
+            className={`flex items-start gap-3 py-4 text-sm font-medium leading-6 text-[#465657] ${
+              index % 2 === 0 ? 'sm:pr-6' : 'sm:border-l sm:border-[#e5ebe9] sm:pl-6'
+            } ${index < awards.length - 1 ? 'border-b border-[#e5ebe9]' : ''}`}
+          >
+            <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-amber-50 text-amber-600">
+              <Award className="h-3.5 w-3.5" aria-hidden="true" />
+            </span>
+            <span>{award}</span>
+          </li>
+        ))}
+      </ul>
+    </CVSection>
+
+    <CVSection icon={Users} title="Academic Service">
+      <div className="divide-y divide-[#e5ebe9] border-y border-[#e5ebe9]">
+        {VOLUNTEERING.map((service) => (
+          <article
+            key={`${service.event}-${service.date}`}
+            className="grid gap-2 py-4 sm:grid-cols-[110px_minmax(0,1fr)_auto] sm:items-center sm:gap-6"
+          >
+            <time className="font-mono text-xs font-bold text-brand-700">{service.date}</time>
+            <div>
+              <h3 className="text-sm font-bold text-ink">{service.event}</h3>
+              <p className="mt-1 text-sm text-muted">{service.role}</p>
+            </div>
+            <p className="inline-flex items-center gap-1.5 text-xs text-[#7a8887]">
+              <MapPin className="h-3.5 w-3.5" aria-hidden="true" />
+              {service.location}
+            </p>
+          </article>
+        ))}
+      </div>
+    </CVSection>
+
+    <CVSection icon={Languages} title="Languages & Training">
+      <div className="grid border-y border-[#e5ebe9] md:grid-cols-2 md:divide-x md:divide-[#e5ebe9]">
+        <div className="py-6 md:pr-8">
+          <h3 className="text-sm font-bold uppercase text-[#7a8887]">Languages</h3>
+          <dl className="mt-4 divide-y divide-[#edf1f0]">
+            {languages.map((language) => (
+              <div key={language.name} className="flex items-center justify-between gap-4 py-3">
+                <dt className="text-sm font-semibold text-ink">{language.name}</dt>
+                <dd className="text-sm text-muted">{language.level}</dd>
               </div>
             ))}
-          </div>
+          </dl>
         </div>
-      </motion.section>
 
-      {/* Academic service */}
-      <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
-      >
-        <h3 className="text-lg font-bold text-slate-900 mb-6 uppercaser text-sm border-l-4 border-teal-500 pl-3">Academic Service</h3>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {VOLUNTEERING.map((vol) => (
-            <div key={`${vol.event}-${vol.date}`} className="bg-white p-5 rounded-lg border border-slate-200 shadow-sm hover:border-teal-300 transition-colors">
-              <div className="flex items-start justify-between gap-3 mb-3">
-                <h4 className="font-bold text-slate-900 leading-snug">{vol.event}</h4>
-                <span className="shrink-0 text-xs font-mono text-slate-400 bg-slate-100 px-2 py-0.5 rounded">{vol.date}</span>
-              </div>
-              <p className="text-teal-600 text-sm font-medium mb-2">{vol.role}</p>
-              <p className="text-slate-500 text-sm flex items-center gap-1.5">
-                <MapPin className="w-3.5 h-3.5 text-slate-400" />
-                {vol.location}
-              </p>
-            </div>
-          ))}
-        </div>
-      </motion.section>
-
-      {/* Languages and training */}
-      <motion.section
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
-      >
-        <h3 className="text-lg font-bold text-slate-900 mb-6 uppercaser text-sm border-l-4 border-teal-500 pl-3">Languages & Training</h3>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-white p-6 rounded-lg border border-slate-200 shadow-sm hover:border-teal-300 transition-colors">
-            <h4 className="font-bold text-slate-800 mb-5 flex items-center gap-2 text-lg">
-              <Languages className="text-teal-500 w-5 h-5" /> Languages
-            </h4>
-            <div className="space-y-4">
-              {[
-                { name: 'Chinese', level: 'Native / Proficient', color: 'green', width: 'w-full' },
-                { name: 'English', level: 'Advanced', color: 'blue', width: 'w-[85%]' },
-                { name: 'Korean', level: 'Intermediate', color: 'amber', width: 'w-[40%]' }
-              ].map((language) => (
-                <div key={language.name}>
-                  <div className="flex items-center justify-between gap-3 mb-2">
-                    <span className="text-slate-700 font-medium">{language.name}</span>
-                    <span className={`text-xs px-2 py-1 rounded-full ${
-                      language.color === 'green'
-                        ? 'bg-green-100 text-green-700'
-                        : language.color === 'blue'
-                          ? 'bg-teal-100 text-teal-700'
-                          : 'bg-amber-100 text-amber-700'
-                    }`}>
-                      {language.level}
-                    </span>
-                  </div>
-                  <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
-                    <div className={`h-full ${language.width} ${
-                      language.color === 'green'
-                        ? 'bg-green-500'
-                        : language.color === 'blue'
-                          ? 'bg-teal-500'
-                          : 'bg-amber-500'
-                    }`}></div>
-                  </div>
-                </div>
-              ))}
-            </div>
+        <article className="border-t border-[#e5ebe9] py-6 md:border-t-0 md:pl-8">
+          <div className="flex items-center gap-2 text-sm font-bold uppercase text-[#7a8887]">
+            <Globe2 className="h-4 w-4 text-brand-600" aria-hidden="true" />
+            Additional Training
           </div>
+          <p className="mt-4 text-sm font-semibold text-brand-700">Machine Learning Winter Programme</p>
+          <h3 className="mt-1 text-lg font-bold text-ink">Girton College, Cambridge</h3>
+          <p className="mt-1 font-mono text-xs text-[#7a8887]">Jan 2023 - Feb 2023</p>
+          <p className="mt-3 text-sm leading-6 text-muted">
+            Completed the programme with the assessed module in Machine Learning.
+          </p>
+        </article>
+      </div>
+    </CVSection>
+  </div>
+);
 
-          <div className="bg-slate-900 text-white p-6 rounded-lg shadow-lg relative overflow-hidden">
-            <div className="absolute top-0 right-0 p-4 opacity-10">
-              <Code className="w-24 h-24" />
-            </div>
-            <h4 className="font-bold mb-5 flex items-center gap-2 text-lg relative z-10">
-              <Globe2 className="text-teal-300 w-5 h-5" /> Additional Training
-            </h4>
-            <div className="space-y-2 relative z-10">
-              <p className="text-sm font-semibold text-teal-300">Machine Learning Winter Programme</p>
-              <p className="text-lg font-bold">Girton College, Cambridge</p>
-              <p className="text-xs text-slate-400">Jan 2023 - Feb 2023</p>
-              <p className="text-sm text-slate-300 mt-3 leading-relaxed">
-                Completed the programme with the assessed module in Machine Learning.
-              </p>
-            </div>
-          </div>
-        </div>
-      </motion.section>
+interface CVSectionProps {
+  icon: React.ElementType;
+  title: string;
+  children: React.ReactNode;
+}
+
+const CVSection: React.FC<CVSectionProps> = ({ icon: Icon, title, children }) => (
+  <section className="grid gap-5 lg:grid-cols-[210px_minmax(0,1fr)] lg:gap-10">
+    <div>
+      <div className="flex items-center gap-2 text-brand-700">
+        <Icon className="h-4 w-4" aria-hidden="true" />
+        <h2 className="text-sm font-bold uppercase">{title}</h2>
+      </div>
     </div>
-  );
-};
+    <div>{children}</div>
+  </section>
+);
 
 export default CV;
