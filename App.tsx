@@ -1,8 +1,8 @@
 import React, { lazy, Suspense, useEffect, useState } from 'react';
 import Navigation from './components/Navigation';
+import About from './components/sections/About';
 import { Section } from './types';
 
-const About = lazy(() => import('./components/sections/About'));
 const Publications = lazy(() => import('./components/sections/Publications'));
 const CV = lazy(() => import('./components/sections/CV'));
 const Hardware = lazy(() => import('./components/sections/Hardware'));
