@@ -9,16 +9,25 @@
 
   html {
     scroll-behavior: smooth;
+    width: 100%;
+    max-width: 100%;
   }
 
   body {
     margin: 0;
     min-width: 320px;
+    width: 100%;
+    max-width: 100%;
     background: #f4f7f6;
     color: #172526;
     overflow-x: hidden;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
+  }
+
+  #root {
+    width: 100%;
+    max-width: 100%;
   }
 
   button,

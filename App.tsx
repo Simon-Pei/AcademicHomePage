@@ -81,7 +81,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-canvas font-sans text-ink">
+    <div className="min-h-screen w-full max-w-full overflow-x-clip bg-canvas font-sans text-ink">
       <a
         href="#main-content"
         className="fixed left-4 top-3 z-[100] -translate-y-20 rounded-md bg-brand-800 px-4 py-2 text-sm font-semibold text-white shadow-lg transition-transform focus:translate-y-0"
@@ -96,8 +96,8 @@ const App: React.FC = () => {
         setIsMobileMenuOpen={setIsMobileMenuOpen}
       />
 
-      <main id="main-content" className="min-h-[calc(100vh-72px)] overflow-hidden">
-        <div className="mx-auto max-w-[1240px] px-5 py-9 sm:px-8 sm:py-12 lg:px-10 lg:py-14">
+      <main id="main-content" className="min-h-[calc(100vh-72px)] w-full min-w-0 max-w-full overflow-hidden">
+        <div className="mx-auto w-full min-w-0 max-w-[1240px] px-5 py-9 sm:px-8 sm:py-12 lg:px-10 lg:py-14">
           <div key={activeSection} className="page-enter">
             <Suspense fallback={<SectionLoading />}>
               {renderSection()}

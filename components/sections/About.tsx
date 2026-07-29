@@ -48,8 +48,8 @@ const About: React.FC = () => {
   const [showContact, setShowContact] = useState(false);
 
   return (
-    <div className="space-y-14 lg:space-y-16">
-      <section className="grid gap-8 border-b border-line pb-12 md:grid-cols-[190px_minmax(0,1fr)] md:items-center lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-12">
+    <div className="min-w-0 max-w-full space-y-14 lg:space-y-16">
+      <section className="grid min-w-0 gap-8 border-b border-line pb-12 md:grid-cols-[190px_minmax(0,1fr)] md:items-center lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-12">
         <div className="mx-auto w-full max-w-[190px] md:max-w-none">
           <div className="aspect-[4/5] overflow-hidden rounded-lg border border-line bg-white shadow-soft">
             <img
@@ -121,7 +121,7 @@ const About: React.FC = () => {
         </header>
       </section>
 
-      <section className="grid gap-7 border-b border-line pb-12 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-12">
+      <section className="grid min-w-0 gap-7 border-b border-line pb-12 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-12">
         <div>
           <div className="flex items-center gap-2 text-xs font-bold uppercase text-brand-700">
             <ScanEye className="h-4 w-4" aria-hidden="true" />

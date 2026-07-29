@@ -41,8 +41,8 @@ const Navigation: React.FC<NavigationProps> = ({
 
   return (
     <>
-      <header className="sticky top-0 z-50 border-b border-line bg-white/95 backdrop-blur-md">
-        <div className="mx-auto flex h-[68px] max-w-[1320px] items-center justify-between gap-5 px-5 sm:px-8 lg:h-[72px] lg:px-10">
+      <header className="sticky top-0 z-50 w-full max-w-full overflow-x-clip border-b border-line bg-white/95 backdrop-blur-md">
+        <div className="mx-auto flex h-[68px] w-full min-w-0 max-w-[1320px] items-center justify-between gap-5 px-5 sm:px-8 lg:h-[72px] lg:px-10">
           <a
             href="#about"
             onClick={(event) => navigateTo(event, Section.ABOUT)}
