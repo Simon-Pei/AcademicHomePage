@@ -151,7 +151,6 @@ const albums: GalleryAlbum[] = [
     location: 'Chengdu, China',
     description: 'Student volunteer and conference records from ChinaVIS 2019.',
     photos: [
-      { src: `${VISIT_BASE}/2019_07_Chengdu_ChinaVIS/ChinaVIS2019_volunteercertification.jpg`, alt: 'ChinaVIS 2019 volunteer certification', caption: 'Student volunteer certification from ChinaVIS 2019.', orientation: 'portrait' },
       { src: `${VISIT_BASE}/2019_07_Chengdu_ChinaVIS/mmexport1576422557278.jpg`, alt: 'ChinaVIS 2019 Chengdu photo 1', caption: 'ChinaVIS 2019, Chengdu.' },
       { src: `${VISIT_BASE}/2019_07_Chengdu_ChinaVIS/mmexport1576422718333.jpg`, alt: 'ChinaVIS 2019 Chengdu photo 2', caption: 'Conference record from ChinaVIS 2019.' }
     ]
